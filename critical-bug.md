@@ -1,26 +1,178 @@
-# GDPR Decision Data Extraction - Question/Answer Format
+My initial CSV processing has failed. We have to reconstruct the main csv file. We have received AI response data in Answer 123: TEXT on each line; now we need to turn it into csv. Your task:
+1. Develop a CSV schema where each field will be named logically (prepending a1, a2, etc) taking into account what it asks -- see prompt below
+2. Develop an app which lets user paste answers formatted as below. It would output a CSV saved in raw_data according to readme, where the first column is ID preceeding the answer, and other columns are the ones you have made in the schema, filled out, leading space stripped, free text fields quote-escaped. If a response for an ID does not contain Answer 1 2 3... we do not add it as a row in place; instead, we put it in a separate file as per readme. /Users/milos/Desktop/enforcement/raw_data/AI_analysis/AI-responses.txt is the file we should run this on.
+----- RESPONSE DELIMITER -----
+ID: Sweden_35
+----- RESPONSE DELIMITER -----
+Answer 1: SE
+Answer 2: Swedish Privacy Protection Agency
+Answer 3: NO
+Answer 4: 2023
+Answer 5: 6
+Answer 6: 1
+Answer 7: Tele2 Sverige Aktiebolag
+Answer 8: PRIVATE
+Answer 9: LARGE
+Answer 10: NOT_APPLICABLE
+Answer 11: CONTROLLER
+Answer 12: TELECOM
+Answer 13: NOT_APPLICABLE
+Answer 14: COOKIES
+Answer 15: YES
+Answer 16: NOT_DISCUSSED
+Answer 17: NOT_DISCUSSED
+Answer 18: NO
+Answer 19: NOT_APPLICABLE
+Answer 20: NOT_DISCUSSED
+Answer 21: NOT_DISCUSSED
+Answer 22: NOT_DISCUSSED
+Answer 23: NOT_DISCUSSED
+Answer 24: NOT_DISCUSSED
+Answer 25: NOT_DISCUSSED
+Answer 26: NOT_DISCUSSED
+Answer 27: NOT_DISCUSSED
+Answer 28: NO
+Answer 29: NOT_DISCUSSED
+Answer 30: NOT_DISCUSSED
+Answer 31: NOT_DISCUSSED
+Answer 32: NOT_DISCUSSED
+Answer 33: NOT_DISCUSSED
+Answer 34: NOT_DISCUSSED
+Answer 35: NOT_DISCUSSED
+Answer 36: NOT_DISCUSSED
+Answer 37: NOT_DISCUSSED
+Answer 38: NOT_DISCUSSED
+Answer 39: NOT_DISCUSSED
+Answer 40: NOT_DISCUSSED
+Answer 41: NOT_DISCUSSED
+Answer 42: NOT_DISCUSSED
+Answer 43: NOT_DISCUSSED
+Answer 44: NOT_DISCUSSED
+Answer 45: NO
+Answer 46: NO
+Answer 47: NO
+Answer 48: NO
+Answer 49: NO
+Answer 50: NO
+Answer 51: NO
+Answer 52: NO
+Answer 53: YES
+Answer 54: 12000000
+Answer 55: SEK
+Answer 56: YES
+Answer 57: 28102000000
+Answer 58: SEK
+Answer 59: AGGRAVATING
+Answer 60: NOT_DISCUSSED
+Answer 61: MITIGATING
+Answer 62: NOT_DISCUSSED
+Answer 63: NOT_DISCUSSED
+Answer 64: NOT_DISCUSSED
+Answer 65: AGGRAVATING
+Answer 66: NOT_DISCUSSED
+Answer 67: NOT_DISCUSSED
+Answer 68: NOT_DISCUSSED
+Answer 69: MITIGATING
+Answer 70: NO
+Answer 71: NOT_DISCUSSED
+Answer 72: YES
+Answer 73: LEAD
+Answer 74: EDPB Recommendations 01/2020 on measures that supplement transfer tools to ensure compliance with the EU level of protection of personal data
+Answer 75: Tele2 Sverige AB transferred personal data to the US via Google Analytics without adequate safeguards. The Swedish DPA found IP address truncation insufficient against US surveillance laws. The violation lasted from August 2020 to May 2023. A SEK 12 million fine was imposed considering the large data volume and duration, but mitigated by post-Schrems II uncertainty and Tele2's partial measures.
+Answer 76: The DPA considered the large data volume, long duration, and systematic nature as aggravating. Tele2's IP anonymization and analysis efforts were mitigating. The overall violation was assessed as low seriousness due to the post-Schrems II regulatory gap.
+Answer 77: 44
+----- RESPONSE DELIMITER -----
+----- RESPONSE DELIMITER -----
+ID: Sweden_36
+----- RESPONSE DELIMITER -----
+Answer 1: SE
+Answer 2: Swedish Privacy Protection Agency
+Answer 3: NO
+Answer 4: 2023
+Answer 5: 6
+Answer 6: 1
+Answer 7: CDON AB
+Answer 8: PRIVATE
+Answer 9: LARGE
+Answer 10: NOT_APPLICABLE
+Answer 11: CONTROLLER
+Answer 12: RETAIL
+Answer 13: NOT_APPLICABLE
+Answer 14: COOKIES;PROBLEMATIC_THIRD_PARTY_SHARING_STATED
+Answer 15: YES
+Answer 16: NOT_DISCUSSED
+Answer 17: NOT_DISCUSSED
+Answer 18: YES
+Answer 19: NOT_DISCUSSED
+Answer 20: NOT_DISCUSSED
+Answer 21: NOT_DISCUSSED
+Answer 22: NOT_DISCUSSED
+Answer 23: NOT_DISCUSSED
+Answer 24: NOT_DISCUSSED
+Answer 25: NOT_DISCUSSED
+Answer 26: NOT_DISCUSSED
+Answer 27: NOT_DISCUSSED
+Answer 28: NO
+Answer 29: NOT_DISCUSSED
+Answer 30: NOT_DISCUSSED
+Answer 31: NOT_DISCUSSED
+Answer 32: NOT_DISCUSSED
+Answer 33: NOT_DISCUSSED
+Answer 34: NOT_DISCUSSED
+Answer 35: NOT_DISCUSSED
+Answer 36: The controller claimed transfers were based on standard contractual clauses; the DPA found these insufficient due to US surveillance laws; key reasoning was that supplementary measures taken were ineffective against US intelligence access.
+Answer 37: NOT_DISCUSSED
+Answer 38: NOT_DISCUSSED
+Answer 39: NOT_DISCUSSED
+Answer 40: NOT_DISCUSSED
+Answer 41: NOT_DISCUSSED
+Answer 42: NOT_DISCUSSED
+Answer 43: NOT_DISCUSSED
+Answer 44: NOT_DISCUSSED
+Answer 45: NO
+Answer 46: NO
+Answer 47: NO
+Answer 48: YES
+Answer 49: NO
+Answer 50: NO
+Answer 51: NO
+Answer 52: NO
+Answer 53: YES
+Answer 54: 300000
+Answer 55: SEK
+Answer 56: YES
+Answer 57: 461000000
+Answer 58: SEK
+Answer 59: AGGRAVATING
+Answer 60: NOT_DISCUSSED
+Answer 61: MITIGATING
+Answer 62: NOT_DISCUSSED
+Answer 63: NOT_DISCUSSED
+Answer 64: NOT_DISCUSSED
+Answer 65: AGGRAVATING
+Answer 66: NOT_DISCUSSED
+Answer 67: NOT_DISCUSSED
+Answer 68: NOT_DISCUSSED
+Answer 69: MITIGATING
+Answer 70: NO
+Answer 71: NOT_DISCUSSED
+Answer 72: YES
+Answer 73: LEAD
+Answer 74: EDPB Recommendations 01/2020 on measures that supplement transfer tools to ensure compliance with the EU level of protection of personal data
+Answer 75: CDON AB transferred personal data to the US via Google Analytics without adequate safeguards. The DPA found IP address truncation insufficient against US surveillance laws. CDON was ordered to cease processing and fined SEK 300,000. The violation undermined EU data protection standards.
+Answer 76: The DPA discussed Article 83(2) factors. Aggravating factors included large data volume, long duration, and systematic nature. Mitigating factors included post-Schrems II uncertainty and partial IP anonymization measures. The fine was set proportionally low considering turnover.
+Answer 77: 44
+----- RESPONSE DELIMITER -----
+----- RESPONSE DELIMITER ----- ...
 
-## Instructions
-
-Extract facts from one GDPR/data protection authority decision. Output EXACTLY **77 lines** in English. Each line starts with "Answer N: " (where N is 1-77) and contains ONLY the allowed value. No extra text, no explanations, no commentary.
-
-**Critical rules:**
-- Answer in ENGLISH regardless of decision language
-- Use ONLY the allowed values shown for each question
-- Values are CASE-SENSITIVE (e.g., BREACHED not breached)
-- Base answers on explicit statements in the decision
-- Do NOT infer violations unless the schema explicitly permits interpretation
-- If something is not mentioned, use NOT_DISCUSSED (or NOT_APPLICABLE where structurally irrelevant)
-- Do NOT quote sentinel codes (NOT_APPLICABLE, NOT_DISCUSSED) - output them plain
-- Quote text fields only if they contain commas, quotes, or newlines (use double quotes and escape internal quotes by doubling)
-
----
-
+=========
+QUESTIONNAIRE
+========
 ## SECTION 1: BASIC CASE METADATA
 
-**Question 1:** What is the country of the deciding authority?
-**Answer 1:** Two-letter ISO code
-Allowed values: AT or BE or BG or HR or CY or CZ or DE or DK or EE or EL or ES or FI or FR or GB or GR or HU or IE or IS or IT or LI or LT or LU or LV or MT or NL or NO or PL or PT or RO or SE or SI or SK
+**Question 1:** What is the country of the deciding authority?  
+**Answer 1:** Two-letter ISO code  
+Allowed values: AT or BE or BG or HR or CY or CZ or DE or DK or EE or ES or FI or FR or GB or GR or HU or IE or IS or IT or LI or LT or LU or LV or MT or NL or NO or PL or PT or RO or SE or SI or SK
 
 **Question 2:** What is the name of the deciding authority?  
 **Answer 2:** Official name as stated in decision (e.g., "CNIL" or "Norwegian Data Protection Authority")
@@ -50,11 +202,11 @@ Allowed values: AT or BE or BG or HR or CY or CZ or DE or DK or EE or EL or ES o
 **Question 7:** What is the name of the main defendant?  
 **Answer 7:** Official name as stated
 
-**Question 8:** What class is the defendant?
-**Answer 8:** PUBLIC or PRIVATE or NGO_OR_NONPROFIT or RELIGIOUS or INDIVIDUAL or POLITICAL_PARTY or OTHER
+**Question 8:** What class is the defendant?  
+**Answer 8:** PUBLIC or PRIVATE or NGO_OR_NONPROFIT or RELIGIOUS or INDIVIDUAL or OTHER
 
 **Question 9:** What is the enterprise size?  
-- Use UNKNOWN if it cannot be confidently determined; SME means it employs fewer than 250 people and has either an annual turnover of no more than €50 million or a balance sheet total not exceeding €43 million.
+- Use unknown if it cannot be reasonably certainly inferred
 - Use NOT_APPLICABLE for non-enterprises (e.g., government ministries, individuals)  
 **Answer 9:** SME or LARGE or VERY_LARGE or UNKNOWN or NOT_APPLICABLE
 
@@ -79,11 +231,11 @@ Allowed values: AT or BE or BG or HR or CY or CZ or DE or DK or EE or EL or ES o
 
 ## SECTION 3: PROCESSING CONTEXT
 
-**Question 14:** Do any of these specific processing contexts processing contexts apply to this case?
+**Question 14:** Do any of these specific processing contexts processing contexts apply to this case?  
 - List all that apply, semicolon-separated (e.g., CCTV;EMPLOYEE_MONITORING)
 - Use NOT_DISCUSSED if no specific processing context is identifiable
 - Do not overly infer - stick to what's clearly present in the decision
-**Answer 14:** CCTV or MARKETING or RECRUITMENT_AND_HR or COOKIES or CUSTOMER_LOYALTY_CLUBS or CREDIT_SCORING or BACKGROUND_CHECKS or ARTIFICIAL_INTELLIGENCE or PROBLEMATIC_THIRD_PARTY_SHARING_STATED or DPO_ROLE_PROBLEMS_STATED or JOURNALISM or EMPLOYEE_MONITORING
+**Answer 14:** CCTV or MARKETING or RECRUITMENT_AND_HR or COOKIES or CUSTOMER_LOYALTY_CLUBS or CREDIT_SCORING or BACKGROUND_CHECKS or ARTIFICIAL_INTELLIGENCE or PROBLEMATIC_THIRD_PARTY_SHARING_STATED or DPO_ROLE_PROBLEMS_STATED or JOURNALISM
 
 ---
 
@@ -381,25 +533,3 @@ If DPA discusses a factor negatively/positively without using "aggravating/mitig
 **Answer 77:** Numbers or NONE_VIOLATED or NOT_DISCUSSED
 
 ---
-
-# OUTPUT FORMAT
-
-Return exactly 77 lines, each starting with "Answer N: " followed by only the allowed value:
-
-```
-Answer 1: DE
-Answer 2: Bavarian DPA
-Answer 3: NO
-Answer 4: 2023
-Answer 5: 3
-...
-Answer 77: 5;6;32
-```
-
-No extra text. No explanations. No commentary. No line breaks within individual answers.
-
-═══════════════════════════════════════════════════
-
-## DECISION TEXT TO ANALYZE
-
-═══════════════════════════════════════════════════

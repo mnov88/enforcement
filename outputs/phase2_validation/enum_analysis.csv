@@ -1,0 +1,308 @@
+field_name,value,count,valid,status
+a10_gov_level,NOT_APPLICABLE,507,YES,✓
+a10_gov_level,STATE,105,YES,✓
+a10_gov_level,MUNICIPAL,79,YES,✓
+a10_gov_level,NOT_DISCUSSED,60,NO,✗ FIX
+a10_gov_level,JUDICIAL,4,YES,✓
+a10_gov_level,UNKNOWN,2,YES,✓
+a11_defendant_role,CONTROLLER,625,YES,✓
+a11_defendant_role,NOT_DISCUSSED,72,NO,✗ FIX
+a11_defendant_role,NOT_MENTIONED,36,YES,✓
+a11_defendant_role,PROCESSOR,9,YES,✓
+a11_defendant_role,JOINT_CONTROLLER,9,YES,✓
+a11_defendant_role,NOT_APPLICABLE,6,NO,✗ FIX
+a12_sector,OTHER,127,YES,✓
+a12_sector,OTHER_PUBLIC_ADMIN,111,YES,✓
+a12_sector,DIGITAL_SERVICES,80,YES,✓
+a12_sector,FINANCIAL,76,YES,✓
+a12_sector,NOT_DISCUSSED,70,NO,✗ FIX
+a12_sector,HEALTH,67,YES,✓
+a12_sector,EDUCATION,52,YES,✓
+a12_sector,TELECOM,48,YES,✓
+a12_sector,RETAIL,40,YES,✓
+a12_sector,HOUSING_TOURISM,24,YES,✓
+a12_sector,UTILITIES,20,YES,✓
+a12_sector,MEDIA,17,YES,✓
+a12_sector,NOT_APPLICABLE,6,NO,✗ FIX
+a12_sector,CONSULTING,5,YES,✓
+a12_sector,MANUFACTURING,5,YES,✓
+a12_sector,MEMBERSHIP_ORGS,3,YES,✓
+a12_sector,FITNESS_WELLNESS,3,YES,✓
+a12_sector,RELIGIOUS_ORGS,2,YES,✓
+a12_sector,TAX,1,YES,✓
+a15_data_subject_complaint,YES,504,YES,✓
+a15_data_subject_complaint,NOT_DISCUSSED,136,YES,✓
+a15_data_subject_complaint,NO,111,YES,✓
+a15_data_subject_complaint,NOT_APPLICABLE,6,NO,✗ FIX
+a16_media_attention,NOT_DISCUSSED,722,YES,✓
+a16_media_attention,YES,29,YES,✓
+a16_media_attention,NOT_APPLICABLE,6,NO,✗ FIX
+a17_official_audit,NOT_DISCUSSED,352,YES,✓
+a17_official_audit,YES,218,YES,✓
+a17_official_audit,NO,181,YES,✓
+a17_official_audit,NOT_APPLICABLE,6,NO,✗ FIX
+a18_art33_discussed,NO,612,YES,✓
+a18_art33_discussed,YES,82,YES,✓
+a18_art33_discussed,NOT_DISCUSSED,57,NO,✗ FIX
+a18_art33_discussed,NOT_APPLICABLE,6,NO,✗ FIX
+a19_art33_breached,NOT_APPLICABLE,627,YES,✓
+a19_art33_breached,NOT_DISCUSSED,103,YES,✓
+a19_art33_breached,YES,24,YES,✓
+a19_art33_breached,NO,2,YES,✓
+a19_art33_breached,NOT_BREACHED,1,NO,✗ FIX
+a1_country_code,ES,195,YES,✓
+a1_country_code,IS,96,YES,✓
+a1_country_code,GR,89,YES,✓
+a1_country_code,NOT_DISCUSSED,73,NO,✗ FIX
+a1_country_code,SI,72,YES,✓
+a1_country_code,FR,55,YES,✓
+a1_country_code,HU,46,YES,✓
+a1_country_code,DE,41,YES,✓
+a1_country_code,FI,37,YES,✓
+a1_country_code,IE,21,YES,✓
+a1_country_code,RO,8,YES,✓
+a1_country_code,IT,7,YES,✓
+a1_country_code,NOT_APPLICABLE,6,NO,✗ FIX
+a1_country_code,NO,4,YES,✓
+a1_country_code,EL,4,YES,✓
+a1_country_code,SK,1,YES,✓
+a1_country_code,SE,1,YES,✓
+a1_country_code,PL,1,YES,✓
+a20_breach_notification_effect,NOT_DISCUSSED,729,YES,✓
+a20_breach_notification_effect,AGGRAVATING,17,YES,✓
+a20_breach_notification_effect,NOT_APPLICABLE,6,NO,✗ FIX
+a20_breach_notification_effect,NEUTRAL,3,YES,✓
+a20_breach_notification_effect,MITIGATING,2,YES,✓
+a21_art5_lawfulness_fairness,NOT_DISCUSSED,456,YES,✓
+a21_art5_lawfulness_fairness,BREACHED,263,YES,✓
+a21_art5_lawfulness_fairness,NOT_BREACHED,32,YES,✓
+a21_art5_lawfulness_fairness,NOT_APPLICABLE,6,NO,✗ FIX
+a22_art5_purpose_limitation,NOT_DISCUSSED,657,YES,✓
+a22_art5_purpose_limitation,BREACHED,65,YES,✓
+a22_art5_purpose_limitation,NOT_BREACHED,29,YES,✓
+a22_art5_purpose_limitation,NOT_APPLICABLE,6,NO,✗ FIX
+a23_art5_data_minimization,NOT_DISCUSSED,638,YES,✓
+a23_art5_data_minimization,BREACHED,85,YES,✓
+a23_art5_data_minimization,NOT_BREACHED,28,YES,✓
+a23_art5_data_minimization,NOT_APPLICABLE,6,NO,✗ FIX
+a24_art5_accuracy,NOT_DISCUSSED,722,YES,✓
+a24_art5_accuracy,BREACHED,18,YES,✓
+a24_art5_accuracy,NOT_BREACHED,11,YES,✓
+a24_art5_accuracy,NOT_APPLICABLE,6,NO,✗ FIX
+a25_art5_storage_limitation,NOT_DISCUSSED,703,YES,✓
+a25_art5_storage_limitation,BREACHED,36,YES,✓
+a25_art5_storage_limitation,NOT_BREACHED,12,YES,✓
+a25_art5_storage_limitation,NOT_APPLICABLE,6,NO,✗ FIX
+a26_art5_integrity_confidentiality,NOT_DISCUSSED,607,YES,✓
+a26_art5_integrity_confidentiality,BREACHED,136,YES,✓
+a26_art5_integrity_confidentiality,NOT_BREACHED,8,YES,✓
+a26_art5_integrity_confidentiality,NOT_APPLICABLE,6,NO,✗ FIX
+a27_art5_accountability,NOT_DISCUSSED,678,YES,✓
+a27_art5_accountability,BREACHED,68,YES,✓
+a27_art5_accountability,NOT_APPLICABLE,6,NO,✗ FIX
+a27_art5_accountability,NOT_BREACHED,5,YES,✓
+a28_art9_discussed,NO,524,YES,✓
+a28_art9_discussed,YES,143,YES,✓
+a28_art9_discussed,NOT_DISCUSSED,84,NO,✗ FIX
+a28_art9_discussed,NOT_APPLICABLE,6,NO,✗ FIX
+a30_art6_consent,NOT_DISCUSSED,668,YES,✓
+a30_art6_consent,INVALID,74,YES,✓
+a30_art6_consent,VALID,9,YES,✓
+a30_art6_consent,NOT_APPLICABLE,6,NO,✗ FIX
+a31_art6_contract,NOT_DISCUSSED,727,YES,✓
+a31_art6_contract,VALID,13,YES,✓
+a31_art6_contract,INVALID,11,YES,✓
+a31_art6_contract,NOT_APPLICABLE,6,NO,✗ FIX
+a32_art6_legal_obligation,NOT_DISCUSSED,722,YES,✓
+a32_art6_legal_obligation,VALID,28,YES,✓
+a32_art6_legal_obligation,NOT_APPLICABLE,6,NO,✗ FIX
+a32_art6_legal_obligation,INVALID,1,YES,✓
+a33_art6_vital_interests,NOT_DISCUSSED,751,YES,✓
+a33_art6_vital_interests,NOT_APPLICABLE,6,NO,✗ FIX
+a34_art6_public_task,NOT_DISCUSSED,715,YES,✓
+a34_art6_public_task,VALID,35,YES,✓
+a34_art6_public_task,NOT_APPLICABLE,6,NO,✗ FIX
+a34_art6_public_task,INVALID,1,YES,✓
+a35_art6_legitimate_interest,NOT_DISCUSSED,668,YES,✓
+a35_art6_legitimate_interest,INVALID,59,YES,✓
+a35_art6_legitimate_interest,VALID,24,YES,✓
+a35_art6_legitimate_interest,NOT_APPLICABLE,6,NO,✗ FIX
+a37_right_access_violated,NOT_DISCUSSED,648,YES,✓
+a37_right_access_violated,YES,86,YES,✓
+a37_right_access_violated,NO,17,YES,✓
+a37_right_access_violated,NOT_APPLICABLE,6,NO,✗ FIX
+a38_right_rectification_violated,NOT_DISCUSSED,747,YES,✓
+a38_right_rectification_violated,NOT_APPLICABLE,6,NO,✗ FIX
+a38_right_rectification_violated,YES,3,YES,✓
+a38_right_rectification_violated,NO,1,YES,✓
+a39_right_erasure_violated,NOT_DISCUSSED,706,YES,✓
+a39_right_erasure_violated,YES,38,YES,✓
+a39_right_erasure_violated,NOT_APPLICABLE,6,NO,✗ FIX
+a39_right_erasure_violated,NO,6,YES,✓
+a39_right_erasure_violated,BREACHED,1,NO,✗ FIX
+a3_appellate_decision,NO,668,YES,✓
+a3_appellate_decision,NOT_DISCUSSED,75,YES,✓
+a3_appellate_decision,YES,8,YES,✓
+a3_appellate_decision,NOT_APPLICABLE,6,NO,✗ FIX
+a40_right_restriction_violated,NOT_DISCUSSED,750,YES,✓
+a40_right_restriction_violated,NOT_APPLICABLE,6,NO,✗ FIX
+a40_right_restriction_violated,YES,1,YES,✓
+a41_right_portability_violated,NOT_DISCUSSED,751,YES,✓
+a41_right_portability_violated,NOT_APPLICABLE,6,NO,✗ FIX
+a42_right_object_violated,NOT_DISCUSSED,727,YES,✓
+a42_right_object_violated,YES,23,YES,✓
+a42_right_object_violated,NOT_APPLICABLE,6,NO,✗ FIX
+a42_right_object_violated,BREACHED,1,NO,✗ FIX
+a43_transparency_violated,NOT_DISCUSSED,564,YES,✓
+a43_transparency_violated,YES,136,YES,✓
+a43_transparency_violated,BREACHED,47,NO,✗ FIX
+a43_transparency_violated,NOT_APPLICABLE,6,NO,✗ FIX
+a43_transparency_violated,NO,3,YES,✓
+a43_transparency_violated,NOT_BREACHED,1,NO,✗ FIX
+a44_automated_decisions_violated,NOT_DISCUSSED,749,YES,✓
+a44_automated_decisions_violated,NOT_APPLICABLE,6,NO,✗ FIX
+a44_automated_decisions_violated,BREACHED,1,NO,✗ FIX
+a44_automated_decisions_violated,YES,1,YES,✓
+a45_warning_issued,NO,521,YES,✓
+a45_warning_issued,NOT_DISCUSSED,178,YES,✓
+a45_warning_issued,YES,52,YES,✓
+a45_warning_issued,NOT_APPLICABLE,6,NO,✗ FIX
+a46_reprimand_issued,NO,438,YES,✓
+a46_reprimand_issued,NOT_DISCUSSED,212,YES,✓
+a46_reprimand_issued,YES,101,YES,✓
+a46_reprimand_issued,NOT_APPLICABLE,6,NO,✗ FIX
+a47_comply_data_subject_order,NO,424,YES,✓
+a47_comply_data_subject_order,NOT_DISCUSSED,261,YES,✓
+a47_comply_data_subject_order,YES,66,YES,✓
+a47_comply_data_subject_order,NOT_APPLICABLE,6,NO,✗ FIX
+a48_compliance_order,NO,317,YES,✓
+a48_compliance_order,YES,225,YES,✓
+a48_compliance_order,NOT_DISCUSSED,209,YES,✓
+a48_compliance_order,NOT_APPLICABLE,6,NO,✗ FIX
+a49_breach_communication_order,NO,463,YES,✓
+a49_breach_communication_order,NOT_DISCUSSED,286,YES,✓
+a49_breach_communication_order,NOT_APPLICABLE,6,NO,✗ FIX
+a49_breach_communication_order,YES,2,YES,✓
+a50_erasure_restriction_order,NO,428,YES,✓
+a50_erasure_restriction_order,NOT_DISCUSSED,266,YES,✓
+a50_erasure_restriction_order,YES,57,YES,✓
+a50_erasure_restriction_order,NOT_APPLICABLE,6,NO,✗ FIX
+a51_certification_withdrawal,NO,463,YES,✓
+a51_certification_withdrawal,NOT_DISCUSSED,288,YES,✓
+a51_certification_withdrawal,NOT_APPLICABLE,6,NO,✗ FIX
+a52_data_flow_suspension,NO,463,YES,✓
+a52_data_flow_suspension,NOT_DISCUSSED,287,YES,✓
+a52_data_flow_suspension,NOT_APPLICABLE,6,NO,✗ FIX
+a52_data_flow_suspension,YES,1,YES,✓
+a53_fine_imposed,NO,397,YES,✓
+a53_fine_imposed,YES,295,YES,✓
+a53_fine_imposed,NOT_DISCUSSED,59,NO,✗ FIX
+a53_fine_imposed,NOT_APPLICABLE,6,NO,✗ FIX
+a55_fine_currency,NOT_APPLICABLE,408,YES,✓
+a55_fine_currency,EUR,244,YES,✓
+a55_fine_currency,NOT_DISCUSSED,59,NO,✗ FIX
+a55_fine_currency,HUF,30,YES,✓
+a55_fine_currency,RON,8,YES,✓
+a55_fine_currency,ISK,8,YES,✓
+a56_turnover_discussed,NO,441,YES,✓
+a56_turnover_discussed,NOT_DISCUSSED,206,NO,✗ FIX
+a56_turnover_discussed,YES,104,YES,✓
+a56_turnover_discussed,NOT_APPLICABLE,6,NO,✗ FIX
+a58_turnover_currency,NOT_DISCUSSED,692,YES,✓
+a58_turnover_currency,EUR,31,YES,✓
+a58_turnover_currency,HUF,17,YES,✓
+a58_turnover_currency,NOT_APPLICABLE,12,YES,✓
+a58_turnover_currency,USD,2,NO,✗ FIX
+a58_turnover_currency,RON,1,YES,✓
+a58_turnover_currency,ISK,1,YES,✓
+a58_turnover_currency,DKK,1,YES,✓
+a59_nature_gravity_duration,NOT_DISCUSSED,433,YES,✓
+a59_nature_gravity_duration,AGGRAVATING,283,YES,✓
+a59_nature_gravity_duration,MITIGATING,30,YES,✓
+a59_nature_gravity_duration,NOT_APPLICABLE,6,NO,✗ FIX
+a59_nature_gravity_duration,NEUTRAL,5,YES,✓
+a60_intentional_negligent,NOT_DISCUSSED,544,YES,✓
+a60_intentional_negligent,AGGRAVATING,155,YES,✓
+a60_intentional_negligent,MITIGATING,48,YES,✓
+a60_intentional_negligent,NOT_APPLICABLE,6,NO,✗ FIX
+a60_intentional_negligent,NEUTRAL,3,YES,✓
+a60_intentional_negligent,INTENTIONAL,1,NO,✗ FIX
+a61_mitigate_damage_actions,NOT_DISCUSSED,554,YES,✓
+a61_mitigate_damage_actions,MITIGATING,181,YES,✓
+a61_mitigate_damage_actions,NEUTRAL,9,YES,✓
+a61_mitigate_damage_actions,AGGRAVATING,7,YES,✓
+a61_mitigate_damage_actions,NOT_APPLICABLE,6,NO,✗ FIX
+a62_technical_org_measures,NOT_DISCUSSED,591,YES,✓
+a62_technical_org_measures,AGGRAVATING,141,YES,✓
+a62_technical_org_measures,MITIGATING,14,YES,✓
+a62_technical_org_measures,NOT_APPLICABLE,6,NO,✗ FIX
+a62_technical_org_measures,NEUTRAL,5,YES,✓
+a63_previous_infringements,NOT_DISCUSSED,650,YES,✓
+a63_previous_infringements,MITIGATING,65,YES,✓
+a63_previous_infringements,AGGRAVATING,25,YES,✓
+a63_previous_infringements,NEUTRAL,11,YES,✓
+a63_previous_infringements,NOT_APPLICABLE,6,NO,✗ FIX
+a64_cooperation_authority,NOT_DISCUSSED,596,YES,✓
+a64_cooperation_authority,MITIGATING,90,YES,✓
+a64_cooperation_authority,AGGRAVATING,42,YES,✓
+a64_cooperation_authority,NEUTRAL,23,YES,✓
+a64_cooperation_authority,NOT_APPLICABLE,6,NO,✗ FIX
+a65_data_categories_affected,NOT_DISCUSSED,566,YES,✓
+a65_data_categories_affected,AGGRAVATING,154,YES,✓
+a65_data_categories_affected,NEUTRAL,18,YES,✓
+a65_data_categories_affected,MITIGATING,13,YES,✓
+a65_data_categories_affected,NOT_APPLICABLE,6,NO,✗ FIX
+a66_infringement_became_known,NOT_DISCUSSED,707,YES,✓
+a66_infringement_became_known,AGGRAVATING,17,YES,✓
+a66_infringement_became_known,NEUTRAL,16,YES,✓
+a66_infringement_became_known,MITIGATING,11,YES,✓
+a66_infringement_became_known,NOT_APPLICABLE,6,NO,✗ FIX
+a67_prior_orders_compliance,NOT_DISCUSSED,738,YES,✓
+a67_prior_orders_compliance,NOT_APPLICABLE,6,NO,✗ FIX
+a67_prior_orders_compliance,AGGRAVATING,6,YES,✓
+a67_prior_orders_compliance,NEUTRAL,5,YES,✓
+a67_prior_orders_compliance,MITIGATING,2,YES,✓
+a68_codes_certification,NOT_DISCUSSED,746,YES,✓
+a68_codes_certification,NOT_APPLICABLE,6,NO,✗ FIX
+a68_codes_certification,NEUTRAL,4,YES,✓
+a68_codes_certification,MITIGATING,1,YES,✓
+a69_other_factors,NOT_DISCUSSED,565,YES,✓
+a69_other_factors,MITIGATING,124,YES,✓
+a69_other_factors,AGGRAVATING,60,YES,✓
+a69_other_factors,NOT_APPLICABLE,6,NO,✗ FIX
+a69_other_factors,NEUTRAL,2,YES,✓
+a70_systematic_art83_discussion,NO,622,YES,✓
+a70_systematic_art83_discussion,YES,71,YES,✓
+a70_systematic_art83_discussion,NOT_DISCUSSED,58,NO,✗ FIX
+a70_systematic_art83_discussion,NOT_APPLICABLE,6,NO,✗ FIX
+a71_first_violation,NOT_DISCUSSED,637,YES,✓
+a71_first_violation,YES_FIRST_TIME,89,YES,✓
+a71_first_violation,NO_REPEAT_OFFENDER,25,YES,✓
+a71_first_violation,NOT_APPLICABLE,6,NO,✗ FIX
+a72_cross_border_oss,NOT_DISCUSSED,546,YES,✓
+a72_cross_border_oss,NO,165,YES,✓
+a72_cross_border_oss,YES,40,YES,✓
+a72_cross_border_oss,NOT_APPLICABLE,6,NO,✗ FIX
+a73_oss_role,NOT_APPLICABLE,665,YES,✓
+a73_oss_role,NOT_DISCUSSED,56,NO,✗ FIX
+a73_oss_role,LEAD,31,YES,✓
+a73_oss_role,CONCERNED,5,YES,✓
+a8_defendant_class,PRIVATE,378,YES,✓
+a8_defendant_class,PUBLIC,193,YES,✓
+a8_defendant_class,NOT_DISCUSSED,93,NO,✗ FIX
+a8_defendant_class,INDIVIDUAL,46,YES,✓
+a8_defendant_class,OTHER,16,YES,✓
+a8_defendant_class,NGO_OR_NONPROFIT,15,YES,✓
+a8_defendant_class,NOT_APPLICABLE,6,NO,✗ FIX
+a8_defendant_class,POLITICAL_PARTY,2,YES,✓
+a8_defendant_class,RELIGIOUS,2,YES,✓
+a8_defendant_class,MEDIA,2,NO,✗ FIX
+a8_defendant_class,EDUCATION,2,NO,✗ FIX
+a8_defendant_class,JUDICIAL,1,NO,✗ FIX
+a8_defendant_class,TELECOM,1,NO,✗ FIX
+a9_enterprise_size,NOT_APPLICABLE,284,YES,✓
+a9_enterprise_size,UNKNOWN,204,YES,✓
+a9_enterprise_size,LARGE,98,YES,✓
+a9_enterprise_size,NOT_DISCUSSED,77,NO,✗ FIX
+a9_enterprise_size,VERY_LARGE,49,YES,✓
+a9_enterprise_size,SME,45,YES,✓

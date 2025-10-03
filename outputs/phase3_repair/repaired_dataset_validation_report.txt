@@ -1,0 +1,42 @@
+======================================================================
+Phase 2: Dataset Validation Report
+======================================================================
+
+Generated: 2025-10-03T22:57:33.806800
+Dataset: 757 rows, 77 fields each
+
+VALIDATION SUMMARY
+----------------------------------------------------------------------
+Valid rows (passed all checks):     623
+Rows with errors:                   134
+Total validation errors:            1288
+  - ERRORS (schema violations):     921
+  - WARNINGS (suspicious values):   367
+
+TOP 20 FIELDS WITH ERRORS
+----------------------------------------------------------------------
+a10_gov_level                             121 errors
+a54_fine_amount                           118 errors
+a55_fine_currency                         116 errors
+a73_oss_role                              112 errors
+a8_defendant_class                         99 errors
+a4_decision_year                           94 errors
+a1_country_code                            79 errors
+a11_defendant_role                         78 errors
+a9_enterprise_size                         77 errors
+a12_sector                                 76 errors
+a6_num_defendants                          75 errors
+a5_decision_month                          58 errors
+a13_sector_other                           58 errors
+a19_art33_breached                         57 errors
+a14_processing_contexts                    10 errors
+a77_articles_breached                      10 errors
+a29_vulnerable_groups                       7 errors
+a57_turnover_amount                         7 errors
+a18_art33_discussed                         6 errors
+a28_art9_discussed                          6 errors
+
+======================================================================
+Detailed errors written to: /Users/milos/Desktop/enforcement/outputs/phase3_repair/repaired_dataset_validation_errors.csv
+Clean validated data written to: /Users/milos/Desktop/enforcement/outputs/phase3_repair/repaired_dataset_validated.csv
+======================================================================

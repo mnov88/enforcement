@@ -1,0 +1,594 @@
+#!/usr/bin/env python3
+"""
+Phase 2: Comprehensive CSV Validation
+
+Validates EVERY field in main_dataset.csv against schema rules.
+Outputs validated data and detailed error reports.
+
+Input:  /outputs/phase1_extraction/main_dataset.csv
+Output: /outputs/phase2_validation/validated_data.csv
+        /outputs/phase2_validation/validation_errors.csv
+        /outputs/phase2_validation/validation_report.txt
+
+When run with `--input <path/to/dataset.csv>`, the validator writes
+`<dataset>_validated.csv`, `<dataset>_validation_errors.csv`, and
+`<dataset>_validation_report.txt` next to the provided file to avoid
+overwriting phase artefacts.
+"""
+
+import csv
+from pathlib import Path
+from datetime import datetime
+from collections import defaultdict
+
+# ============================================================================
+# VALIDATION RULES FOR ALL 77 FIELDS
+# ============================================================================
+
+VALIDATION_RULES = {
+    # Section 1: Basic Case Metadata
+    'a1_country_code': {
+        'type': 'enum',
+        'allowed': ['AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DE', 'DK', 'EE', 'EL', 'ES', 'FI',
+                   'FR', 'GB', 'GR', 'HU', 'IE', 'IS', 'IT', 'LI', 'LT', 'LU', 'LV', 'MT',
+                   'NL', 'NO', 'PL', 'PT', 'RO', 'SE', 'SI', 'SK']
+    },
+    'a2_authority_name': {
+        'type': 'free_text',
+        'non_empty': True
+    },
+    'a3_appellate_decision': {
+        'type': 'enum',
+        'allowed': ['YES', 'NO', 'NOT_DISCUSSED']
+    },
+    'a4_decision_year': {
+        'type': 'integer_range',
+        'min': 2018,
+        'max': 2025,
+        'warn_outside': True
+    },
+    'a5_decision_month': {
+        'type': 'integer_range',
+        'min': 0,
+        'max': 12
+    },
+
+    # Section 2: Defendant Information
+    'a6_num_defendants': {
+        'type': 'integer_range',
+        'min': 1,
+        'max': 999
+    },
+    'a7_defendant_name': {
+        'type': 'free_text',
+        'non_empty': True
+    },
+    'a8_defendant_class': {
+        'type': 'enum',
+        'allowed': ['PUBLIC', 'PRIVATE', 'NGO_OR_NONPROFIT', 'RELIGIOUS', 'INDIVIDUAL', 'POLITICAL_PARTY', 'OTHER']
+    },
+    'a9_enterprise_size': {
+        'type': 'enum',
+        'allowed': ['SME', 'LARGE', 'VERY_LARGE', 'UNKNOWN', 'NOT_APPLICABLE']
+    },
+    'a10_gov_level': {
+        'type': 'enum',
+        'allowed': ['STATE', 'MUNICIPAL', 'JUDICIAL', 'UNKNOWN', 'NOT_APPLICABLE']
+    },
+    'a11_defendant_role': {
+        'type': 'enum',
+        'allowed': ['CONTROLLER', 'PROCESSOR', 'JOINT_CONTROLLER', 'NOT_MENTIONED']
+    },
+    'a12_sector': {
+        'type': 'enum',
+        'allowed': ['HEALTH', 'EDUCATION', 'TELECOM', 'RETAIL', 'DIGITAL_SERVICES', 'FINANCIAL',
+                   'CONSULTING', 'HOUSING_TOURISM', 'FITNESS_WELLNESS', 'MEDIA', 'MANUFACTURING',
+                   'UTILITIES', 'MEMBERSHIP_ORGS', 'RELIGIOUS_ORGS', 'TAX', 'OTHER_PUBLIC_ADMIN', 'OTHER']
+    },
+    'a13_sector_other': {
+        'type': 'free_text_or_sentinel',
+        'sentinel': 'NOT_APPLICABLE'
+    },
+
+    # Section 3-4: Processing Context and Case Origins
+    'a14_processing_contexts': {
+        'type': 'semicolon_list_or_sentinel',
+        'allowed_tokens': ['CCTV', 'MARKETING', 'RECRUITMENT_AND_HR', 'COOKIES', 'CUSTOMER_LOYALTY_CLUBS',
+                          'CREDIT_SCORING', 'BACKGROUND_CHECKS', 'ARTIFICIAL_INTELLIGENCE',
+                          'PROBLEMATIC_THIRD_PARTY_SHARING_STATED', 'DPO_ROLE_PROBLEMS_STATED',
+                          'JOURNALISM', 'EMPLOYEE_MONITORING'],
+        'sentinel': 'NOT_DISCUSSED'
+    },
+    'a15_data_subject_complaint': {'type': 'enum', 'allowed': ['YES', 'NO', 'NOT_DISCUSSED']},
+    'a16_media_attention': {'type': 'enum', 'allowed': ['YES', 'NO', 'NOT_DISCUSSED']},
+    'a17_official_audit': {'type': 'enum', 'allowed': ['YES', 'NO', 'NOT_DISCUSSED']},
+
+    # Section 5: Article 33
+    'a18_art33_discussed': {'type': 'enum', 'allowed': ['YES', 'NO']},
+    'a19_art33_breached': {'type': 'enum', 'allowed': ['YES', 'NO', 'NOT_DISCUSSED', 'NOT_APPLICABLE']},
+    'a20_breach_notification_effect': {'type': 'enum', 'allowed': ['AGGRAVATING', 'MITIGATING', 'NEUTRAL', 'NOT_DISCUSSED']},
+
+    # Section 6: Article 5 Principles (a21-a27)
+    'a21_art5_lawfulness_fairness': {'type': 'enum', 'allowed': ['BREACHED', 'NOT_BREACHED', 'NOT_DISCUSSED']},
+    'a22_art5_purpose_limitation': {'type': 'enum', 'allowed': ['BREACHED', 'NOT_BREACHED', 'NOT_DISCUSSED']},
+    'a23_art5_data_minimization': {'type': 'enum', 'allowed': ['BREACHED', 'NOT_BREACHED', 'NOT_DISCUSSED']},
+    'a24_art5_accuracy': {'type': 'enum', 'allowed': ['BREACHED', 'NOT_BREACHED', 'NOT_DISCUSSED']},
+    'a25_art5_storage_limitation': {'type': 'enum', 'allowed': ['BREACHED', 'NOT_BREACHED', 'NOT_DISCUSSED']},
+    'a26_art5_integrity_confidentiality': {'type': 'enum', 'allowed': ['BREACHED', 'NOT_BREACHED', 'NOT_DISCUSSED']},
+    'a27_art5_accountability': {'type': 'enum', 'allowed': ['BREACHED', 'NOT_BREACHED', 'NOT_DISCUSSED']},
+
+    # Section 7: Special Categories
+    'a28_art9_discussed': {'type': 'enum', 'allowed': ['YES', 'NO']},
+    'a29_vulnerable_groups': {
+        'type': 'semicolon_list_or_sentinel',
+        'allowed_tokens': ['CHILDREN', 'EMPLOYEES', 'ELDERLY', 'PATIENTS', 'STUDENTS', 'OTHER_VULNERABLE'],
+        'sentinel': 'NOT_DISCUSSED'
+    },
+
+    # Section 8: Article 6 Legal Bases (a30-a35)
+    'a30_art6_consent': {'type': 'enum', 'allowed': ['VALID', 'INVALID', 'NOT_DISCUSSED']},
+    'a31_art6_contract': {'type': 'enum', 'allowed': ['VALID', 'INVALID', 'NOT_DISCUSSED']},
+    'a32_art6_legal_obligation': {'type': 'enum', 'allowed': ['VALID', 'INVALID', 'NOT_DISCUSSED']},
+    'a33_art6_vital_interests': {'type': 'enum', 'allowed': ['VALID', 'INVALID', 'NOT_DISCUSSED']},
+    'a34_art6_public_task': {'type': 'enum', 'allowed': ['VALID', 'INVALID', 'NOT_DISCUSSED']},
+    'a35_art6_legitimate_interest': {'type': 'enum', 'allowed': ['VALID', 'INVALID', 'NOT_DISCUSSED']},
+    'a36_legal_basis_summary': {'type': 'free_text_or_sentinel', 'sentinel': 'NOT_DISCUSSED'},
+
+    # Section 9: Data Subject Rights (a37-a44)
+    'a37_right_access_violated': {'type': 'enum', 'allowed': ['YES', 'NO', 'NOT_DISCUSSED']},
+    'a38_right_rectification_violated': {'type': 'enum', 'allowed': ['YES', 'NO', 'NOT_DISCUSSED']},
+    'a39_right_erasure_violated': {'type': 'enum', 'allowed': ['YES', 'NO', 'NOT_DISCUSSED']},
+    'a40_right_restriction_violated': {'type': 'enum', 'allowed': ['YES', 'NO', 'NOT_DISCUSSED']},
+    'a41_right_portability_violated': {'type': 'enum', 'allowed': ['YES', 'NO', 'NOT_DISCUSSED']},
+    'a42_right_object_violated': {'type': 'enum', 'allowed': ['YES', 'NO', 'NOT_DISCUSSED']},
+    'a43_transparency_violated': {'type': 'enum', 'allowed': ['YES', 'NO', 'NOT_DISCUSSED']},
+    'a44_automated_decisions_violated': {'type': 'enum', 'allowed': ['YES', 'NO', 'NOT_DISCUSSED']},
+
+    # Section 10: Article 58 Corrective Measures (a45-a52)
+    'a45_warning_issued': {'type': 'enum', 'allowed': ['YES', 'NO', 'NOT_DISCUSSED']},
+    'a46_reprimand_issued': {'type': 'enum', 'allowed': ['YES', 'NO', 'NOT_DISCUSSED']},
+    'a47_comply_data_subject_order': {'type': 'enum', 'allowed': ['YES', 'NO', 'NOT_DISCUSSED']},
+    'a48_compliance_order': {'type': 'enum', 'allowed': ['YES', 'NO', 'NOT_DISCUSSED']},
+    'a49_breach_communication_order': {'type': 'enum', 'allowed': ['YES', 'NO', 'NOT_DISCUSSED']},
+    'a50_erasure_restriction_order': {'type': 'enum', 'allowed': ['YES', 'NO', 'NOT_DISCUSSED']},
+    'a51_certification_withdrawal': {'type': 'enum', 'allowed': ['YES', 'NO', 'NOT_DISCUSSED']},
+    'a52_data_flow_suspension': {'type': 'enum', 'allowed': ['YES', 'NO', 'NOT_DISCUSSED']},
+
+    # Section 11: Financial Penalties
+    'a53_fine_imposed': {'type': 'enum', 'allowed': ['YES', 'NO']},
+    'a54_fine_amount': {'type': 'integer_or_sentinel', 'sentinel': 'NOT_APPLICABLE'},
+    'a55_fine_currency': {
+        'type': 'enum',
+        'allowed': ['EUR', 'GBP', 'SEK', 'DKK', 'NOK', 'PLN', 'CZK', 'HUF', 'RON', 'BGN', 'HRK', 'ISK', 'USD', 'NOT_APPLICABLE']
+    },
+    'a56_turnover_discussed': {'type': 'enum', 'allowed': ['YES', 'NO']},
+    'a57_turnover_amount': {'type': 'integer_or_sentinels', 'sentinels': ['NOT_APPLICABLE', 'NOT_DISCUSSED']},
+    'a58_turnover_currency': {
+        'type': 'enum',
+        'allowed': ['EUR', 'GBP', 'SEK', 'DKK', 'NOK', 'PLN', 'CZK', 'HUF', 'RON', 'BGN', 'HRK', 'ISK', 'USD',
+                   'NOT_APPLICABLE', 'NOT_DISCUSSED']
+    },
+
+    # Section 12: Article 83(2) Factors (a59-a69)
+    'a59_nature_gravity_duration': {'type': 'enum', 'allowed': ['AGGRAVATING', 'MITIGATING', 'NEUTRAL', 'NOT_DISCUSSED']},
+    'a60_intentional_negligent': {'type': 'enum', 'allowed': ['AGGRAVATING', 'MITIGATING', 'NEUTRAL', 'NOT_DISCUSSED']},
+    'a61_mitigate_damage_actions': {'type': 'enum', 'allowed': ['AGGRAVATING', 'MITIGATING', 'NEUTRAL', 'NOT_DISCUSSED']},
+    'a62_technical_org_measures': {'type': 'enum', 'allowed': ['AGGRAVATING', 'MITIGATING', 'NEUTRAL', 'NOT_DISCUSSED']},
+    'a63_previous_infringements': {'type': 'enum', 'allowed': ['AGGRAVATING', 'MITIGATING', 'NEUTRAL', 'NOT_DISCUSSED']},
+    'a64_cooperation_authority': {'type': 'enum', 'allowed': ['AGGRAVATING', 'MITIGATING', 'NEUTRAL', 'NOT_DISCUSSED']},
+    'a65_data_categories_affected': {'type': 'enum', 'allowed': ['AGGRAVATING', 'MITIGATING', 'NEUTRAL', 'NOT_DISCUSSED']},
+    'a66_infringement_became_known': {'type': 'enum', 'allowed': ['AGGRAVATING', 'MITIGATING', 'NEUTRAL', 'NOT_DISCUSSED']},
+    'a67_prior_orders_compliance': {'type': 'enum', 'allowed': ['AGGRAVATING', 'MITIGATING', 'NEUTRAL', 'NOT_DISCUSSED']},
+    'a68_codes_certification': {'type': 'enum', 'allowed': ['AGGRAVATING', 'MITIGATING', 'NEUTRAL', 'NOT_DISCUSSED']},
+    'a69_other_factors': {'type': 'enum', 'allowed': ['AGGRAVATING', 'MITIGATING', 'NEUTRAL', 'NOT_DISCUSSED']},
+    'a70_systematic_art83_discussion': {'type': 'enum', 'allowed': ['YES', 'NO']},
+    'a71_first_violation': {'type': 'enum', 'allowed': ['YES_FIRST_TIME', 'NO_REPEAT_OFFENDER', 'NOT_DISCUSSED']},
+
+    # Section 13: Cross-Border & References
+    'a72_cross_border_oss': {'type': 'enum', 'allowed': ['YES', 'NO', 'NOT_DISCUSSED']},
+    'a73_oss_role': {'type': 'enum', 'allowed': ['LEAD', 'CONCERNED', 'NOT_APPLICABLE']},
+    'a74_guidelines_referenced': {'type': 'free_text_or_sentinel', 'sentinel': 'NOT_APPLICABLE'},
+
+    # Section 14: Summaries
+    'a75_case_summary': {'type': 'free_text', 'non_empty': True},
+    'a76_art83_weighing_summary': {'type': 'free_text_or_sentinel', 'sentinel': 'NOT_DISCUSSED'},
+    'a77_articles_breached': {
+        'type': 'semicolon_integers_or_sentinels',
+        'sentinels': ['NONE_VIOLATED', 'NOT_DISCUSSED']
+    }
+}
+
+# Conditional validation rules
+CONDITIONAL_RULES = [
+    {
+        'field': 'a10_gov_level',
+        'condition_field': 'a8_defendant_class',
+        'condition_value_not': 'PUBLIC',
+        'expected': 'NOT_APPLICABLE',
+        'message': 'a10_gov_level should be NOT_APPLICABLE when defendant_class != PUBLIC'
+    },
+    {
+        'field': 'a13_sector_other',
+        'condition_field': 'a12_sector',
+        'condition_value_not': 'OTHER',
+        'expected': 'NOT_APPLICABLE',
+        'message': 'a13_sector_other must be NOT_APPLICABLE when sector != OTHER'
+    },
+    {
+        'field': 'a19_art33_breached',
+        'condition_field': 'a18_art33_discussed',
+        'condition_value': 'NO',
+        'expected': 'NOT_APPLICABLE',
+        'message': 'a19_art33_breached should be NOT_APPLICABLE when art33_discussed = NO'
+    },
+    {
+        'field': 'a54_fine_amount',
+        'condition_field': 'a53_fine_imposed',
+        'condition_value': 'NO',
+        'expected': 'NOT_APPLICABLE',
+        'message': 'a54_fine_amount must be NOT_APPLICABLE when fine_imposed = NO'
+    },
+    {
+        'field': 'a55_fine_currency',
+        'condition_field': 'a53_fine_imposed',
+        'condition_value': 'NO',
+        'expected': 'NOT_APPLICABLE',
+        'message': 'a55_fine_currency must be NOT_APPLICABLE when fine_imposed = NO'
+    },
+    {
+        'field': 'a57_turnover_amount',
+        'condition_field': 'a56_turnover_discussed',
+        'condition_value': 'NO',
+        'expected': 'NOT_DISCUSSED',
+        'message': 'a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO'
+    },
+    {
+        'field': 'a58_turnover_currency',
+        'condition_field': 'a56_turnover_discussed',
+        'condition_value': 'NO',
+        'expected': 'NOT_DISCUSSED',
+        'message': 'a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO'
+    },
+    {
+        'field': 'a73_oss_role',
+        'condition_field': 'a72_cross_border_oss',
+        'condition_value_not': 'YES',
+        'expected': 'NOT_APPLICABLE',
+        'message': 'a73_oss_role must be NOT_APPLICABLE when cross_border_oss != YES'
+    }
+]
+
+
+# ============================================================================
+# VALIDATION FUNCTIONS
+# ============================================================================
+
+class FieldValidator:
+    """Validates individual field values against schema rules."""
+
+    @staticmethod
+    def validate_enum(value: str, allowed: list) -> tuple[bool, str, str]:
+        """Validate enum field."""
+        if value in allowed:
+            return (True, '', 'VALID')
+        return (False, f"Invalid enum value '{value}'. Allowed: {', '.join(allowed)}", 'ERROR')
+
+    @staticmethod
+    def validate_integer_range(value: str, min_val: int, max_val: int, warn_outside: bool = False) -> tuple[bool, str, str]:
+        """Validate integer within range."""
+        if not value.lstrip('-').isdigit():
+            return (False, f"Not an integer: '{value}'", 'ERROR')
+
+        num = int(value)
+        if min_val <= num <= max_val:
+            return (True, '', 'VALID')
+
+        severity = 'WARNING' if warn_outside else 'ERROR'
+        return (False, f"Integer {num} outside valid range [{min_val}, {max_val}]", severity)
+
+    @staticmethod
+    def validate_free_text(value: str, non_empty: bool = False) -> tuple[bool, str, str]:
+        """Validate free text field."""
+        if non_empty and not value.strip():
+            return (False, "Empty text field (required non-empty)", 'ERROR')
+        return (True, '', 'VALID')
+
+    @staticmethod
+    def validate_free_text_or_sentinel(value: str, sentinel: str) -> tuple[bool, str, str]:
+        """Validate free text or sentinel value."""
+        if value == sentinel or value.strip():
+            return (True, '', 'VALID')
+        return (False, f"Empty text (expected text or '{sentinel}')", 'ERROR')
+
+    @staticmethod
+    def validate_integer_or_sentinel(value: str, sentinel: str) -> tuple[bool, str, str]:
+        """Validate integer or sentinel."""
+        if value == sentinel:
+            return (True, '', 'VALID')
+        if value.isdigit():
+            return (True, '', 'VALID')
+        return (False, f"Not integer or '{sentinel}': '{value}'", 'ERROR')
+
+    @staticmethod
+    def validate_integer_or_sentinels(value: str, sentinels: list) -> tuple[bool, str, str]:
+        """Validate integer or one of multiple sentinels."""
+        if value in sentinels:
+            return (True, '', 'VALID')
+        if value.isdigit():
+            return (True, '', 'VALID')
+        return (False, f"Not integer or sentinel ({', '.join(sentinels)}): '{value}'", 'ERROR')
+
+    @staticmethod
+    def validate_semicolon_list_or_sentinel(value: str, allowed_tokens: list, sentinel: str) -> tuple[bool, str, str]:
+        """Validate semicolon-separated list or sentinel."""
+        if value == sentinel:
+            return (True, '', 'VALID')
+
+        tokens = [t.strip() for t in value.split(';')]
+        invalid_tokens = [t for t in tokens if t and t not in allowed_tokens]
+
+        if invalid_tokens:
+            return (False, f"Invalid tokens: {', '.join(invalid_tokens)}", 'ERROR')
+        return (True, '', 'VALID')
+
+    @staticmethod
+    def validate_semicolon_integers_or_sentinels(value: str, sentinels: list) -> tuple[bool, str, str]:
+        """Validate semicolon-separated integers or sentinels."""
+        if value in sentinels:
+            return (True, '', 'VALID')
+
+        tokens = [t.strip() for t in value.split(';')]
+        invalid_tokens = [t for t in tokens if t and not t.isdigit()]
+
+        if invalid_tokens:
+            return (False, f"Invalid article numbers: {', '.join(invalid_tokens)}", 'ERROR')
+        return (True, '', 'VALID')
+
+
+def validate_row(row: dict) -> list[dict]:
+    """
+    Validate all fields in a row.
+    Returns list of error dictionaries.
+    """
+    errors = []
+
+    # Validate each field
+    for field_name, rules in VALIDATION_RULES.items():
+        if field_name not in row:
+            errors.append({
+                'field_name': field_name,
+                'field_value': '',
+                'validation_rule': 'field_existence',
+                'error_message': 'Field missing from row',
+                'severity': 'ERROR'
+            })
+            continue
+
+        value = row[field_name]
+        validator = FieldValidator()
+        valid = True
+        error_msg = ''
+        severity = 'ERROR'
+
+        # Apply validation based on type
+        val_type = rules['type']
+
+        if val_type == 'enum':
+            valid, error_msg, severity = validator.validate_enum(value, rules['allowed'])
+
+        elif val_type == 'integer_range':
+            valid, error_msg, severity = validator.validate_integer_range(
+                value, rules['min'], rules['max'], rules.get('warn_outside', False)
+            )
+
+        elif val_type == 'free_text':
+            valid, error_msg, severity = validator.validate_free_text(value, rules.get('non_empty', False))
+
+        elif val_type == 'free_text_or_sentinel':
+            valid, error_msg, severity = validator.validate_free_text_or_sentinel(value, rules['sentinel'])
+
+        elif val_type == 'integer_or_sentinel':
+            valid, error_msg, severity = validator.validate_integer_or_sentinel(value, rules['sentinel'])
+
+        elif val_type == 'integer_or_sentinels':
+            valid, error_msg, severity = validator.validate_integer_or_sentinels(value, rules['sentinels'])
+
+        elif val_type == 'semicolon_list_or_sentinel':
+            valid, error_msg, severity = validator.validate_semicolon_list_or_sentinel(
+                value, rules['allowed_tokens'], rules['sentinel']
+            )
+
+        elif val_type == 'semicolon_integers_or_sentinels':
+            valid, error_msg, severity = validator.validate_semicolon_integers_or_sentinels(
+                value, rules['sentinels']
+            )
+
+        if not valid:
+            errors.append({
+                'field_name': field_name,
+                'field_value': value,
+                'validation_rule': val_type,
+                'error_message': error_msg,
+                'severity': severity
+            })
+
+    # Check conditional rules
+    for cond_rule in CONDITIONAL_RULES:
+        field = cond_rule['field']
+        cond_field = cond_rule['condition_field']
+        expected = cond_rule['expected']
+
+        if field not in row or cond_field not in row:
+            continue
+
+        # Check condition
+        condition_met = False
+        if 'condition_value' in cond_rule:
+            condition_met = row[cond_field] == cond_rule['condition_value']
+        elif 'condition_value_not' in cond_rule:
+            condition_met = row[cond_field] != cond_rule['condition_value_not']
+
+        # If condition met, check if field has expected value
+        if condition_met and row[field] != expected:
+            errors.append({
+                'field_name': field,
+                'field_value': row[field],
+                'validation_rule': 'conditional',
+                'error_message': cond_rule['message'],
+                'severity': 'WARNING'
+            })
+
+    return errors
+
+
+def validate_dataset(input_file: str):
+    """Validate entire dataset and return results."""
+
+    # Read input
+    with open(input_file, 'r', encoding='utf-8') as f:
+        reader = csv.DictReader(f)
+        rows = list(reader)
+
+    print(f"Validating {len(rows)} rows across all 77 fields...")
+
+    all_errors = []
+    valid_rows = []
+    error_rows_ids = set()
+
+    for row in rows:
+        row_id = row.get('id', 'unknown')
+        row_errors = validate_row(row)
+
+        if row_errors:
+            # Add row ID to each error
+            for error in row_errors:
+                error['row_id'] = row_id
+                all_errors.append(error)
+            error_rows_ids.add(row_id)
+        else:
+            valid_rows.append(row)
+
+    print("✓ Validation complete")
+    print(f"  Valid rows: {len(valid_rows)}")
+    print(f"  Rows with errors: {len(error_rows_ids)}")
+    print(f"  Total errors: {len(all_errors)}")
+
+    return valid_rows, all_errors, rows
+
+
+def write_outputs(valid_rows, all_errors, all_rows, output_validated, output_errors, output_report):
+    """Write validation outputs."""
+
+    # Write validated data
+    if valid_rows:
+        with open(output_validated, 'w', encoding='utf-8', newline='') as f:
+            writer = csv.DictWriter(f, fieldnames=valid_rows[0].keys())
+            writer.writeheader()
+            writer.writerows(valid_rows)
+        print(f"✓ Wrote {len(valid_rows)} valid rows to {Path(output_validated).name}")
+    else:
+        print("⚠ No valid rows to write")
+
+    # Write validation errors
+    if all_errors:
+        error_fieldnames = ['row_id', 'field_name', 'field_value', 'validation_rule', 'error_message', 'severity']
+        with open(output_errors, 'w', encoding='utf-8', newline='') as f:
+            writer = csv.DictWriter(f, fieldnames=error_fieldnames)
+            writer.writeheader()
+            writer.writerows(all_errors)
+        print(f"✓ Wrote {len(all_errors)} validation errors to {Path(output_errors).name}")
+
+    # Generate validation report
+    generate_report(valid_rows, all_errors, all_rows, output_report, output_validated, output_errors)
+
+
+def generate_report(valid_rows, all_errors, all_rows, output_report, output_validated, output_errors):
+    """Generate detailed validation report."""
+
+    # Count errors by field
+    errors_by_field = defaultdict(int)
+    errors_by_severity = defaultdict(int)
+    for error in all_errors:
+        errors_by_field[error['field_name']] += 1
+        errors_by_severity[error['severity']] += 1
+
+    # Top errors
+    top_errors = sorted(errors_by_field.items(), key=lambda x: x[1], reverse=True)[:20]
+
+    with open(output_report, 'w', encoding='utf-8') as f:
+        f.write("=" * 70 + "\n")
+        f.write("Phase 2: Dataset Validation Report\n")
+        f.write("=" * 70 + "\n\n")
+        f.write(f"Generated: {datetime.now().isoformat()}\n")
+        f.write(f"Dataset: {len(all_rows)} rows, 77 fields each\n\n")
+
+        f.write("VALIDATION SUMMARY\n")
+        f.write("-" * 70 + "\n")
+        f.write(f"Valid rows (passed all checks):     {len(valid_rows)}\n")
+        f.write(f"Rows with errors:                   {len(all_rows) - len(valid_rows)}\n")
+        f.write(f"Total validation errors:            {len(all_errors)}\n")
+        f.write(f"  - ERRORS (schema violations):     {errors_by_severity.get('ERROR', 0)}\n")
+        f.write(f"  - WARNINGS (suspicious values):   {errors_by_severity.get('WARNING', 0)}\n\n")
+
+        f.write("TOP 20 FIELDS WITH ERRORS\n")
+        f.write("-" * 70 + "\n")
+        for field, count in top_errors:
+            f.write(f"{field:40s} {count:4d} errors\n")
+
+        f.write("\n" + "=" * 70 + "\n")
+        f.write(f"Detailed errors written to: {Path(output_errors)}\n")
+        f.write(f"Clean validated data written to: {Path(output_validated)}\n")
+        f.write("=" * 70 + "\n")
+
+    print(f"✓ Wrote validation report to {Path(output_report).name}")
+
+
+def main():
+    import sys
+
+    # Paths
+    script_dir = Path(__file__).parent
+    project_root = script_dir.parent
+
+    # Check if custom input provided
+    if len(sys.argv) > 1 and sys.argv[1] == '--input':
+        input_file = Path(sys.argv[2]) if not sys.argv[2].startswith('/') else Path(sys.argv[2])
+        if not input_file.is_absolute():
+            input_file = project_root / input_file
+        # Determine output directory based on input
+        output_dir = input_file.parent
+        stem = input_file.stem
+        output_validated = output_dir / f"{stem}_validated.csv"
+        output_errors = output_dir / f"{stem}_validation_errors.csv"
+        output_report = output_dir / f"{stem}_validation_report.txt"
+    else:
+        input_file = project_root / 'outputs' / 'phase1_extraction' / 'main_dataset.csv'
+        output_validated = project_root / 'outputs' / 'phase2_validation' / 'validated_data.csv'
+        output_errors = project_root / 'outputs' / 'phase2_validation' / 'validation_errors.csv'
+        output_report = project_root / 'outputs' / 'phase2_validation' / 'validation_report.txt'
+
+    # Ensure output directory exists
+    output_validated.parent.mkdir(parents=True, exist_ok=True)
+
+    print("=" * 70)
+    print("Phase 2: Dataset Validation (All 77 Fields)")
+    print("=" * 70)
+    print(f"Input:  {input_file}")
+    print(f"Output: {output_validated.parent}")
+    print()
+
+    # Validate
+    valid_rows, all_errors, all_rows = validate_dataset(str(input_file))
+
+    # Write outputs
+    print()
+    write_outputs(valid_rows, all_errors, all_rows, str(output_validated), str(output_errors), str(output_report))
+
+    print()
+    print("=" * 70)
+    print("✓ Phase 2 validation complete!")
+    print("=" * 70)
+
+
+if __name__ == '__main__':
+    main()

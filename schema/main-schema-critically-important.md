@@ -2,7 +2,7 @@
 
 | Field | Allowed Values | Validation Type |
 |-------|---------------|-----------------|
-| `a1_country_code` | AT, BE, BG, HR, CY, CZ, DE, DK, EE, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK | Exact enum match |
+| `a1_country_code` | AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK | Exact enum match (EL = Greece alternative code) |
 | `a2_authority_name` | Free text (e.g., "Swedish Privacy Protection Agency") | Non-empty text |
 | `a3_appellate_decision` | YES, NO, NOT_DISCUSSED | Exact enum match |
 | `a4_decision_year` | 2018-2025 | Numeric range |
@@ -14,7 +14,7 @@
 |-------|---------------|-------|
 | `a6_num_defendants` | Positive integer ≥ 1 | Must be numeric |
 | `a7_defendant_name` | Free text | Required field |
-| `a8_defendant_class` | PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, OTHER | Exact match |
+| `a8_defendant_class` | PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER | Exact match |
 | `a9_enterprise_size` | SME, LARGE, VERY_LARGE, UNKNOWN, **NOT_APPLICABLE** | Includes NOT_APPLICABLE |
 | `a10_gov_level` | STATE, MUNICIPAL, JUDICIAL, UNKNOWN, **NOT_APPLICABLE** | NOT_APPLICABLE if not public |
 | `a11_defendant_role` | CONTROLLER, PROCESSOR, JOINT_CONTROLLER, NOT_MENTIONED | Data protection roles |
@@ -25,7 +25,7 @@
 
 | Field | Allowed Values | Format |
 |-------|---------------|--------|
-| `a14_processing_contexts` | CCTV, MARKETING, RECRUITMENT_AND_HR, COOKIES, CUSTOMER_LOYALTY_CLUBS, CREDIT_SCORING, BACKGROUND_CHECKS, ARTIFICIAL_INTELLIGENCE, PROBLEMATIC_THIRD_PARTY_SHARING_STATED, DPO_ROLE_PROBLEMS_STATED, JOURNALISM, NOT_DISCUSSED | Semicolon-separated list |
+| `a14_processing_contexts` | CCTV, MARKETING, RECRUITMENT_AND_HR, COOKIES, CUSTOMER_LOYALTY_CLUBS, CREDIT_SCORING, BACKGROUND_CHECKS, ARTIFICIAL_INTELLIGENCE, PROBLEMATIC_THIRD_PARTY_SHARING_STATED, DPO_ROLE_PROBLEMS_STATED, JOURNALISM, EMPLOYEE_MONITORING, NOT_DISCUSSED | Semicolon-separated list |
 | `a15_data_subject_complaint` | YES, NO, NOT_DISCUSSED | Standard three-option |
 | `a16_media_attention` | YES, NO, NOT_DISCUSSED | Standard three-option |
 | `a17_official_audit` | YES, NO, NOT_DISCUSSED | Standard three-option |
@@ -87,10 +87,10 @@ All Article 58 corrective measure fields use standard three-option validation:
 |-------|---------------|---------------|
 | `a53_fine_imposed` | YES, NO | Two-option field |
 | `a54_fine_amount` | Positive integer or **NOT_APPLICABLE** | No separators or symbols |
-| `a55_fine_currency` | EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, **NOT_APPLICABLE** | ISO currency codes |
+| `a55_fine_currency` | EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, **NOT_APPLICABLE** | ISO currency codes |
 | `a56_turnover_discussed` | YES, NO | Two-option field |
 | `a57_turnover_amount` | Positive integer, **NOT_APPLICABLE**, or **NOT_DISCUSSED** | Three options |
-| `a58_turnover_currency` | EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, **NOT_APPLICABLE**, **NOT_DISCUSSED** | Currency with special values |
+| `a58_turnover_currency` | EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, **NOT_APPLICABLE**, **NOT_DISCUSSED** | Currency with special values |
 
 ### Section 12: Article 83(2) Factors (Questions 59-69)
 
