@@ -1,3 +1,4 @@
+THIS IS THE PROMPT GIVEN TO THE AI WHICH WAS EXTRACTING THE DATA.
 # GDPR Decision Data Extraction - Question/Answer Format
 
 ## Instructions
