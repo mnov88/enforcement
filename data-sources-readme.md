@@ -27,6 +27,21 @@ This reference explains every CSV emitted by the GDPR enforcement data pipeline 
 - `5_articles_breached.csv`: Parsed GDPR article references including numeric article identifiers and sequence order.
 - `graph/nodes_*.csv`, `graph/edges_*.csv`: Neo4j bulk-import ready node and edge files linking decisions to authorities, defendants, articles, guidelines, and processing contexts.
 
+## Phase 5 – Analysis (`outputs/phase5_analysis/`)
+- `0_case_level_features.csv`: Baseline analytical table containing parsed article sets, article-family keys, measure sets, and log fines (2025 EUR).
+- `1_baseline_article_cohorts.csv`: Exact article-set cohorts with summary statistics (log fine mean/median, measure-set Jaccard, sanction mode).
+- `2_case_level_with_components.csv`: Case-level data annotated with relaxed cohort identifiers (Jaccard ≥ 0.8) for sparsity-aware pooling.
+- `2_relaxed_article_components.csv`: Aggregated statistics for each relaxed component (members, counts, average log fines, sanction mode).
+- `3_context_effects.csv`: Matched within-cohort contrasts for context flags using Mann–Whitney tests and measure-set Jaccard comparisons.
+- `3_legal_basis_effects.csv`: Art. 6 invalid vs valid/NOT_DISCUSSED comparisons with stratum-level medians and sanction modes.
+- `3_defendant_type_effects.csv`: PRIVATE vs PUBLIC comparisons restricted to fixed context bundles (employment, CCTV, marketing, etc.).
+- `4_cross_country_pairs.csv`: Nearest-neighbour matches across countries within shared article cohorts including log-fine and measure Jaccard for each pair.
+- `4_cross_country_summary.csv`: Paired statistics aggregated by article cohort (paired t, McNemar counts, average measure similarity).
+- `5_mixed_effects_results.csv`: Coefficient tables from mixed-effects regressions on log fines (full, no-context, no-legal-basis variants).
+- `5_mixed_effects_summary.txt`: Statsmodels textual summaries for the three model variants (warnings retained for transparency).
+- `6_relaxed_cohort_contrasts.csv`: Sensitivity of context contrasts when swapping exact for relaxed cohorts.
+- `6_time_controls_summary.csv`: Pre-2021 vs 2021+ averages of log fines, measure counts, and fine incidence by article cohort.
+
 ### Reference Tables (`raw_data/reference/`)
 - `fx_rates.csv`: ECB-inspired annual FX rates (and identity rows for EUR) used to standardize fines/turnover to euro values.
 - `hicp_ea19.csv`: Euro area HICP index (2016–2025) supporting deflation to constant 2025 euros.

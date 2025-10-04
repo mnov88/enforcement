@@ -10,6 +10,7 @@ The pipeline processes GDPR enforcement decisions through a four-phase system:
 2. **Phase 2 (Validation)**: Validate all 77 fields against schema rules
 3. **Phase 3 (Repair)**: Auto-fix common validation errors using pattern-based rules
 4. **Phase 4 (Enrichment)**: Generate analyst-ready features, long tables, and graph exports
+5. **Phase 5 (Analysis)**: Build similarity cohorts, compare layered factors, and estimate mixed-effects models
 
 **See `SCRIPTS-README.md` for process details and `data-sources-readme.md` for per-file data descriptions.**
 
@@ -153,6 +154,34 @@ python3 scripts/3_repair_data_errors.py
 ```bash
 python scripts/4_enrich_prepare_outputs.py
 ```
+
+### Phase 5: Cohort Analysis & Modelling
+
+**Script:** `scripts/5_analysis_similarity.py`
+
+**Purpose:** Establish article-based similarity cohorts and evaluate how contexts, legal bases, defendant traits, and geography drive enforcement outcomes.
+
+**Inputs:**
+- `/outputs/phase4_enrichment/1_enriched_master.csv`
+
+**Outputs (`/outputs/phase5_analysis/`):**
+- `0_case_level_features.csv` – case-level dataset with parsed article sets, measure sets, context strata, and log-fine metrics.
+- `1_baseline_article_cohorts.csv` – exact article-set cohorts with outcome dispersion and sanction profiles.
+- `2_case_level_with_components.csv` / `2_relaxed_article_components.csv` – relaxed cohorts using Jaccard ≥ 0.8 unions.
+- `3_context_effects.csv` – stratified comparisons of context flags (e.g., CCTV vs non-CCTV) within article cohorts.
+- `3_legal_basis_effects.csv` – contrasts for Art. 6 statuses with `NOT_DISCUSSED` retained as its own bin.
+- `3_defendant_type_effects.csv` – private vs public comparisons holding context combinations constant using flag-based context membership (no substring matching).
+- `4_cross_country_pairs.csv` / `4_cross_country_summary.csv` – nearest-neighbour matches across countries with paired outcome stats.
+- `5_mixed_effects_results.csv` / `5_mixed_effects_summary.txt` – mixed-effects regression with a random intercept for article set and variance component for country.
+- `6_relaxed_cohort_contrasts.csv` – sensitivity of context effects under relaxed article components.
+- `6_time_controls_summary.csv` – period splits (pre-2021 vs 2021+) for cohort-level averages.
+
+**Command:**
+```bash
+python scripts/5_analysis_similarity.py
+```
+
+> ℹ️ The mixed-effects models emit warnings about singular covariance matrices; this reflects sparse article cohorts rather than runtime failure. Coefficients are retained for transparency.
 
 ### Running the Complete Pipeline
 
