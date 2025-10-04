@@ -1,3 +1,4 @@
+FIXED OUTDATED NOW FIXED
 My initial CSV processing has failed. We have to reconstruct the main csv file. We have received AI response data in Answer 123: TEXT on each line; now we need to turn it into csv. Your task:
 1. Develop a CSV schema where each field will be named logically (prepending a1, a2, etc) taking into account what it asks -- see prompt below
 2. Develop an app which lets user paste answers formatted as below. It would output a CSV saved in raw_data according to readme, where the first column is ID preceeding the answer, and other columns are the ones you have made in the schema, filled out, leading space stripped, free text fields quote-escaped. If a response for an ID does not contain Answer 1 2 3... we do not add it as a row in place; instead, we put it in a separate file as per readme. /Users/milos/Desktop/enforcement/raw_data/AI_analysis/AI-responses.txt is the file we should run this on.

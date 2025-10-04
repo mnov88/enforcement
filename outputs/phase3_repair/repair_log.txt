@@ -2,19 +2,19 @@
 Phase 3: Data Repair Log
 ======================================================================
 
-Generated: 2025-10-03T22:51:55.528128
+Generated: 2025-10-04T19:42:39.796783
 Input: /Users/milos/Desktop/enforcement/outputs/phase1_extraction/main_dataset.csv
 Output: /Users/milos/Desktop/enforcement/outputs/phase3_repair/repaired_dataset.csv
 
 REPAIR SUMMARY
 ----------------------------------------------------------------------
-Total rows processed: 757
-Rows repaired: 261
-Total repairs applied: 805
+Total rows processed: 1473
+Rows repaired: 417
+Total repairs applied: 1034
 
 REPAIRS BY PATTERN
 ----------------------------------------------------------------------
-pattern1_not_discussed_to_no: 464 repairs
+pattern1_not_discussed_to_no: 633 repairs
   Rule: NOT_DISCUSSED → NO
   Reason: Two-option field expects YES or NO, NOT_DISCUSSED invalid
 
@@ -22,15 +22,15 @@ pattern2_not_applicable_to_not_discussed: 282 repairs
   Rule: NOT_APPLICABLE → NOT_DISCUSSED
   Reason: NOT_APPLICABLE used incorrectly; defer to NOT_DISCUSSED sentinel when value missing
 
-pattern3_breached_to_yes: 50 repairs
+pattern3_breached_to_yes: 91 repairs
   Rule: BREACHED → YES
   Reason: Rights violation fields expect YES/NO/NOT_DISCUSSED, not BREACHED
 
-pattern4_not_breached_to_no: 2 repairs
+pattern4_not_breached_to_no: 9 repairs
   Rule: NOT_BREACHED → NO
   Reason: Field expects YES/NO format, not BREACHED/NOT_BREACHED
 
-pattern5_sector_in_defendant_class: 6 repairs
+pattern5_sector_in_defendant_class: 18 repairs
   Rule: [MEDIA, EDUCATION, JUDICIAL, TELECOM] → OTHER
   Reason: Sector values incorrectly used in defendant_class field
 
@@ -141,7 +141,7 @@ Spain_448, a71_first_violation, NOT_APPLICABLE, NOT_DISCUSSED, pattern2_not_appl
 Spain_448, a72_cross_border_oss, NOT_APPLICABLE, NOT_DISCUSSED, pattern2_not_applicable_to_not_discussed
 Spain_469, a56_turnover_discussed, NOT_DISCUSSED, NO, pattern1_not_discussed_to_no
 Spain_475, a18_art33_discussed, NOT_DISCUSSED, NO, pattern1_not_discussed_to_no
-... and 705 more repairs
+... and 934 more repairs
 
 ======================================================================
 Repair complete. Run Phase 2 validation again to verify.

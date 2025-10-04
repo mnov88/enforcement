@@ -141,7 +141,7 @@ Spain_475,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUS
 Spain_475,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Spain_475,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Spain_475,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Spain_475,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Spain_475,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Spain_475,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Spain_475,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Spain_475,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -300,7 +300,7 @@ Spain_531,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUS
 Spain_531,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Spain_531,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Spain_531,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Spain_531,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Spain_531,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Spain_531,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Spain_531,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Spain_531,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -329,7 +329,7 @@ Spain_572,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUS
 Spain_572,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Spain_572,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Spain_572,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Spain_572,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Spain_572,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Spain_572,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Spain_572,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Spain_572,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -341,7 +341,7 @@ Spain_578,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUS
 Spain_578,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Spain_578,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Spain_578,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Spain_578,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Spain_578,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Spain_578,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Spain_578,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Spain_578,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -373,7 +373,7 @@ Spain_623,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUS
 Spain_623,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Spain_623,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Spain_623,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Spain_623,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Spain_623,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Spain_623,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Spain_623,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Spain_623,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -452,7 +452,7 @@ Slovenia_76,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISC
 Slovenia_76,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Slovenia_76,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Slovenia_76,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Slovenia_76,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Slovenia_76,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Slovenia_76,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Slovenia_76,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Slovenia_76,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -484,7 +484,7 @@ Ireland_2,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUS
 Ireland_2,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_2,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_2,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Ireland_2,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Ireland_2,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Ireland_2,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_2,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_2,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -504,7 +504,7 @@ Ireland_5,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUS
 Ireland_5,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_5,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_5,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Ireland_5,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Ireland_5,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Ireland_5,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_5,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_5,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -529,7 +529,7 @@ Ireland_11,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCU
 Ireland_11,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_11,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_11,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Ireland_11,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Ireland_11,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Ireland_11,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_11,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_11,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -549,7 +549,7 @@ Ireland_12,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCU
 Ireland_12,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_12,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_12,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Ireland_12,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Ireland_12,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Ireland_12,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_12,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_12,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -576,7 +576,7 @@ Ireland_18,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCU
 Ireland_18,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_18,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_18,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Ireland_18,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Ireland_18,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Ireland_18,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_18,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_18,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -597,7 +597,7 @@ Ireland_20,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCU
 Ireland_20,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_20,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_20,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Ireland_20,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Ireland_20,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Ireland_20,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_20,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_20,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -617,7 +617,7 @@ Ireland_22,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCU
 Ireland_22,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_22,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_22,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Ireland_22,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Ireland_22,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Ireland_22,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_22,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_22,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -644,7 +644,7 @@ Ireland_26,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCU
 Ireland_26,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_26,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_26,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Ireland_26,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Ireland_26,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Ireland_26,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_26,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_26,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -667,7 +667,7 @@ Ireland_28,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCU
 Ireland_28,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_28,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_28,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Ireland_28,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Ireland_28,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Ireland_28,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_28,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_28,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -694,7 +694,7 @@ Ireland_33,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCU
 Ireland_33,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_33,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_33,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Ireland_33,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Ireland_33,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Ireland_33,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_33,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_33,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -714,7 +714,7 @@ Ireland_36,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCU
 Ireland_36,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_36,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_36,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Ireland_36,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Ireland_36,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Ireland_36,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_36,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_36,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -734,7 +734,7 @@ Ireland_37,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCU
 Ireland_37,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_37,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_37,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Ireland_37,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Ireland_37,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Ireland_37,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_37,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_37,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -755,7 +755,7 @@ Ireland_39,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCU
 Ireland_39,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_39,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_39,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Ireland_39,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Ireland_39,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Ireland_39,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_39,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_39,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -775,7 +775,7 @@ Ireland_40,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCU
 Ireland_40,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_40,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_40,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Ireland_40,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Ireland_40,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Ireland_40,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_40,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_40,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -795,7 +795,7 @@ Ireland_41,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCU
 Ireland_41,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_41,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_41,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Ireland_41,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Ireland_41,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Ireland_41,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_41,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_41,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -817,7 +817,7 @@ Ireland_43,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCU
 Ireland_43,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_43,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_43,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Ireland_43,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Ireland_43,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Ireland_43,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_43,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_43,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -829,7 +829,7 @@ Ireland_45,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCU
 Ireland_45,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_45,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_45,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Ireland_45,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Ireland_45,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Ireland_45,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Ireland_45,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Iceland_1,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
@@ -877,7 +877,7 @@ Iceland_85,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCU
 Iceland_85,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Iceland_85,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Iceland_85,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Iceland_85,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Iceland_85,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Iceland_85,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Iceland_85,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Iceland_85,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -909,7 +909,7 @@ Hungary_2,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUS
 Hungary_2,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Hungary_2,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Hungary_2,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Hungary_2,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Hungary_2,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Hungary_2,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Hungary_2,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Hungary_2,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -948,7 +948,7 @@ Hungary_44,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCU
 Hungary_44,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Hungary_44,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Hungary_44,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Hungary_44,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Hungary_44,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Hungary_44,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Hungary_44,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Hungary_44,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -970,7 +970,7 @@ Hungary_50,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCU
 Hungary_50,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Hungary_50,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Hungary_50,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Hungary_50,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Hungary_50,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Hungary_50,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Hungary_50,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Hungary_50,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -1068,7 +1068,7 @@ Greece_12,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUS
 Greece_12,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_12,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_12,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Greece_12,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Greece_12,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Greece_12,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_12,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_12,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -1105,7 +1105,7 @@ Greece_24,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUS
 Greece_24,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_24,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_24,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Greece_24,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Greece_24,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Greece_24,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_24,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_24,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -1116,7 +1116,7 @@ Greece_31,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DIS
 Greece_33,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
 Greece_33,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_36,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Greece_36,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Greece_36,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Greece_36,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_37,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_37,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
@@ -1134,7 +1134,7 @@ Greece_44,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUS
 Greece_44,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_44,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_44,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Greece_44,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Greece_44,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Greece_44,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_44,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_44,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -1158,7 +1158,7 @@ Greece_50,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUS
 Greece_50,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_50,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_50,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Greece_50,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Greece_50,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Greece_50,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_50,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_50,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -1179,7 +1179,7 @@ Greece_52,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUS
 Greece_52,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_52,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_52,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Greece_52,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Greece_52,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Greece_52,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_52,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_52,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -1201,7 +1201,7 @@ Greece_55,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUS
 Greece_55,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_55,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_55,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Greece_55,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Greece_55,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Greece_55,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_55,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_55,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -1232,7 +1232,7 @@ Greece_61,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUS
 Greece_61,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_61,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_61,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Greece_61,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Greece_61,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Greece_61,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_61,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_61,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -1242,7 +1242,7 @@ Greece_61,a73_oss_role,NOT_DISCUSSED,conditional,a73_oss_role must be NOT_APPLIC
 Greece_63,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
 Greece_64,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_64,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Greece_64,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Greece_64,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Greece_64,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_65,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_66,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
@@ -1259,7 +1259,7 @@ Greece_67,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUS
 Greece_67,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_67,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_67,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Greece_67,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Greece_67,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Greece_67,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_67,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_67,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -1289,7 +1289,7 @@ Greece_75,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUS
 Greece_75,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_75,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_75,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Greece_75,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Greece_75,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Greece_75,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_75,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_75,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -1309,7 +1309,7 @@ Greece_76,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUS
 Greece_76,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_76,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_76,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Greece_76,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Greece_76,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Greece_76,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_76,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_76,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -1341,7 +1341,7 @@ Greece_83,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUS
 Greece_83,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_83,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_83,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Greece_83,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Greece_83,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Greece_83,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_83,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_83,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -1361,7 +1361,7 @@ Greece_87,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUS
 Greece_87,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_87,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_87,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Greece_87,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Greece_87,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Greece_87,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_87,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_87,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -1389,7 +1389,7 @@ Greece_98,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUS
 Greece_98,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_98,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_98,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Greece_98,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Greece_98,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Greece_98,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_98,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_98,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -1409,7 +1409,7 @@ Greece_101,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCU
 Greece_101,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_101,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_101,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Greece_101,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Greece_101,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Greece_101,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_101,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_101,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -1436,7 +1436,7 @@ Greece_107,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCU
 Greece_107,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_107,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_107,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Greece_107,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Greece_107,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Greece_107,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_107,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Greece_107,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -1530,7 +1530,7 @@ Germany_4,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUS
 Germany_4,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Germany_4,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Germany_4,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Germany_4,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Germany_4,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Germany_4,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Germany_4,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Germany_4,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -1550,7 +1550,7 @@ Germany_5,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUS
 Germany_5,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Germany_5,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Germany_5,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Germany_5,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Germany_5,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Germany_5,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Germany_5,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Germany_5,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -1581,7 +1581,7 @@ Germany_17,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCU
 Germany_17,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Germany_17,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Germany_17,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Germany_17,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Germany_17,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Germany_17,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Germany_17,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Germany_17,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -1614,7 +1614,6 @@ France_4,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSE
 France_5,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 France_11,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 France_12,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
-France_13,a58_turnover_currency,USD,enum,"Invalid enum value 'USD'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE, NOT_DISCUSSED",ERROR
 France_16,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
 France_23,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
 France_23,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
@@ -1629,7 +1628,7 @@ France_23,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUS
 France_23,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 France_23,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 France_23,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-France_23,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+France_23,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 France_23,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 France_23,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 France_23,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -1654,7 +1653,6 @@ France_29,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'
 France_32,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 France_35,a7_defendant_name,,free_text,Empty text field (required non-empty),ERROR
 France_35,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
-France_36,a58_turnover_currency,USD,enum,"Invalid enum value 'USD'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE, NOT_DISCUSSED",ERROR
 France_41,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
 France_41,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
 France_41,a6_num_defendants,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
@@ -1687,7 +1685,7 @@ France_47,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUS
 France_47,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 France_47,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 France_47,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-France_47,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+France_47,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 France_47,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 France_47,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 France_47,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -1711,7 +1709,7 @@ France_64,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUS
 France_64,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 France_64,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 France_64,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-France_64,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+France_64,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 France_64,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 France_64,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 France_64,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -1731,7 +1729,7 @@ France_65,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUS
 France_65,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 France_65,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 France_65,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-France_65,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+France_65,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 France_65,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 France_65,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 France_65,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -1751,7 +1749,7 @@ France_67,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUS
 France_67,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 France_67,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 France_67,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-France_67,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+France_67,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 France_67,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 France_67,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 France_67,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -1773,7 +1771,7 @@ France_70,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUS
 France_70,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 France_70,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 France_70,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-France_70,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+France_70,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 France_70,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 France_70,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 France_70,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -1795,7 +1793,7 @@ Finland_3,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUS
 Finland_3,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Finland_3,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Finland_3,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Finland_3,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Finland_3,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Finland_3,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Finland_3,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Finland_3,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -1815,7 +1813,7 @@ Finland_5,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUS
 Finland_5,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Finland_5,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Finland_5,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Finland_5,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Finland_5,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Finland_5,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Finland_5,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Finland_5,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -1837,7 +1835,7 @@ Finland_14,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCU
 Finland_14,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Finland_14,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Finland_14,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Finland_14,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Finland_14,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Finland_14,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Finland_14,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Finland_14,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -1861,7 +1859,7 @@ Finland_26,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCU
 Finland_26,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Finland_26,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Finland_26,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Finland_26,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Finland_26,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Finland_26,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Finland_26,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Finland_26,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -1882,7 +1880,7 @@ Finland_28,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCU
 Finland_28,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Finland_28,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Finland_28,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Finland_28,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Finland_28,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Finland_28,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Finland_28,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Finland_28,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -1902,7 +1900,7 @@ Finland_31,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCU
 Finland_31,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Finland_31,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Finland_31,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
-Finland_31,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, NOT_APPLICABLE",ERROR
+Finland_31,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
 Finland_31,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Finland_31,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
 Finland_31,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
@@ -1919,3 +1917,559 @@ Finland_42,a14_processing_contexts,EDUCATION,semicolon_list_or_sentinel,Invalid 
 Finland_46,a42_right_object_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
 Finland_46,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
 Finland_46,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Latvia_4,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Latvia_4,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Latvia_11,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Italy_3,a56_turnover_discussed,NOT_APPLICABLE,enum,"Invalid enum value 'NOT_APPLICABLE'. Allowed: YES, NO",ERROR
+Italy_8,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+Italy_8,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Italy_8,a5_decision_month,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Italy_8,a6_num_defendants,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Italy_8,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Italy_8,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
+Italy_8,a10_gov_level,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+Italy_8,a11_defendant_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: CONTROLLER, PROCESSOR, JOINT_CONTROLLER, NOT_MENTIONED",ERROR
+Italy_8,a12_sector,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+Italy_8,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Italy_8,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Italy_8,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Italy_8,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
+Italy_8,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
+Italy_8,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Italy_8,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Italy_8,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
+Italy_8,a10_gov_level,NOT_DISCUSSED,conditional,a10_gov_level should be NOT_APPLICABLE when defendant_class != PUBLIC,WARNING
+Italy_8,a13_sector_other,NOT_DISCUSSED,conditional,a13_sector_other must be NOT_APPLICABLE when sector != OTHER,WARNING
+Italy_8,a73_oss_role,NOT_DISCUSSED,conditional,a73_oss_role must be NOT_APPLICABLE when cross_border_oss != YES,WARNING
+Italy_10,a4_decision_year,2016,integer_range,"Integer 2016 outside valid range [2018, 2025]",WARNING
+Italy_10,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_10,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_12,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_12,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_16,a77_articles_breached,5;123;132-ter,semicolon_integers_or_sentinels,Invalid article numbers: 132-ter,ERROR
+Italy_26,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Italy_27,a77_articles_breached,5;6;9;2-ter;83<｜begin▁of▁sentence｜>,semicolon_integers_or_sentinels,"Invalid article numbers: 2-ter, 83<｜begin▁of▁sentence｜>",ERROR
+Italy_27,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_27,a58_turnover_currency,EUR,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_32,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Italy_37,a10_gov_level,REGIONAL,enum,"Invalid enum value 'REGIONAL'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+Italy_46,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Italy_47,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Italy_51,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_51,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_53,a77_articles_breached,5;6;9;10;83<｜begin▁of▁sentence｜>,semicolon_integers_or_sentinels,Invalid article numbers: 83<｜begin▁of▁sentence｜>,ERROR
+Italy_53,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_53,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_64,a8_defendant_class,MEMBERSHIP_ORGS,enum,"Invalid enum value 'MEMBERSHIP_ORGS'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Italy_67,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Italy_78,a77_articles_breached,58;9;85<｜begin▁of▁sentence｜>,semicolon_integers_or_sentinels,Invalid article numbers: 85<｜begin▁of▁sentence｜>,ERROR
+Italy_78,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_78,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_91,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Italy_91,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Italy_93,a11_defendant_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: CONTROLLER, PROCESSOR, JOINT_CONTROLLER, NOT_MENTIONED",ERROR
+Italy_93,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Italy_93,a56_turnover_discussed,NOT_APPLICABLE,enum,"Invalid enum value 'NOT_APPLICABLE'. Allowed: YES, NO",ERROR
+Italy_99,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Italy_99,a77_articles_breached,"5;6;9;2-ter;2-sexties;2-septies,8<｜begin▁of▁sentence｜>",semicolon_integers_or_sentinels,"Invalid article numbers: 2-ter, 2-sexties, 2-septies,8<｜begin▁of▁sentence｜>",ERROR
+Italy_106,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_106,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_113,a14_processing_contexts,WEBSITE_OR_ONLINE_SERVICES,semicolon_list_or_sentinel,Invalid tokens: WEBSITE_OR_ONLINE_SERVICES,ERROR
+Italy_113,a77_articles_breached,5;6;2-ter,semicolon_integers_or_sentinels,Invalid article numbers: 2-ter,ERROR
+Italy_113,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_119,a39_right_erasure_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Italy_119,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Italy_120,a77_articles_breached,5;13;114;157<｜begin▁of▁sentence｜>,semicolon_integers_or_sentinels,Invalid article numbers: 157<｜begin▁of▁sentence｜>,ERROR
+Italy_120,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_130,a8_defendant_class,MEDIA,enum,"Invalid enum value 'MEDIA'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Italy_132,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Italy_132,a43_transparency_violated,NOT_Discussed,enum,"Invalid enum value 'NOT_Discussed'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Italy_132,a44_automated_decisions_violated,NOT_Discussed,enum,"Invalid enum value 'NOT_Discussed'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Italy_132,a49_breach_communication_order,NOT_Discussed,enum,"Invalid enum value 'NOT_Discussed'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Italy_132,a50_erasure_restriction_order,NOT_Discussed,enum,"Invalid enum value 'NOT_Discussed'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Italy_132,a51_certification_withdrawal,NOT_Discussed,enum,"Invalid enum value 'NOT_Discussed'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Italy_132,a52_data_flow_suspension,NOT_Discussed,enum,"Invalid enum value 'NOT_Discussed'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Italy_132,a56_turnover_discussed,NOT_APPLICABLE,enum,"Invalid enum value 'NOT_APPLICABLE'. Allowed: YES, NO",ERROR
+Italy_133,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Italy_139,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+Italy_139,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Italy_139,a5_decision_month,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Italy_139,a6_num_defendants,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Italy_139,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Italy_139,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
+Italy_139,a10_gov_level,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+Italy_139,a11_defendant_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: CONTROLLER, PROCESSOR, JOINT_CONTROLLER, NOT_MENTIONED",ERROR
+Italy_139,a12_sector,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+Italy_139,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Italy_139,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Italy_139,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Italy_139,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
+Italy_139,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
+Italy_139,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Italy_139,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Italy_139,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
+Italy_139,a10_gov_level,NOT_DISCUSSED,conditional,a10_gov_level should be NOT_APPLICABLE when defendant_class != PUBLIC,WARNING
+Italy_139,a13_sector_other,NOT_DISCUSSED,conditional,a13_sector_other must be NOT_APPLICABLE when sector != OTHER,WARNING
+Italy_139,a73_oss_role,NOT_DISCUSSED,conditional,a73_oss_role must be NOT_APPLICABLE when cross_border_oss != YES,WARNING
+Italy_146,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Italy_149,a8_defendant_class,MEDIA,enum,"Invalid enum value 'MEDIA'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Italy_151,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Italy_151,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Italy_171,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Italy_178,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Italy_191,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_191,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_200,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Italy_201,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Italy_227,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Italy_240,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_240,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_250,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_250,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_263,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+Italy_263,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Italy_263,a5_decision_month,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Italy_263,a6_num_defendants,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Italy_263,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Italy_263,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
+Italy_263,a10_gov_level,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+Italy_263,a11_defendant_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: CONTROLLER, PROCESSOR, JOINT_CONTROLLER, NOT_MENTIONED",ERROR
+Italy_263,a12_sector,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+Italy_263,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Italy_263,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Italy_263,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Italy_263,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
+Italy_263,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
+Italy_263,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Italy_263,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Italy_263,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
+Italy_263,a10_gov_level,NOT_DISCUSSED,conditional,a10_gov_level should be NOT_APPLICABLE when defendant_class != PUBLIC,WARNING
+Italy_263,a13_sector_other,NOT_DISCUSSED,conditional,a13_sector_other must be NOT_APPLICABLE when sector != OTHER,WARNING
+Italy_263,a73_oss_role,NOT_DISCUSSED,conditional,a73_oss_role must be NOT_APPLICABLE when cross_border_oss != YES,WARNING
+Italy_265,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Italy_274,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Italy_276,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Italy_276,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Italy_287,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Italy_302,a77_articles_breached,5;6;2-ter,semicolon_integers_or_sentinels,Invalid article numbers: 2-ter,ERROR
+Finland_55,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Finland_55,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Finland_57,a14_processing_contexts,HEALTH,semicolon_list_or_sentinel,Invalid tokens: HEALTH,ERROR
+Finland_63,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Finland_66,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Finland_69,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Finland_73,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Finland_74,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Finland_74,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Finland_77,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+Finland_77,a4_decision_year,0,integer_range,"Integer 0 outside valid range [2018, 2025]",WARNING
+Finland_77,a6_num_defendants,0,integer_range,"Integer 0 outside valid range [1, 999]",ERROR
+Finland_77,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Finland_80,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Finland_81,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Finland_83,a14_processing_contexts,TELEMARKETING,semicolon_list_or_sentinel,Invalid tokens: TELEMARKETING,ERROR
+Finland_85,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+Finland_85,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Finland_85,a5_decision_month,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Finland_85,a6_num_defendants,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Finland_85,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Finland_85,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
+Finland_85,a10_gov_level,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+Finland_85,a11_defendant_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: CONTROLLER, PROCESSOR, JOINT_CONTROLLER, NOT_MENTIONED",ERROR
+Finland_85,a12_sector,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+Finland_85,a10_gov_level,NOT_DISCUSSED,conditional,a10_gov_level should be NOT_APPLICABLE when defendant_class != PUBLIC,WARNING
+Finland_86,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Finland_88,a14_processing_contexts,HEALTH,semicolon_list_or_sentinel,Invalid tokens: HEALTH,ERROR
+Finland_93,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+Finland_93,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Finland_93,a5_decision_month,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Finland_93,a6_num_defendants,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Finland_93,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Finland_93,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
+Finland_93,a10_gov_level,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+Finland_93,a11_defendant_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: CONTROLLER, PROCESSOR, JOINT_CONTROLLER, NOT_MENTIONED",ERROR
+Finland_93,a12_sector,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+Finland_93,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Finland_93,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Finland_93,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Finland_93,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
+Finland_93,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
+Finland_93,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Finland_93,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Finland_93,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
+Finland_93,a10_gov_level,NOT_DISCUSSED,conditional,a10_gov_level should be NOT_APPLICABLE when defendant_class != PUBLIC,WARNING
+Finland_93,a13_sector_other,NOT_DISCUSSED,conditional,a13_sector_other must be NOT_APPLICABLE when sector != OTHER,WARNING
+Finland_93,a73_oss_role,NOT_DISCUSSED,conditional,a73_oss_role must be NOT_APPLICABLE when cross_border_oss != YES,WARNING
+European Union_2,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+European Union_2,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+European Union_2,a5_decision_month,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+European Union_2,a6_num_defendants,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+European Union_2,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+European Union_2,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
+European Union_2,a10_gov_level,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+European Union_2,a11_defendant_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: CONTROLLER, PROCESSOR, JOINT_CONTROLLER, NOT_MENTIONED",ERROR
+European Union_2,a12_sector,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+European Union_2,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+European Union_2,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+European Union_2,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+European Union_2,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
+European Union_2,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
+European Union_2,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+European Union_2,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+European Union_2,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
+European Union_2,a10_gov_level,NOT_DISCUSSED,conditional,a10_gov_level should be NOT_APPLICABLE when defendant_class != PUBLIC,WARNING
+European Union_2,a13_sector_other,NOT_DISCUSSED,conditional,a13_sector_other must be NOT_APPLICABLE when sector != OTHER,WARNING
+European Union_2,a73_oss_role,NOT_DISCUSSED,conditional,a73_oss_role must be NOT_APPLICABLE when cross_border_oss != YES,WARNING
+European Union_4,a1_country_code,EU,enum,"Invalid enum value 'EU'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+European Union_4,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+European Union_4,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+European Union_4,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
+European Union_9,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+European Union_9,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+European Union_9,a5_decision_month,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+European Union_9,a6_num_defendants,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+European Union_9,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+European Union_9,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
+European Union_9,a10_gov_level,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+European Union_9,a11_defendant_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: CONTROLLER, PROCESSOR, JOINT_CONTROLLER, NOT_MENTIONED",ERROR
+European Union_9,a12_sector,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+European Union_9,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+European Union_9,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+European Union_9,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+European Union_9,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
+European Union_9,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
+European Union_9,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+European Union_9,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+European Union_9,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
+European Union_9,a10_gov_level,NOT_DISCUSSED,conditional,a10_gov_level should be NOT_APPLICABLE when defendant_class != PUBLIC,WARNING
+European Union_9,a13_sector_other,NOT_DISCUSSED,conditional,a13_sector_other must be NOT_APPLICABLE when sector != OTHER,WARNING
+European Union_9,a73_oss_role,NOT_DISCUSSED,conditional,a73_oss_role must be NOT_APPLICABLE when cross_border_oss != YES,WARNING
+European Union_10,a1_country_code,EU,enum,"Invalid enum value 'EU'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+European Union_11,a1_country_code,EU,enum,"Invalid enum value 'EU'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+European Union_11,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+European Union_11,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Estonia_3,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Estonia_4,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+Estonia_4,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Estonia_4,a5_decision_month,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Estonia_4,a6_num_defendants,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Estonia_4,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Estonia_4,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
+Estonia_4,a10_gov_level,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+Estonia_4,a11_defendant_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: CONTROLLER, PROCESSOR, JOINT_CONTROLLER, NOT_MENTIONED",ERROR
+Estonia_4,a12_sector,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+Estonia_4,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Estonia_4,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Estonia_4,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Estonia_4,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
+Estonia_4,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
+Estonia_4,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Estonia_4,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Estonia_4,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
+Estonia_4,a10_gov_level,NOT_DISCUSSED,conditional,a10_gov_level should be NOT_APPLICABLE when defendant_class != PUBLIC,WARNING
+Estonia_4,a13_sector_other,NOT_DISCUSSED,conditional,a13_sector_other must be NOT_APPLICABLE when sector != OTHER,WARNING
+Estonia_4,a73_oss_role,NOT_DISCUSSED,conditional,a73_oss_role must be NOT_APPLICABLE when cross_border_oss != YES,WARNING
+Estonia_5,a7_defendant_name,,free_text,Empty text field (required non-empty),ERROR
+Estonia_7,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Estonia_10,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+Estonia_10,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Estonia_10,a5_decision_month,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Estonia_10,a6_num_defendants,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Estonia_10,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Estonia_10,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
+Estonia_10,a10_gov_level,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+Estonia_10,a11_defendant_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: CONTROLLER, PROCESSOR, JOINT_CONTROLLER, NOT_MENTIONED",ERROR
+Estonia_10,a12_sector,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+Estonia_10,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Estonia_10,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Estonia_10,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Estonia_10,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
+Estonia_10,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
+Estonia_10,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Estonia_10,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Estonia_10,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
+Estonia_10,a10_gov_level,NOT_DISCUSSED,conditional,a10_gov_level should be NOT_APPLICABLE when defendant_class != PUBLIC,WARNING
+Estonia_10,a13_sector_other,NOT_DISCUSSED,conditional,a13_sector_other must be NOT_APPLICABLE when sector != OTHER,WARNING
+Estonia_10,a73_oss_role,NOT_DISCUSSED,conditional,a73_oss_role must be NOT_APPLICABLE when cross_border_oss != YES,WARNING
+Estonia_13,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Estonia_15,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Estonia_15,a6_num_defendants,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Estonia_15,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Estonia_15,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
+Estonia_19,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Estonia_21,a7_defendant_name,,free_text,Empty text field (required non-empty),ERROR
+Estonia_21,a71_first_violation,NOT_DISCISSED,enum,"Invalid enum value 'NOT_DISCISSED'. Allowed: YES_FIRST_TIME, NO_REPEAT_OFFENDER, NOT_DISCUSSED",ERROR
+Estonia_22,a7_defendant_name,,free_text,Empty text field (required non-empty),ERROR
+Denmark_1,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_4,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Denmark_9,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_16,a10_gov_level,REGIONAL,enum,"Invalid enum value 'REGIONAL'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+Denmark_23,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Denmark_28,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_29,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_32,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_32,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_35,a19_art33_breached,NOT_BREACHED,enum,"Invalid enum value 'NOT_BREACHED'. Allowed: YES, NO, NOT_DISCUSSED, NOT_APPLICABLE",ERROR
+Denmark_36,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_40,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_47,a14_processing_contexts,EDUCATION,semicolon_list_or_sentinel,Invalid tokens: EDUCATION,ERROR
+Denmark_47,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_47,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_48,a14_processing_contexts,EDUCATION,semicolon_list_or_sentinel,Invalid tokens: EDUCATION,ERROR
+Denmark_48,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_49,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_50,a14_processing_contexts,EDUCATION;PROBLEMATIC_THIRD_PARTY_SHARING_STATED,semicolon_list_or_sentinel,Invalid tokens: EDUCATION,ERROR
+Denmark_52,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Denmark_53,a43_transparency_violated,NOT_BREACHED,enum,"Invalid enum value 'NOT_BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Denmark_54,a43_transparency_violated,NOT_BREACHED,enum,"Invalid enum value 'NOT_BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Denmark_57,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Denmark_60,a10_gov_level,REGIONAL,enum,"Invalid enum value 'REGIONAL'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+Denmark_64,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_65,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_69,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Denmark_72,a12_sector,POLITICAL_PARTY,enum,"Invalid enum value 'POLITICAL_PARTY'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+Denmark_76,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_77,a8_defendant_class,EDUCATION,enum,"Invalid enum value 'EDUCATION'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Denmark_77,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_79,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_80,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Denmark_80,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Denmark_83,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Denmark_83,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Denmark_86,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_87,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+Denmark_87,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Denmark_87,a5_decision_month,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Denmark_87,a6_num_defendants,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Denmark_87,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Denmark_87,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
+Denmark_87,a10_gov_level,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+Denmark_87,a11_defendant_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: CONTROLLER, PROCESSOR, JOINT_CONTROLLER, NOT_MENTIONED",ERROR
+Denmark_87,a12_sector,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+Denmark_87,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_87,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_87,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_87,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
+Denmark_87,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
+Denmark_87,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_87,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_87,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
+Denmark_87,a10_gov_level,NOT_DISCUSSED,conditional,a10_gov_level should be NOT_APPLICABLE when defendant_class != PUBLIC,WARNING
+Denmark_87,a13_sector_other,NOT_DISCUSSED,conditional,a13_sector_other must be NOT_APPLICABLE when sector != OTHER,WARNING
+Denmark_87,a73_oss_role,NOT_DISCUSSED,conditional,a73_oss_role must be NOT_APPLICABLE when cross_border_oss != YES,WARNING
+Denmark_88,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_90,a43_transparency_violated,NOT_BREACHED,enum,"Invalid enum value 'NOT_BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Denmark_92,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_95,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_96,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Denmark_96,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Denmark_99,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_100,a19_art33_breached,NOT_BREACHED,enum,"Invalid enum value 'NOT_BREACHED'. Allowed: YES, NO, NOT_DISCUSSED, NOT_APPLICABLE",ERROR
+Denmark_103,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_103,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_104,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Denmark_104,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Denmark_109,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Denmark_109,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Denmark_111,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_113,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_114,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_119,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_120,a14_processing_contexts,ACCESS_CONTROL,semicolon_list_or_sentinel,Invalid tokens: ACCESS_CONTROL,ERROR
+Denmark_132,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_136,a14_processing_contexts,CCTV;ACCESS_CONTROL,semicolon_list_or_sentinel,Invalid tokens: ACCESS_CONTROL,ERROR
+Denmark_142,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_143,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_144,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_148,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Denmark_148,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Czech Republic_2,a8_defendant_class,MEDIA,enum,"Invalid enum value 'MEDIA'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Cyprus_18,a8_defendant_class,MEDIA,enum,"Invalid enum value 'MEDIA'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Cyprus_27,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Cyprus_27,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Cyprus_27,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Cyprus_28,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Cyprus_31,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+Cyprus_31,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Cyprus_31,a5_decision_month,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Cyprus_31,a6_num_defendants,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Cyprus_31,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Cyprus_31,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
+Cyprus_31,a10_gov_level,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+Cyprus_31,a11_defendant_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: CONTROLLER, PROCESSOR, JOINT_CONTROLLER, NOT_MENTIONED",ERROR
+Cyprus_31,a12_sector,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+Cyprus_31,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Cyprus_31,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Cyprus_31,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Cyprus_31,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
+Cyprus_31,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
+Cyprus_31,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Cyprus_31,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Cyprus_31,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
+Cyprus_31,a10_gov_level,NOT_DISCUSSED,conditional,a10_gov_level should be NOT_APPLICABLE when defendant_class != PUBLIC,WARNING
+Cyprus_31,a13_sector_other,NOT_DISCUSSED,conditional,a13_sector_other must be NOT_APPLICABLE when sector != OTHER,WARNING
+Cyprus_31,a73_oss_role,NOT_DISCUSSED,conditional,a73_oss_role must be NOT_APPLICABLE when cross_border_oss != YES,WARNING
+Croatia_5,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Croatia_7,a13_sector_other,gambling;betting;hotel;catering,conditional,a13_sector_other must be NOT_APPLICABLE when sector != OTHER,WARNING
+Croatia_8,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Croatia_8,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Croatia_10,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Croatia_10,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Croatia_10,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Croatia_16,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Croatia_17,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Croatia_18,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Croatia_20,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Croatia_20,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Croatia_22,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Croatia_23,a8_defendant_class,MEDIA,enum,"Invalid enum value 'MEDIA'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Croatia_29,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Croatia_29,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Croatia_30,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Croatia_32,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Croatia_35,a8_defendant_class,MEDIA,enum,"Invalid enum value 'MEDIA'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Bulgaria_4,a12_sector,POLITICAL_PARTY,enum,"Invalid enum value 'POLITICAL_PARTY'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+Bulgaria_13,a12_sector,POLITICAL_PARTY,enum,"Invalid enum value 'POLITICAL_PARTY'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+Belgium_3,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_7,a8_defendant_class,EDUCATION,enum,"Invalid enum value 'EDUCATION'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Belgium_9,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Belgium_12,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_12,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_18,a8_defendant_class,FINANCIAL,enum,"Invalid enum value 'FINANCIAL'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Belgium_26,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+Belgium_26,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Belgium_26,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Belgium_26,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
+Belgium_27,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_30,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Belgium_30,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_32,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_33,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_37,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_42,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_43,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_44,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_44,a13_sector_other,tourism;public_authority,conditional,a13_sector_other must be NOT_APPLICABLE when sector != OTHER,WARNING
+Belgium_54,a8_defendant_class,EDUCATION,enum,"Invalid enum value 'EDUCATION'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Belgium_55,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Belgium_55,a13_sector_other,municipal;parking;taxation,conditional,a13_sector_other must be NOT_APPLICABLE when sector != OTHER,WARNING
+Belgium_55,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_55,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_56,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_59,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_66,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_66,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_73,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+Belgium_73,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Belgium_73,a5_decision_month,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Belgium_73,a6_num_defendants,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Belgium_73,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Belgium_73,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
+Belgium_73,a10_gov_level,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+Belgium_73,a11_defendant_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: CONTROLLER, PROCESSOR, JOINT_CONTROLLER, NOT_MENTIONED",ERROR
+Belgium_73,a12_sector,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+Belgium_73,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_73,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_73,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_73,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
+Belgium_73,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
+Belgium_73,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_73,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_73,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
+Belgium_73,a10_gov_level,NOT_DISCUSSED,conditional,a10_gov_level should be NOT_APPLICABLE when defendant_class != PUBLIC,WARNING
+Belgium_73,a13_sector_other,NOT_DISCUSSED,conditional,a13_sector_other must be NOT_APPLICABLE when sector != OTHER,WARNING
+Belgium_73,a73_oss_role,NOT_DISCUSSED,conditional,a73_oss_role must be NOT_APPLICABLE when cross_border_oss != YES,WARNING
+Belgium_76,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_79,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_81,a8_defendant_class,FINANCIAL,enum,"Invalid enum value 'FINANCIAL'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Belgium_81,a43_transparency_violated,NOT_BREACHED,enum,"Invalid enum value 'NOT_BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Belgium_81,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_87,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_87,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_90,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_90,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_91,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Belgium_91,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_92,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_100,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Belgium_103,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Belgium_104,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_111,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_111,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_113,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_113,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_115,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Belgium_116,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Belgium_116,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_118,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_119,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_119,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_123,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_123,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_125,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Belgium_125,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_133,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_134,a8_defendant_class,EDUCATION,enum,"Invalid enum value 'EDUCATION'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Belgium_134,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_136,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Belgium_139,a8_defendant_class,EDUCATION,enum,"Invalid enum value 'EDUCATION'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Belgium_139,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_140,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_142,a8_defendant_class,FINANCIAL,enum,"Invalid enum value 'FINANCIAL'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Belgium_146,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_147,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_147,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_150,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_152,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+Belgium_152,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Belgium_152,a5_decision_month,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Belgium_152,a6_num_defendants,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Belgium_152,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Belgium_152,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
+Belgium_152,a10_gov_level,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+Belgium_152,a11_defendant_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: CONTROLLER, PROCESSOR, JOINT_CONTROLLER, NOT_MENTIONED",ERROR
+Belgium_152,a12_sector,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+Belgium_152,a18_art33_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_152,a28_art9_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_152,a53_fine_imposed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_152,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
+Belgium_152,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
+Belgium_152,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_152,a70_systematic_art83_discussion,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_152,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
+Belgium_152,a10_gov_level,NOT_DISCUSSED,conditional,a10_gov_level should be NOT_APPLICABLE when defendant_class != PUBLIC,WARNING
+Belgium_152,a13_sector_other,NOT_DISCUSSED,conditional,a13_sector_other must be NOT_APPLICABLE when sector != OTHER,WARNING
+Belgium_152,a73_oss_role,NOT_DISCUSSED,conditional,a73_oss_role must be NOT_APPLICABLE when cross_border_oss != YES,WARNING
+Belgium_157,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Belgium_161,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_162,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Belgium_168,a8_defendant_class,HEALTH,enum,"Invalid enum value 'HEALTH'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Belgium_168,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_169,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_170,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_172,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Belgium_173,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_174,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_175,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Belgium_176,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+Belgium_176,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Belgium_176,a5_decision_month,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Belgium_176,a6_num_defendants,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Belgium_176,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Belgium_176,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
+Belgium_176,a10_gov_level,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+Belgium_176,a11_defendant_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: CONTROLLER, PROCESSOR, JOINT_CONTROLLER, NOT_MENTIONED",ERROR
+Belgium_176,a12_sector,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+Belgium_176,a10_gov_level,NOT_DISCUSSED,conditional,a10_gov_level should be NOT_APPLICABLE when defendant_class != PUBLIC,WARNING
+Belgium_180,a43_transparency_violated,BREACHED,enum,"Invalid enum value 'BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Belgium_182,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_182,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_186,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_186,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_187,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_188,a43_transparency_violated,NOT_BREACHED,enum,"Invalid enum value 'NOT_BREACHED'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Belgium_192,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR
+Belgium_193,a8_defendant_class,EDUCATION,enum,"Invalid enum value 'EDUCATION'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Belgium_198,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_198,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_199,a56_turnover_discussed,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: YES, NO",ERROR

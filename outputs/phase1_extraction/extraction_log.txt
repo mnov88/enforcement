@@ -2,14 +2,14 @@
 Phase 1: AI Response Extraction Log
 ============================================================
 
-Timestamp: 2025-10-03T20:31:00.308961
+Timestamp: 2025-10-04T19:42:39.610055
 Input file: /Users/milos/Desktop/enforcement/raw_data/AI_analysis/AI-responses.txt
 Output directory: /Users/milos/Desktop/enforcement/outputs/phase1_extraction
 
 Results:
-  Total responses found: 768
-  Valid responses (77 answers): 757
-  Malformed responses: 11
+  Total responses found: 1518
+  Valid responses (77 answers): 1473
+  Malformed responses: 45
 
 Malformed response details:
   - Spain_487: Expected 77 answers (1-77), got 73 answers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73]
@@ -23,6 +23,40 @@ Malformed response details:
   - France_19: Expected 77 answers (1-77), got 73 answers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73]
   - France_22: Expected 77 answers (1-77), got 73 answers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73]
   - France_54: Expected 77 answers (1-77), got 73 answers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73]
+  - Latvia_13: Expected 77 answers (1-77), got 3 answers: [1, 2, 77]
+  - Italy_1: Expected 77 answers (1-77), got 0 answers: []
+  - Italy_2: Expected 77 answers (1-77), got 0 answers: []
+  - Italy_15: Expected 77 answers (1-77), got 0 answers: []
+  - Italy_17: Expected 77 answers (1-77), got 97 answers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97]
+  - Italy_22: Expected 77 answers (1-77), got 0 answers: []
+  - Italy_24: Expected 77 answers (1-77), got 0 answers: []
+  - Italy_25: Expected 77 answers (1-77), got 0 answers: []
+  - Italy_40: Expected 77 answers (1-77), got 0 answers: []
+  - Italy_45: Expected 77 answers (1-77), got 0 answers: []
+  - Italy_49: Expected 77 answers (1-77), got 0 answers: []
+  - Italy_50: Expected 77 answers (1-77), got 0 answers: []
+  - Italy_54: Expected 77 answers (1-77), got 0 answers: []
+  - Italy_59: Expected 77 answers (1-77), got 0 answers: []
+  - Italy_60: Expected 77 answers (1-77), got 0 answers: []
+  - Italy_61: Expected 77 answers (1-77), got 0 answers: []
+  - Italy_62: Expected 77 answers (1-77), got 0 answers: []
+  - Italy_63: Expected 77 answers (1-77), got 0 answers: []
+  - Italy_65: Expected 77 answers (1-77), got 0 answers: []
+  - Italy_71: Expected 77 answers (1-77), got 0 answers: []
+  - Italy_73: Expected 77 answers (1-77), got 0 answers: []
+  - Italy_81: Expected 77 answers (1-77), got 0 answers: []
+  - Italy_92: Expected 77 answers (1-77), got 0 answers: []
+  - Italy_95: Expected 77 answers (1-77), got 0 answers: []
+  - Italy_100: Expected 77 answers (1-77), got 0 answers: []
+  - Italy_102: Expected 77 answers (1-77), got 0 answers: []
+  - Italy_103: Expected 77 answers (1-77), got 0 answers: []
+  - Italy_108: Expected 77 answers (1-77), got 0 answers: []
+  - Italy_116: Expected 77 answers (1-77), got 0 answers: []
+  - Italy_121: Expected 77 answers (1-77), got 0 answers: []
+  - Italy_123: Expected 77 answers (1-77), got 0 answers: []
+  - Italy_124: Expected 77 answers (1-77), got 0 answers: []
+  - Italy_128: Expected 77 answers (1-77), got 0 answers: []
+  - Italy_134: Expected 77 answers (1-77), got 0 answers: []
 
 ============================================================
 Extraction complete. Ready for Phase 2 validation.

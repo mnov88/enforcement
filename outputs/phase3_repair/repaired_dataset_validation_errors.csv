@@ -1287,3 +1287,378 @@ Finland_31,a73_oss_role,NOT_DISCUSSED,conditional,a73_oss_role must be NOT_APPLI
 Finland_41,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
 Finland_41,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
 Finland_42,a14_processing_contexts,EDUCATION,semicolon_list_or_sentinel,Invalid tokens: EDUCATION,ERROR
+Latvia_4,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Latvia_4,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_3,a56_turnover_discussed,NOT_APPLICABLE,enum,"Invalid enum value 'NOT_APPLICABLE'. Allowed: YES, NO",ERROR
+Italy_8,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+Italy_8,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Italy_8,a5_decision_month,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Italy_8,a6_num_defendants,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Italy_8,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Italy_8,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
+Italy_8,a10_gov_level,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+Italy_8,a11_defendant_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: CONTROLLER, PROCESSOR, JOINT_CONTROLLER, NOT_MENTIONED",ERROR
+Italy_8,a12_sector,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+Italy_8,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
+Italy_8,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
+Italy_8,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
+Italy_8,a10_gov_level,NOT_DISCUSSED,conditional,a10_gov_level should be NOT_APPLICABLE when defendant_class != PUBLIC,WARNING
+Italy_8,a13_sector_other,NOT_DISCUSSED,conditional,a13_sector_other must be NOT_APPLICABLE when sector != OTHER,WARNING
+Italy_8,a19_art33_breached,NOT_DISCUSSED,conditional,a19_art33_breached should be NOT_APPLICABLE when art33_discussed = NO,WARNING
+Italy_8,a54_fine_amount,NOT_DISCUSSED,conditional,a54_fine_amount must be NOT_APPLICABLE when fine_imposed = NO,WARNING
+Italy_8,a55_fine_currency,NOT_DISCUSSED,conditional,a55_fine_currency must be NOT_APPLICABLE when fine_imposed = NO,WARNING
+Italy_8,a73_oss_role,NOT_DISCUSSED,conditional,a73_oss_role must be NOT_APPLICABLE when cross_border_oss != YES,WARNING
+Italy_10,a4_decision_year,2016,integer_range,"Integer 2016 outside valid range [2018, 2025]",WARNING
+Italy_10,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_10,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_12,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_12,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_16,a77_articles_breached,5;123;132-ter,semicolon_integers_or_sentinels,Invalid article numbers: 132-ter,ERROR
+Italy_27,a77_articles_breached,5;6;9;2-ter;83<｜begin▁of▁sentence｜>,semicolon_integers_or_sentinels,"Invalid article numbers: 2-ter, 83<｜begin▁of▁sentence｜>",ERROR
+Italy_27,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_27,a58_turnover_currency,EUR,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_37,a10_gov_level,REGIONAL,enum,"Invalid enum value 'REGIONAL'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+Italy_51,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_51,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_53,a77_articles_breached,5;6;9;10;83<｜begin▁of▁sentence｜>,semicolon_integers_or_sentinels,Invalid article numbers: 83<｜begin▁of▁sentence｜>,ERROR
+Italy_53,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_53,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_64,a8_defendant_class,MEMBERSHIP_ORGS,enum,"Invalid enum value 'MEMBERSHIP_ORGS'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Italy_78,a77_articles_breached,58;9;85<｜begin▁of▁sentence｜>,semicolon_integers_or_sentinels,Invalid article numbers: 85<｜begin▁of▁sentence｜>,ERROR
+Italy_78,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_78,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_91,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_91,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_93,a11_defendant_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: CONTROLLER, PROCESSOR, JOINT_CONTROLLER, NOT_MENTIONED",ERROR
+Italy_93,a56_turnover_discussed,NOT_APPLICABLE,enum,"Invalid enum value 'NOT_APPLICABLE'. Allowed: YES, NO",ERROR
+Italy_99,a77_articles_breached,"5;6;9;2-ter;2-sexties;2-septies,8<｜begin▁of▁sentence｜>",semicolon_integers_or_sentinels,"Invalid article numbers: 2-ter, 2-sexties, 2-septies,8<｜begin▁of▁sentence｜>",ERROR
+Italy_106,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_106,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_113,a14_processing_contexts,WEBSITE_OR_ONLINE_SERVICES,semicolon_list_or_sentinel,Invalid tokens: WEBSITE_OR_ONLINE_SERVICES,ERROR
+Italy_113,a77_articles_breached,5;6;2-ter,semicolon_integers_or_sentinels,Invalid article numbers: 2-ter,ERROR
+Italy_113,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_119,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_119,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_120,a77_articles_breached,5;13;114;157<｜begin▁of▁sentence｜>,semicolon_integers_or_sentinels,Invalid article numbers: 157<｜begin▁of▁sentence｜>,ERROR
+Italy_120,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_132,a43_transparency_violated,NOT_Discussed,enum,"Invalid enum value 'NOT_Discussed'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Italy_132,a44_automated_decisions_violated,NOT_Discussed,enum,"Invalid enum value 'NOT_Discussed'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Italy_132,a49_breach_communication_order,NOT_Discussed,enum,"Invalid enum value 'NOT_Discussed'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Italy_132,a50_erasure_restriction_order,NOT_Discussed,enum,"Invalid enum value 'NOT_Discussed'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Italy_132,a51_certification_withdrawal,NOT_Discussed,enum,"Invalid enum value 'NOT_Discussed'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Italy_132,a52_data_flow_suspension,NOT_Discussed,enum,"Invalid enum value 'NOT_Discussed'. Allowed: YES, NO, NOT_DISCUSSED",ERROR
+Italy_132,a56_turnover_discussed,NOT_APPLICABLE,enum,"Invalid enum value 'NOT_APPLICABLE'. Allowed: YES, NO",ERROR
+Italy_133,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_133,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_139,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+Italy_139,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Italy_139,a5_decision_month,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Italy_139,a6_num_defendants,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Italy_139,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Italy_139,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
+Italy_139,a10_gov_level,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+Italy_139,a11_defendant_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: CONTROLLER, PROCESSOR, JOINT_CONTROLLER, NOT_MENTIONED",ERROR
+Italy_139,a12_sector,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+Italy_139,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
+Italy_139,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
+Italy_139,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
+Italy_139,a10_gov_level,NOT_DISCUSSED,conditional,a10_gov_level should be NOT_APPLICABLE when defendant_class != PUBLIC,WARNING
+Italy_139,a13_sector_other,NOT_DISCUSSED,conditional,a13_sector_other must be NOT_APPLICABLE when sector != OTHER,WARNING
+Italy_139,a19_art33_breached,NOT_DISCUSSED,conditional,a19_art33_breached should be NOT_APPLICABLE when art33_discussed = NO,WARNING
+Italy_139,a54_fine_amount,NOT_DISCUSSED,conditional,a54_fine_amount must be NOT_APPLICABLE when fine_imposed = NO,WARNING
+Italy_139,a55_fine_currency,NOT_DISCUSSED,conditional,a55_fine_currency must be NOT_APPLICABLE when fine_imposed = NO,WARNING
+Italy_139,a73_oss_role,NOT_DISCUSSED,conditional,a73_oss_role must be NOT_APPLICABLE when cross_border_oss != YES,WARNING
+Italy_191,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_191,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_240,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_240,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_250,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_250,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Italy_263,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+Italy_263,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Italy_263,a5_decision_month,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Italy_263,a6_num_defendants,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Italy_263,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Italy_263,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
+Italy_263,a10_gov_level,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+Italy_263,a11_defendant_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: CONTROLLER, PROCESSOR, JOINT_CONTROLLER, NOT_MENTIONED",ERROR
+Italy_263,a12_sector,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+Italy_263,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
+Italy_263,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
+Italy_263,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
+Italy_263,a10_gov_level,NOT_DISCUSSED,conditional,a10_gov_level should be NOT_APPLICABLE when defendant_class != PUBLIC,WARNING
+Italy_263,a13_sector_other,NOT_DISCUSSED,conditional,a13_sector_other must be NOT_APPLICABLE when sector != OTHER,WARNING
+Italy_263,a19_art33_breached,NOT_DISCUSSED,conditional,a19_art33_breached should be NOT_APPLICABLE when art33_discussed = NO,WARNING
+Italy_263,a54_fine_amount,NOT_DISCUSSED,conditional,a54_fine_amount must be NOT_APPLICABLE when fine_imposed = NO,WARNING
+Italy_263,a55_fine_currency,NOT_DISCUSSED,conditional,a55_fine_currency must be NOT_APPLICABLE when fine_imposed = NO,WARNING
+Italy_263,a73_oss_role,NOT_DISCUSSED,conditional,a73_oss_role must be NOT_APPLICABLE when cross_border_oss != YES,WARNING
+Italy_302,a77_articles_breached,5;6;2-ter,semicolon_integers_or_sentinels,Invalid article numbers: 2-ter,ERROR
+Finland_55,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Finland_55,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Finland_57,a14_processing_contexts,HEALTH,semicolon_list_or_sentinel,Invalid tokens: HEALTH,ERROR
+Finland_74,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Finland_74,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Finland_77,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+Finland_77,a4_decision_year,0,integer_range,"Integer 0 outside valid range [2018, 2025]",WARNING
+Finland_77,a6_num_defendants,0,integer_range,"Integer 0 outside valid range [1, 999]",ERROR
+Finland_77,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Finland_83,a14_processing_contexts,TELEMARKETING,semicolon_list_or_sentinel,Invalid tokens: TELEMARKETING,ERROR
+Finland_85,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+Finland_85,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Finland_85,a5_decision_month,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Finland_85,a6_num_defendants,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Finland_85,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Finland_85,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
+Finland_85,a10_gov_level,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+Finland_85,a11_defendant_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: CONTROLLER, PROCESSOR, JOINT_CONTROLLER, NOT_MENTIONED",ERROR
+Finland_85,a12_sector,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+Finland_85,a10_gov_level,NOT_DISCUSSED,conditional,a10_gov_level should be NOT_APPLICABLE when defendant_class != PUBLIC,WARNING
+Finland_88,a14_processing_contexts,HEALTH,semicolon_list_or_sentinel,Invalid tokens: HEALTH,ERROR
+Finland_93,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+Finland_93,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Finland_93,a5_decision_month,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Finland_93,a6_num_defendants,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Finland_93,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Finland_93,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
+Finland_93,a10_gov_level,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+Finland_93,a11_defendant_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: CONTROLLER, PROCESSOR, JOINT_CONTROLLER, NOT_MENTIONED",ERROR
+Finland_93,a12_sector,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+Finland_93,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
+Finland_93,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
+Finland_93,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
+Finland_93,a10_gov_level,NOT_DISCUSSED,conditional,a10_gov_level should be NOT_APPLICABLE when defendant_class != PUBLIC,WARNING
+Finland_93,a13_sector_other,NOT_DISCUSSED,conditional,a13_sector_other must be NOT_APPLICABLE when sector != OTHER,WARNING
+Finland_93,a19_art33_breached,NOT_DISCUSSED,conditional,a19_art33_breached should be NOT_APPLICABLE when art33_discussed = NO,WARNING
+Finland_93,a54_fine_amount,NOT_DISCUSSED,conditional,a54_fine_amount must be NOT_APPLICABLE when fine_imposed = NO,WARNING
+Finland_93,a55_fine_currency,NOT_DISCUSSED,conditional,a55_fine_currency must be NOT_APPLICABLE when fine_imposed = NO,WARNING
+Finland_93,a73_oss_role,NOT_DISCUSSED,conditional,a73_oss_role must be NOT_APPLICABLE when cross_border_oss != YES,WARNING
+European Union_2,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+European Union_2,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+European Union_2,a5_decision_month,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+European Union_2,a6_num_defendants,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+European Union_2,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+European Union_2,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
+European Union_2,a10_gov_level,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+European Union_2,a11_defendant_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: CONTROLLER, PROCESSOR, JOINT_CONTROLLER, NOT_MENTIONED",ERROR
+European Union_2,a12_sector,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+European Union_2,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
+European Union_2,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
+European Union_2,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
+European Union_2,a10_gov_level,NOT_DISCUSSED,conditional,a10_gov_level should be NOT_APPLICABLE when defendant_class != PUBLIC,WARNING
+European Union_2,a13_sector_other,NOT_DISCUSSED,conditional,a13_sector_other must be NOT_APPLICABLE when sector != OTHER,WARNING
+European Union_2,a19_art33_breached,NOT_DISCUSSED,conditional,a19_art33_breached should be NOT_APPLICABLE when art33_discussed = NO,WARNING
+European Union_2,a54_fine_amount,NOT_DISCUSSED,conditional,a54_fine_amount must be NOT_APPLICABLE when fine_imposed = NO,WARNING
+European Union_2,a55_fine_currency,NOT_DISCUSSED,conditional,a55_fine_currency must be NOT_APPLICABLE when fine_imposed = NO,WARNING
+European Union_2,a73_oss_role,NOT_DISCUSSED,conditional,a73_oss_role must be NOT_APPLICABLE when cross_border_oss != YES,WARNING
+European Union_4,a1_country_code,EU,enum,"Invalid enum value 'EU'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+European Union_4,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
+European Union_9,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+European Union_9,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+European Union_9,a5_decision_month,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+European Union_9,a6_num_defendants,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+European Union_9,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+European Union_9,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
+European Union_9,a10_gov_level,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+European Union_9,a11_defendant_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: CONTROLLER, PROCESSOR, JOINT_CONTROLLER, NOT_MENTIONED",ERROR
+European Union_9,a12_sector,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+European Union_9,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
+European Union_9,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
+European Union_9,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
+European Union_9,a10_gov_level,NOT_DISCUSSED,conditional,a10_gov_level should be NOT_APPLICABLE when defendant_class != PUBLIC,WARNING
+European Union_9,a13_sector_other,NOT_DISCUSSED,conditional,a13_sector_other must be NOT_APPLICABLE when sector != OTHER,WARNING
+European Union_9,a19_art33_breached,NOT_DISCUSSED,conditional,a19_art33_breached should be NOT_APPLICABLE when art33_discussed = NO,WARNING
+European Union_9,a54_fine_amount,NOT_DISCUSSED,conditional,a54_fine_amount must be NOT_APPLICABLE when fine_imposed = NO,WARNING
+European Union_9,a55_fine_currency,NOT_DISCUSSED,conditional,a55_fine_currency must be NOT_APPLICABLE when fine_imposed = NO,WARNING
+European Union_9,a73_oss_role,NOT_DISCUSSED,conditional,a73_oss_role must be NOT_APPLICABLE when cross_border_oss != YES,WARNING
+European Union_10,a1_country_code,EU,enum,"Invalid enum value 'EU'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+European Union_11,a1_country_code,EU,enum,"Invalid enum value 'EU'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+Estonia_4,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+Estonia_4,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Estonia_4,a5_decision_month,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Estonia_4,a6_num_defendants,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Estonia_4,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Estonia_4,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
+Estonia_4,a10_gov_level,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+Estonia_4,a11_defendant_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: CONTROLLER, PROCESSOR, JOINT_CONTROLLER, NOT_MENTIONED",ERROR
+Estonia_4,a12_sector,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+Estonia_4,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
+Estonia_4,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
+Estonia_4,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
+Estonia_4,a10_gov_level,NOT_DISCUSSED,conditional,a10_gov_level should be NOT_APPLICABLE when defendant_class != PUBLIC,WARNING
+Estonia_4,a13_sector_other,NOT_DISCUSSED,conditional,a13_sector_other must be NOT_APPLICABLE when sector != OTHER,WARNING
+Estonia_4,a19_art33_breached,NOT_DISCUSSED,conditional,a19_art33_breached should be NOT_APPLICABLE when art33_discussed = NO,WARNING
+Estonia_4,a54_fine_amount,NOT_DISCUSSED,conditional,a54_fine_amount must be NOT_APPLICABLE when fine_imposed = NO,WARNING
+Estonia_4,a55_fine_currency,NOT_DISCUSSED,conditional,a55_fine_currency must be NOT_APPLICABLE when fine_imposed = NO,WARNING
+Estonia_4,a73_oss_role,NOT_DISCUSSED,conditional,a73_oss_role must be NOT_APPLICABLE when cross_border_oss != YES,WARNING
+Estonia_5,a7_defendant_name,,free_text,Empty text field (required non-empty),ERROR
+Estonia_10,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+Estonia_10,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Estonia_10,a5_decision_month,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Estonia_10,a6_num_defendants,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Estonia_10,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Estonia_10,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
+Estonia_10,a10_gov_level,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+Estonia_10,a11_defendant_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: CONTROLLER, PROCESSOR, JOINT_CONTROLLER, NOT_MENTIONED",ERROR
+Estonia_10,a12_sector,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+Estonia_10,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
+Estonia_10,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
+Estonia_10,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
+Estonia_10,a10_gov_level,NOT_DISCUSSED,conditional,a10_gov_level should be NOT_APPLICABLE when defendant_class != PUBLIC,WARNING
+Estonia_10,a13_sector_other,NOT_DISCUSSED,conditional,a13_sector_other must be NOT_APPLICABLE when sector != OTHER,WARNING
+Estonia_10,a19_art33_breached,NOT_DISCUSSED,conditional,a19_art33_breached should be NOT_APPLICABLE when art33_discussed = NO,WARNING
+Estonia_10,a54_fine_amount,NOT_DISCUSSED,conditional,a54_fine_amount must be NOT_APPLICABLE when fine_imposed = NO,WARNING
+Estonia_10,a55_fine_currency,NOT_DISCUSSED,conditional,a55_fine_currency must be NOT_APPLICABLE when fine_imposed = NO,WARNING
+Estonia_10,a73_oss_role,NOT_DISCUSSED,conditional,a73_oss_role must be NOT_APPLICABLE when cross_border_oss != YES,WARNING
+Estonia_15,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Estonia_15,a6_num_defendants,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Estonia_15,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Estonia_15,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
+Estonia_21,a7_defendant_name,,free_text,Empty text field (required non-empty),ERROR
+Estonia_21,a71_first_violation,NOT_DISCISSED,enum,"Invalid enum value 'NOT_DISCISSED'. Allowed: YES_FIRST_TIME, NO_REPEAT_OFFENDER, NOT_DISCUSSED",ERROR
+Estonia_22,a7_defendant_name,,free_text,Empty text field (required non-empty),ERROR
+Denmark_16,a10_gov_level,REGIONAL,enum,"Invalid enum value 'REGIONAL'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+Denmark_47,a14_processing_contexts,EDUCATION,semicolon_list_or_sentinel,Invalid tokens: EDUCATION,ERROR
+Denmark_47,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Denmark_47,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Denmark_48,a14_processing_contexts,EDUCATION,semicolon_list_or_sentinel,Invalid tokens: EDUCATION,ERROR
+Denmark_49,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Denmark_49,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Denmark_50,a14_processing_contexts,EDUCATION;PROBLEMATIC_THIRD_PARTY_SHARING_STATED,semicolon_list_or_sentinel,Invalid tokens: EDUCATION,ERROR
+Denmark_60,a10_gov_level,REGIONAL,enum,"Invalid enum value 'REGIONAL'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+Denmark_72,a12_sector,POLITICAL_PARTY,enum,"Invalid enum value 'POLITICAL_PARTY'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+Denmark_80,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Denmark_80,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Denmark_83,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Denmark_83,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Denmark_87,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+Denmark_87,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Denmark_87,a5_decision_month,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Denmark_87,a6_num_defendants,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Denmark_87,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Denmark_87,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
+Denmark_87,a10_gov_level,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+Denmark_87,a11_defendant_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: CONTROLLER, PROCESSOR, JOINT_CONTROLLER, NOT_MENTIONED",ERROR
+Denmark_87,a12_sector,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+Denmark_87,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
+Denmark_87,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
+Denmark_87,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
+Denmark_87,a10_gov_level,NOT_DISCUSSED,conditional,a10_gov_level should be NOT_APPLICABLE when defendant_class != PUBLIC,WARNING
+Denmark_87,a13_sector_other,NOT_DISCUSSED,conditional,a13_sector_other must be NOT_APPLICABLE when sector != OTHER,WARNING
+Denmark_87,a19_art33_breached,NOT_DISCUSSED,conditional,a19_art33_breached should be NOT_APPLICABLE when art33_discussed = NO,WARNING
+Denmark_87,a54_fine_amount,NOT_DISCUSSED,conditional,a54_fine_amount must be NOT_APPLICABLE when fine_imposed = NO,WARNING
+Denmark_87,a55_fine_currency,NOT_DISCUSSED,conditional,a55_fine_currency must be NOT_APPLICABLE when fine_imposed = NO,WARNING
+Denmark_87,a73_oss_role,NOT_DISCUSSED,conditional,a73_oss_role must be NOT_APPLICABLE when cross_border_oss != YES,WARNING
+Denmark_96,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Denmark_96,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Denmark_104,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Denmark_104,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Denmark_109,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Denmark_109,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Denmark_120,a14_processing_contexts,ACCESS_CONTROL,semicolon_list_or_sentinel,Invalid tokens: ACCESS_CONTROL,ERROR
+Denmark_136,a14_processing_contexts,CCTV;ACCESS_CONTROL,semicolon_list_or_sentinel,Invalid tokens: ACCESS_CONTROL,ERROR
+Cyprus_31,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+Cyprus_31,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Cyprus_31,a5_decision_month,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Cyprus_31,a6_num_defendants,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Cyprus_31,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Cyprus_31,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
+Cyprus_31,a10_gov_level,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+Cyprus_31,a11_defendant_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: CONTROLLER, PROCESSOR, JOINT_CONTROLLER, NOT_MENTIONED",ERROR
+Cyprus_31,a12_sector,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+Cyprus_31,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
+Cyprus_31,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
+Cyprus_31,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
+Cyprus_31,a10_gov_level,NOT_DISCUSSED,conditional,a10_gov_level should be NOT_APPLICABLE when defendant_class != PUBLIC,WARNING
+Cyprus_31,a13_sector_other,NOT_DISCUSSED,conditional,a13_sector_other must be NOT_APPLICABLE when sector != OTHER,WARNING
+Cyprus_31,a19_art33_breached,NOT_DISCUSSED,conditional,a19_art33_breached should be NOT_APPLICABLE when art33_discussed = NO,WARNING
+Cyprus_31,a54_fine_amount,NOT_DISCUSSED,conditional,a54_fine_amount must be NOT_APPLICABLE when fine_imposed = NO,WARNING
+Cyprus_31,a55_fine_currency,NOT_DISCUSSED,conditional,a55_fine_currency must be NOT_APPLICABLE when fine_imposed = NO,WARNING
+Cyprus_31,a73_oss_role,NOT_DISCUSSED,conditional,a73_oss_role must be NOT_APPLICABLE when cross_border_oss != YES,WARNING
+Croatia_5,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Croatia_7,a13_sector_other,gambling;betting;hotel;catering,conditional,a13_sector_other must be NOT_APPLICABLE when sector != OTHER,WARNING
+Croatia_20,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Croatia_20,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Croatia_29,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Croatia_29,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Bulgaria_4,a12_sector,POLITICAL_PARTY,enum,"Invalid enum value 'POLITICAL_PARTY'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+Bulgaria_13,a12_sector,POLITICAL_PARTY,enum,"Invalid enum value 'POLITICAL_PARTY'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+Belgium_12,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_12,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_18,a8_defendant_class,FINANCIAL,enum,"Invalid enum value 'FINANCIAL'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Belgium_26,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+Belgium_26,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Belgium_26,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Belgium_26,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
+Belgium_30,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_30,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_44,a13_sector_other,tourism;public_authority,conditional,a13_sector_other must be NOT_APPLICABLE when sector != OTHER,WARNING
+Belgium_55,a13_sector_other,municipal;parking;taxation,conditional,a13_sector_other must be NOT_APPLICABLE when sector != OTHER,WARNING
+Belgium_55,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_55,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_66,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_66,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_73,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+Belgium_73,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Belgium_73,a5_decision_month,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Belgium_73,a6_num_defendants,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Belgium_73,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Belgium_73,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
+Belgium_73,a10_gov_level,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+Belgium_73,a11_defendant_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: CONTROLLER, PROCESSOR, JOINT_CONTROLLER, NOT_MENTIONED",ERROR
+Belgium_73,a12_sector,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+Belgium_73,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
+Belgium_73,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
+Belgium_73,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
+Belgium_73,a10_gov_level,NOT_DISCUSSED,conditional,a10_gov_level should be NOT_APPLICABLE when defendant_class != PUBLIC,WARNING
+Belgium_73,a13_sector_other,NOT_DISCUSSED,conditional,a13_sector_other must be NOT_APPLICABLE when sector != OTHER,WARNING
+Belgium_73,a19_art33_breached,NOT_DISCUSSED,conditional,a19_art33_breached should be NOT_APPLICABLE when art33_discussed = NO,WARNING
+Belgium_73,a54_fine_amount,NOT_DISCUSSED,conditional,a54_fine_amount must be NOT_APPLICABLE when fine_imposed = NO,WARNING
+Belgium_73,a55_fine_currency,NOT_DISCUSSED,conditional,a55_fine_currency must be NOT_APPLICABLE when fine_imposed = NO,WARNING
+Belgium_73,a73_oss_role,NOT_DISCUSSED,conditional,a73_oss_role must be NOT_APPLICABLE when cross_border_oss != YES,WARNING
+Belgium_81,a8_defendant_class,FINANCIAL,enum,"Invalid enum value 'FINANCIAL'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Belgium_87,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_87,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_111,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_111,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_119,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_119,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_123,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_123,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_142,a8_defendant_class,FINANCIAL,enum,"Invalid enum value 'FINANCIAL'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Belgium_147,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_147,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_152,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+Belgium_152,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Belgium_152,a5_decision_month,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Belgium_152,a6_num_defendants,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Belgium_152,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Belgium_152,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
+Belgium_152,a10_gov_level,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+Belgium_152,a11_defendant_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: CONTROLLER, PROCESSOR, JOINT_CONTROLLER, NOT_MENTIONED",ERROR
+Belgium_152,a12_sector,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+Belgium_152,a54_fine_amount,NOT_DISCUSSED,integer_or_sentinel,Not integer or 'NOT_APPLICABLE': 'NOT_DISCUSSED',ERROR
+Belgium_152,a55_fine_currency,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, NOT_APPLICABLE",ERROR
+Belgium_152,a73_oss_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: LEAD, CONCERNED, NOT_APPLICABLE",ERROR
+Belgium_152,a10_gov_level,NOT_DISCUSSED,conditional,a10_gov_level should be NOT_APPLICABLE when defendant_class != PUBLIC,WARNING
+Belgium_152,a13_sector_other,NOT_DISCUSSED,conditional,a13_sector_other must be NOT_APPLICABLE when sector != OTHER,WARNING
+Belgium_152,a19_art33_breached,NOT_DISCUSSED,conditional,a19_art33_breached should be NOT_APPLICABLE when art33_discussed = NO,WARNING
+Belgium_152,a54_fine_amount,NOT_DISCUSSED,conditional,a54_fine_amount must be NOT_APPLICABLE when fine_imposed = NO,WARNING
+Belgium_152,a55_fine_currency,NOT_DISCUSSED,conditional,a55_fine_currency must be NOT_APPLICABLE when fine_imposed = NO,WARNING
+Belgium_152,a73_oss_role,NOT_DISCUSSED,conditional,a73_oss_role must be NOT_APPLICABLE when cross_border_oss != YES,WARNING
+Belgium_168,a8_defendant_class,HEALTH,enum,"Invalid enum value 'HEALTH'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Belgium_176,a1_country_code,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: AT, BE, BG, HR, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK",ERROR
+Belgium_176,a4_decision_year,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Belgium_176,a5_decision_month,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Belgium_176,a6_num_defendants,NOT_DISCUSSED,integer_range,Not an integer: 'NOT_DISCUSSED',ERROR
+Belgium_176,a8_defendant_class,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: PUBLIC, PRIVATE, NGO_OR_NONPROFIT, RELIGIOUS, INDIVIDUAL, POLITICAL_PARTY, OTHER",ERROR
+Belgium_176,a9_enterprise_size,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: SME, LARGE, VERY_LARGE, UNKNOWN, NOT_APPLICABLE",ERROR
+Belgium_176,a10_gov_level,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: STATE, MUNICIPAL, JUDICIAL, UNKNOWN, NOT_APPLICABLE",ERROR
+Belgium_176,a11_defendant_role,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: CONTROLLER, PROCESSOR, JOINT_CONTROLLER, NOT_MENTIONED",ERROR
+Belgium_176,a12_sector,NOT_DISCUSSED,enum,"Invalid enum value 'NOT_DISCUSSED'. Allowed: HEALTH, EDUCATION, TELECOM, RETAIL, DIGITAL_SERVICES, FINANCIAL, CONSULTING, HOUSING_TOURISM, FITNESS_WELLNESS, MEDIA, MANUFACTURING, UTILITIES, MEMBERSHIP_ORGS, RELIGIOUS_ORGS, TAX, OTHER_PUBLIC_ADMIN, OTHER",ERROR
+Belgium_176,a10_gov_level,NOT_DISCUSSED,conditional,a10_gov_level should be NOT_APPLICABLE when defendant_class != PUBLIC,WARNING
+Belgium_182,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_182,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_186,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_186,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_198,a57_turnover_amount,NOT_APPLICABLE,conditional,a57_turnover_amount must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
+Belgium_198,a58_turnover_currency,NOT_APPLICABLE,conditional,a58_turnover_currency must be NOT_DISCUSSED when turnover_discussed = NO,WARNING
