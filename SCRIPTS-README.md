@@ -411,6 +411,37 @@ python scripts/4_enrich_prepare_outputs.py
 
 ---
 
+## Phase 5: Similarity Analysis & Modelling
+
+### Script: `scripts/5_analysis_similarity.py`
+
+**Purpose:** Translate enriched cases into article-based similarity cohorts, run within-cohort contrasts for specific factors, match comparable cases across countries, and estimate mixed-effects regressions on log fines.
+
+**Input:**
+- `/outputs/phase4_enrichment/1_enriched_master.csv`
+
+**Primary Outputs (`outputs/phase5_analysis/`):**
+
+1. `0_case_level_features.csv` – Parses `a77_articles_breached` into integer sets (`article_set_key`, `article_family_key`), builds Art. 58(2) measure sets, and stores log fines (2025 EUR).
+2. `1_baseline_article_cohorts.csv` – Exact article cohorts with log-fine dispersion, mean measure-set Jaccard similarity, and sanction profile modes.
+3. `2_case_level_with_components.csv` & `2_relaxed_article_components.csv` – Adds relaxed cohorts via Jaccard ≥ 0.8 union-find clustering for sparse article combinations.
+4. `3_context_effects.csv` – Stratified Mann–Whitney contrasts for context flags (e.g., CCTV, employee monitoring) that hold other contexts, roles, sectors, and defendant type constant.
+5. `3_legal_basis_effects.csv` – Keeps `NOT_DISCUSSED` separate while comparing Art. 6 invalid vs valid/not discussed outcomes.
+6. `3_defendant_type_effects.csv` – Private vs public comparisons scoped to fixed context bundles (employment, CCTV, marketing, etc.).
+7. `4_cross_country_pairs.csv` & `4_cross_country_summary.csv` – Greedy nearest-neighbour matches in different countries within the same article cohort, with paired t-statistics and McNemar counts.
+8. `5_mixed_effects_results.csv` & `5_mixed_effects_summary.txt` – Mixed-effects estimates for log fines with article-set random intercepts plus leave-one-layer-out variants.
+9. `6_relaxed_cohort_contrasts.csv` – Sensitivity check comparing context contrasts under relaxed cohorts.
+10. `6_time_controls_summary.csv` – Period buckets (pre-2021 vs 2021+) for cohort-level means of log fines, measure counts, and fine incidence.
+
+**Usage:**
+```bash
+python scripts/5_analysis_similarity.py
+```
+
+> ⚠️ Statsmodels issues warnings about singular random-effect covariance matrices on sparse cohorts. The script preserves the coefficient tables but flags the limitation in `readme.md`.
+
+---
+
 ## Important Notes
 
 1. **Phase 2 validation is non-destructive** - it only reads and reports, never modifies data

@@ -1,0 +1,12 @@
+factor,article_component_key,stratum_count,weighted_median_diff
+has_cctv,5,1,-7.2949137827845565
+has_cctv,NONE,1,0.4999985122681558
+has_cookies,NONE,1,11.711844899089497
+has_credit_scoring,5;6,1,-10.371361948930078
+has_credit_scoring,NONE,1,0.0
+has_employee_monitoring,NONE,1,0.0
+has_marketing,NONE,1,7.845784256290761
+has_problematic_third_party_sharing,5,1,0.15096427449087327
+has_problematic_third_party_sharing,5;32,1,-12.544270684344006
+has_problematic_third_party_sharing,6,1,-0.21026856035842378
+has_problematic_third_party_sharing,NONE,1,0.0

@@ -1,0 +1,3 @@
+factor,comparator,article_set_key,stratum_context,stratum_role,stratum_sector,stratum_defendant,invalid_count,comparator_count,log_fine_invalid_median,log_fine_comparator_median,log_fine_median_diff,mannwhitney_stat,mannwhitney_pvalue,measure_jaccard_invalid,measure_jaccard_comparator,sanction_profile_mode_invalid,sanction_profile_mode_comparator
+a31_art6_contract,NOT_DISCUSSED,6,,CONTROLLER,TELECOM,PRIVATE,2,8,10.999738812213815,11.039545399847764,-0.039806587633949064,6.0,0.6935291286008913,0.0,0.75,NoFormalMeasure,NoFormalMeasure
+a35_art6_legitimate_interest,NOT_DISCUSSED,NONE,EMPLOYEE_MONITORING,CONTROLLER,OTHER,PRIVATE,3,3,0.0,0.0,0.0,4.5,1.0,0.16666666666666666,0.3333333333333333,ComplianceOrder,NoFormalMeasure
