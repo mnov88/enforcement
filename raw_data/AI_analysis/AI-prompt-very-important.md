@@ -1,9 +1,8 @@
-THIS IS THE PROMPT GIVEN TO THE AI WHICH WAS EXTRACTING THE DATA.
 # GDPR Decision Data Extraction - Question/Answer Format
 
 ## Instructions
 
-Extract facts from one GDPR/data protection authority decision. Output EXACTLY **73 lines** in English. Each line starts with "Answer N: " (where N is 1-73) and contains ONLY the allowed value. No extra text, no explanations, no commentary.
+Extract facts from one GDPR/data protection authority decision. Output EXACTLY **77 lines** in English. Each line starts with "Answer N: " (where N is 1-77) and contains ONLY the allowed value. No extra text, no explanations, no commentary.
 
 **Critical rules:**
 - Answer in ENGLISH regardless of decision language
@@ -19,9 +18,9 @@ Extract facts from one GDPR/data protection authority decision. Output EXACTLY *
 
 ## SECTION 1: BASIC CASE METADATA
 
-**Question 1:** What is the country of the deciding authority?  
-**Answer 1:** Two-letter ISO code  
-Allowed values: AT or BE or BG or HR or CY or CZ or DE or DK or EE or ES or FI or FR or GB or GR or HU or IE or IS or IT or LI or LT or LU or LV or MT or NL or NO or PL or PT or RO or SE or SI or SK
+**Question 1:** What is the country of the deciding authority?
+**Answer 1:** Two-letter ISO code
+Allowed values: AT or BE or BG or HR or CY or CZ or DE or DK or EE or EL or ES or FI or FR or GB or GR or HU or IE or IS or IT or LI or LT or LU or LV or MT or NL or NO or PL or PT or RO or SE or SI or SK
 
 **Question 2:** What is the name of the deciding authority?  
 **Answer 2:** Official name as stated in decision (e.g., "CNIL" or "Norwegian Data Protection Authority")
@@ -51,8 +50,8 @@ Allowed values: AT or BE or BG or HR or CY or CZ or DE or DK or EE or ES or FI o
 **Question 7:** What is the name of the main defendant?  
 **Answer 7:** Official name as stated
 
-**Question 8:** What class is the defendant?  
-**Answer 8:** PUBLIC or PRIVATE or NGO_OR_NONPROFIT or RELIGIOUS or INDIVIDUAL or OTHER
+**Question 8:** What class is the defendant?
+**Answer 8:** PUBLIC or PRIVATE or NGO_OR_NONPROFIT or RELIGIOUS or INDIVIDUAL or POLITICAL_PARTY or OTHER
 
 **Question 9:** What is the enterprise size?  
 - Use UNKNOWN if it cannot be confidently determined; SME means it employs fewer than 250 people and has either an annual turnover of no more than €50 million or a balance sheet total not exceeding €43 million.
@@ -80,11 +79,11 @@ Allowed values: AT or BE or BG or HR or CY or CZ or DE or DK or EE or ES or FI o
 
 ## SECTION 3: PROCESSING CONTEXT
 
-**Question 14:** Do any of these specific processing contexts processing contexts apply to this case?  
+**Question 14:** Do any of these specific processing contexts processing contexts apply to this case?
 - List all that apply, semicolon-separated (e.g., CCTV;EMPLOYEE_MONITORING)
 - Use NOT_DISCUSSED if no specific processing context is identifiable
 - Do not overly infer - stick to what's clearly present in the decision
-**Answer 14:** CCTV or MARKETING or RECRUITMENT_AND_HR or COOKIES or CUSTOMER_LOYALTY_CLUBS or CREDIT_SCORING or BACKGROUND_CHECKS or ARTIFICIAL_INTELLIGENCE or PROBLEMATIC_THIRD_PARTY_SHARING_STATED or DPO_ROLE_PROBLEMS_STATED or JOURNALISM
+**Answer 14:** CCTV or MARKETING or RECRUITMENT_AND_HR or COOKIES or CUSTOMER_LOYALTY_CLUBS or CREDIT_SCORING or BACKGROUND_CHECKS or ARTIFICIAL_INTELLIGENCE or PROBLEMATIC_THIRD_PARTY_SHARING_STATED or DPO_ROLE_PROBLEMS_STATED or JOURNALISM or EMPLOYEE_MONITORING
 
 ---
 
