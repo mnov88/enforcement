@@ -620,6 +620,8 @@ def analyse_cross_country(case_df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataF
             measure_jaccard = (
                 len(left_measure & right_measure) / len(union) if union else 1.0
             )
+            left_fine_raw = row.get("fine_imposed_bool")
+            right_fine_raw = group.loc[best_idx].get("fine_imposed_bool")
             pairs.append(
                 CrossCountryPair(
                     article_set_key=article_key,
@@ -632,8 +634,10 @@ def analyse_cross_country(case_df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataF
                     country_right=group.loc[best_idx, "a1_country_code"],
                     log_fine_left=row["log_fine_2025"],
                     log_fine_right=group.loc[best_idx, "log_fine_2025"],
-                    fine_imposed_left=bool(row.get("fine_imposed_bool", False)),
-                    fine_imposed_right=bool(group.loc[best_idx].get("fine_imposed_bool", False)),
+                    fine_imposed_left=bool(left_fine_raw) if pd.notna(left_fine_raw) else False,
+                    fine_imposed_right=bool(right_fine_raw)
+                    if pd.notna(right_fine_raw)
+                    else False,
                     measure_jaccard=measure_jaccard,
                 )
             )
