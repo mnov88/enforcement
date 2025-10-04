@@ -5,10 +5,11 @@ This repository organizes raw and AI-annotated GDPR enforcement decisions, provi
 ## Data Processing Workflow
 
 ### Overview
-The pipeline processes GDPR enforcement decisions through a three-phase system:
+The pipeline processes GDPR enforcement decisions through a four-phase system:
 1. **Phase 1 (Extraction)**: Parse AI-annotated responses into structured CSV
 2. **Phase 2 (Validation)**: Validate all 77 fields against schema rules
 3. **Phase 3 (Repair)**: Auto-fix common validation errors using pattern-based rules
+4. **Phase 4 (Enrichment)**: Generate analyst-ready features, long tables, and graph exports
 
 **See `SCRIPTS-README.md` for process details and `data-sources-readme.md` for per-file data descriptions.**
 
@@ -127,6 +128,30 @@ python3 scripts/2_analyze_enum_values.py
 **Command:**
 ```bash
 python3 scripts/3_repair_data_errors.py
+```
+
+### Phase 4: Enrichment & Delivery
+
+**Script:** `scripts/4_enrich_prepare_outputs.py`
+
+**Purpose:** Transform the repaired master dataset into a rich analytical bundle with ready-to-plot features, long tables, and graph exports.
+
+**Input:**
+- `/outputs/phase3_repair/repaired_dataset.csv` (default)
+- FX reference: `/raw_data/reference/fx_rates.csv`
+- Inflation reference: `/raw_data/reference/hicp_ea19.csv`
+
+**Outputs (`/outputs/phase4_enrichment/`):**
+- `1_enriched_master.csv` – 200+ engineered fields spanning temporal structure, monetary normalization (nominal & 2025 EUR), Art. 5 & 83 scoring, sanction profiles, OSS geography, QA flags, and text metadata.
+- `2_processing_contexts.csv` – Long form processing contexts with ordering metadata.
+- `3_vulnerable_groups.csv` – Exploded list of vulnerable data subjects per decision.
+- `4_guidelines.csv` – Guidelines cited by each decision.
+- `5_articles_breached.csv` – Parsed GDPR article references with numeric anchors.
+- `graph/` – Neo4j-friendly node/edge CSVs linking decisions to authorities, defendants, articles, guidelines, and processing contexts.
+
+**Command:**
+```bash
+python scripts/4_enrich_prepare_outputs.py
 ```
 
 ### Running the Complete Pipeline
