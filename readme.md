@@ -170,9 +170,9 @@ python scripts/4_enrich_prepare_outputs.py
 - `2_case_level_with_components.csv` / `2_relaxed_article_components.csv` – relaxed cohorts using Jaccard ≥ 0.8 unions.
 - `3_context_effects.csv` – stratified comparisons of context flags (e.g., CCTV vs non-CCTV) within article cohorts.
 - `3_legal_basis_effects.csv` – contrasts for Art. 6 statuses with `NOT_DISCUSSED` retained as its own bin.
-- `3_defendant_type_effects.csv` – private vs public comparisons holding context combinations constant.
+- `3_defendant_type_effects.csv` – private vs public comparisons holding context combinations constant using flag-based context membership (no substring matching).
 - `4_cross_country_pairs.csv` / `4_cross_country_summary.csv` – nearest-neighbour matches across countries with paired outcome stats.
-- `5_mixed_effects_results.csv` / `5_mixed_effects_summary.txt` – mixed-effects regression coefficients and summaries for log fines.
+- `5_mixed_effects_results.csv` / `5_mixed_effects_summary.txt` – mixed-effects regression with a random intercept for article set and variance component for country.
 - `6_relaxed_cohort_contrasts.csv` – sensitivity of context effects under relaxed article components.
 - `6_time_controls_summary.csv` – period splits (pre-2021 vs 2021+) for cohort-level averages.
 

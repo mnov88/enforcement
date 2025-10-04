@@ -46,6 +46,7 @@ import numpy as np
 import pandas as pd
 from scipy import stats
 import statsmodels.formula.api as smf
+from statsmodels.stats.multitest import multipletests
 
 
 BASE_DATA_PATH = Path("outputs/phase4_enrichment/1_enriched_master.csv")
@@ -419,7 +420,15 @@ def analyse_context_effects(case_df: pd.DataFrame) -> pd.DataFrame:
                     else "UNSPECIFIED",
                 }
                 records.append(record)
-    return pd.DataFrame.from_records(records)
+    df = pd.DataFrame.from_records(records)
+    if df.empty:
+        return df
+    mask = df["mannwhitney_pvalue"].notna()
+    if mask.any():
+        df.loc[mask, "p_adj_fdr"] = multipletests(
+            df.loc[mask, "mannwhitney_pvalue"], method="fdr_bh"
+        )[1]
+    return df
 
 
 def _legal_basis_stratum(row: pd.Series, column: str) -> Tuple[str, str, str, str, str]:
@@ -483,16 +492,27 @@ def analyse_legal_basis(case_df: pd.DataFrame) -> pd.DataFrame:
                         else "UNSPECIFIED",
                     }
                     records.append(record)
-    return pd.DataFrame.from_records(records)
+    df = pd.DataFrame.from_records(records)
+    if df.empty:
+        return df
+    mask = df["mannwhitney_pvalue"].notna()
+    if mask.any():
+        df.loc[mask, "p_adj_fdr"] = multipletests(
+            df.loc[mask, "mannwhitney_pvalue"], method="fdr_bh"
+        )[1]
+    return df
 
 
 def analyse_defendant_type(case_df: pd.DataFrame) -> pd.DataFrame:
-    context_labels = list(CONTEXT_FLAG_MAP.values())
+    context_flags = list(CONTEXT_FLAG_MAP.keys())
     records: List[Dict[str, object]] = []
-    for label in context_labels:
-        subset = case_df[case_df["context_profile"].fillna("").str.contains(label, na=False)]
+    for flag in context_flags:
+        if flag not in case_df.columns:
+            continue
+        subset = case_df[case_df[flag].fillna(False)]
         if subset.empty:
             continue
+        context_label = CONTEXT_FLAG_MAP[flag]
         for key, cohort in subset.groupby("article_set_key"):
             cohort = cohort.copy()
             cohort["_stratum"] = list(
@@ -509,7 +529,7 @@ def analyse_defendant_type(case_df: pd.DataFrame) -> pd.DataFrame:
                     continue
                 stat = stats.mannwhitneyu(private["log_fine_2025"], public["log_fine_2025"], alternative="two-sided")
                 record = {
-                    "context_label": label,
+                    "context_label": context_label,
                     "article_set_key": key,
                     "stratum_context": stratum[0],
                     "stratum_role": stratum[1],
@@ -567,6 +587,7 @@ def analyse_cross_country(case_df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataF
     ):
         if group["a1_country_code"].nunique() < 2:
             continue
+        group = group.sort_values("id")
         available = list(group.index)
         used = set()
         while available:
@@ -716,22 +737,27 @@ def run_mixed_models(case_df: pd.DataFrame) -> Tuple[pd.DataFrame, str]:
             drop_contexts=options["drop_contexts"],
             drop_legal_basis=options["drop_legal_basis"],
         )
+        vcf = {"country": "0 + C(a1_country_code)"}
         model = smf.mixedlm(
             formula,
             analysis_df,
             groups=analysis_df["article_set_key"],
+            vc_formula=vcf,
         )
         try:
-            result = model.fit(method="lbfgs", maxiter=200)
+            result = model.fit(method="lbfgs", maxiter=400, reml=True)
         except Exception as exc:  # pragma: no cover - defensive
-            results.append(
-                {
-                    "variant": variant,
-                    "converged": False,
-                    "message": str(exc),
-                }
-            )
-            continue
+            try:
+                result = model.fit(method="nm", maxiter=400, reml=True)
+            except Exception as fallback_exc:  # pragma: no cover - defensive
+                results.append(
+                    {
+                        "variant": variant,
+                        "converged": False,
+                        "message": f"lbfgs failed: {exc}; nm failed: {fallback_exc}",
+                    }
+                )
+                continue
         summaries[variant] = result.summary().as_text()
         fit_history = getattr(result, "fit_history", {})
         for param, estimate in result.params.items():
