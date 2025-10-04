@@ -14,9 +14,9 @@ Output: /outputs/phase1_extraction/main_dataset.csv
 
 import re
 import csv
-import os
 from pathlib import Path
 from datetime import datetime
+from typing import Any, Dict, Optional
 
 # Field mapping: Answer number → CSV column name (per schema)
 FIELD_MAPPING = {
@@ -173,65 +173,77 @@ def write_csv(filepath: str, rows: list[dict], fieldnames: list[str]):
         writer.writerows(rows)
 
 
-def main():
-    # Paths
+def run_phase1(
+    input_file: Path,
+    output_dir: Optional[Path] = None,
+    *,
+    verbose: bool = True,
+) -> Dict[str, Any]:
+    """Execute phase 1 parsing with configurable paths."""
+
     script_dir = Path(__file__).parent
     project_root = script_dir.parent
-    input_file = project_root / 'raw_data' / 'AI_analysis' / 'AI-responses.txt'
-    output_main = project_root / 'outputs' / 'phase1_extraction' / 'main_dataset.csv'
-    output_errors = project_root / 'outputs' / 'phase1_extraction' / 'data_with_errors.csv'
-    output_log = project_root / 'outputs' / 'phase1_extraction' / 'extraction_log.txt'
 
-    # Ensure output directory exists
-    output_main.parent.mkdir(parents=True, exist_ok=True)
+    if output_dir is None:
+        output_dir = project_root / 'outputs' / 'phase1_extraction'
 
-    print("=" * 60)
-    print("Phase 1: Parsing AI Responses to CSV")
-    print("=" * 60)
-    print(f"Input:  {input_file}")
-    print(f"Output: {output_main}")
-    print(f"Errors: {output_errors}")
-    print(f"Log:    {output_log}")
-    print()
+    output_dir.mkdir(parents=True, exist_ok=True)
+    output_main = output_dir / 'main_dataset.csv'
+    output_errors = output_dir / 'data_with_errors.csv'
+    output_log = output_dir / 'extraction_log.txt'
 
-    # Parse responses
-    print("Parsing responses...")
+    if verbose:
+        print("=" * 60)
+        print("Phase 1: Parsing AI Responses to CSV")
+        print("=" * 60)
+        print(f"Input:  {input_file}")
+        print(f"Output: {output_main}")
+        print(f"Errors: {output_errors}")
+        print(f"Log:    {output_log}")
+        print()
+        print("Parsing responses...")
+
     valid_responses, malformed_responses = parse_response_file(str(input_file))
 
-    print(f"✓ Valid responses:     {len(valid_responses)}")
-    print(f"✗ Malformed responses: {len(malformed_responses)}")
-    print()
+    if verbose:
+        print(f"✓ Valid responses:     {len(valid_responses)}")
+        print(f"✗ Malformed responses: {len(malformed_responses)}")
+        print()
 
-    # Write valid responses
     if valid_responses:
-        print(f"Writing {len(valid_responses)} valid rows to {output_main.name}...")
+        if verbose:
+            print(f"Writing {len(valid_responses)} valid rows to {output_main.name}...")
         write_csv(str(output_main), valid_responses, CSV_HEADERS)
-        print(f"✓ Wrote {output_main}")
-    else:
+        if verbose:
+            print(f"✓ Wrote {output_main}")
+    elif verbose:
         print("⚠ No valid responses to write!")
 
-    # Write malformed responses
+    error_headers = ['id', 'error', 'raw_answers']
     if malformed_responses:
-        print(f"\nWriting {len(malformed_responses)} malformed rows to {output_errors.name}...")
-        error_headers = ['id', 'error', 'raw_answers']
+        if verbose:
+            print(f"\nWriting {len(malformed_responses)} malformed rows to {output_errors.name}...")
         write_csv(str(output_errors), malformed_responses, error_headers)
-        print(f"✓ Wrote {output_errors}")
-        print("\n⚠ Review malformed responses manually:")
-        for row in malformed_responses:
-            print(f"  - {row['id']}: {row['error']}")
+        if verbose:
+            print(f"✓ Wrote {output_errors}")
+            print("\n⚠ Review malformed responses manually:")
+            for row in malformed_responses:
+                print(f"  - {row['id']}: {row['error']}")
     else:
-        print("\n✓ No malformed responses")
+        # Ensure any existing error file from previous runs is removed to avoid confusion
+        if output_errors.exists():
+            output_errors.unlink()
+        if verbose:
+            print("\n✓ No malformed responses")
 
-    # Write extraction log
-    print(f"\nWriting extraction log to {output_log.name}...")
     with open(str(output_log), 'w', encoding='utf-8') as f:
         f.write("=" * 60 + "\n")
         f.write("Phase 1: AI Response Extraction Log\n")
         f.write("=" * 60 + "\n\n")
         f.write(f"Timestamp: {datetime.now().isoformat()}\n")
         f.write(f"Input file: {input_file}\n")
-        f.write(f"Output directory: {output_main.parent}\n\n")
-        f.write(f"Results:\n")
+        f.write(f"Output directory: {output_dir}\n\n")
+        f.write("Results:\n")
         f.write(f"  Total responses found: {len(valid_responses) + len(malformed_responses)}\n")
         f.write(f"  Valid responses (77 answers): {len(valid_responses)}\n")
         f.write(f"  Malformed responses: {len(malformed_responses)}\n\n")
@@ -242,12 +254,30 @@ def main():
         f.write("\n" + "=" * 60 + "\n")
         f.write("Extraction complete. Ready for Phase 2 validation.\n")
         f.write("=" * 60 + "\n")
-    print(f"✓ Wrote {output_log}")
 
-    print()
-    print("=" * 60)
-    print("✓ Phase 1 extraction complete!")
-    print("=" * 60)
+    if verbose:
+        print(f"\nWriting extraction log to {output_log.name}...")
+        print(f"✓ Wrote {output_log}")
+        print()
+        print("=" * 60)
+        print("✓ Phase 1 extraction complete!")
+        print("=" * 60)
+
+    return {
+        'input_file': input_file,
+        'main_csv': output_main,
+        'errors_csv': output_errors if malformed_responses else None,
+        'log_file': output_log,
+        'valid_count': len(valid_responses),
+        'malformed_count': len(malformed_responses),
+    }
+
+
+def main():
+    script_dir = Path(__file__).parent
+    project_root = script_dir.parent
+    input_file = project_root / 'raw_data' / 'AI_analysis' / 'AI-responses.txt'
+    run_phase1(input_file, verbose=True)
 
 
 if __name__ == '__main__':
