@@ -277,3 +277,5 @@ All data validated against:
 - **`CLAUDE.md`** - Guide for future Claude Code instances working in this repository
 - **`schema/main-schema-critically-important.md`** - Authoritative field definitions (77 fields: a1-a77)
 - **`schema/AI-prompt-very-important.md`** - AI annotation questionnaire (Questions 1-77)
+- **`docs/phase4_enrichment_reference.md`** - Deep dive into Phase 4 helpers, derived fields, and output tables
+- **`docs/phase4_improvement_plan.md`** - Ranked backlog of recommended enhancements for the enrichment stage

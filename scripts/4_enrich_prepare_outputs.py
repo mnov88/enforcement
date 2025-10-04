@@ -439,21 +439,28 @@ def compute_art5_and_rights(df: pd.DataFrame, articles_df: pd.DataFrame) -> pd.D
     for column, suffix in ART5_FIELDS.items():
         df[f"{suffix}_breached_bool"] = df[column].apply(yes_no_to_bool)
 
-    rights_bools = {}
-    for column, code in RIGHT_FIELDS.items():
-        rights_bools[column] = df[column].apply(yes_no_to_bool)
-        df[f"{column}_bool"] = rights_bools[column]
+    rights_bool_map = {
+        column: df[column].apply(yes_no_to_bool) for column in RIGHT_FIELDS
+    }
+    for column, series in rights_bool_map.items():
+        df[f"{column}_bool"] = series
 
-    rights_true = pd.DataFrame(rights_bools)
-    df["rights_violated_count"] = rights_true.apply(lambda row: row.sum(skipna=True), axis=1)
+    rights_bool_df = pd.DataFrame(rights_bool_map)
+    df["rights_violated_count"] = rights_bool_df.apply(
+        lambda row: sum(val is True for val in row), axis=1
+    ).astype("Int64")
 
     def build_profile(row: pd.Series) -> Optional[str]:
-        selected = [code for column, code in RIGHT_FIELDS.items() if row[column]]
+        selected = [
+            code
+            for column, code in RIGHT_FIELDS.items()
+            if row.get(column) is True
+        ]
         if not selected:
             return None
         return ";".join(selected)
 
-    df["rights_profile"] = rights_true.apply(build_profile, axis=1)
+    df["rights_profile"] = rights_bool_df.apply(build_profile, axis=1)
 
     article_groups = (
         articles_df.groupby("id")["article_number"].apply(lambda series: sorted(set(series)))
@@ -487,7 +494,11 @@ def compute_art5_and_rights(df: pd.DataFrame, articles_df: pd.DataFrame) -> pd.D
     df["breach_has_art5"] = df.apply(art5_flag, axis=1)
 
     def flag_rights_gap(row: pd.Series) -> bool:
-        rights_triggered = [RIGHT_TO_ARTICLE[col] for col in RIGHT_FIELDS if row.get(col)]
+        rights_triggered = [
+            RIGHT_TO_ARTICLE[col]
+            for col in RIGHT_FIELDS
+            if row.get(f"{col}_bool") is True
+        ]
         if not rights_triggered:
             return False
         article_numbers = article_lookup.get(row["id"], [])
@@ -508,11 +519,18 @@ def compute_art5_and_rights(df: pd.DataFrame, articles_df: pd.DataFrame) -> pd.D
 
 def compute_measures(df: pd.DataFrame) -> pd.DataFrame:
     measure_bools = {field: df[field].apply(yes_no_to_bool) for field in MEASURE_FIELDS}
+
+    def as_bool(series: pd.Series) -> pd.Series:
+        return series.apply(lambda value: bool(value) if value is True else False)
+
     for field, series in measure_bools.items():
         df[f"{field}_bool"] = series
 
-    df["measure_any_bool"] = df["a53_fine_imposed"].apply(yes_no_to_bool) | pd.DataFrame(measure_bools).any(axis=1)
-    df["measure_count"] = pd.DataFrame(measure_bools).sum(axis=1)
+    measure_bool_df = pd.DataFrame({field: as_bool(series) for field, series in measure_bools.items()})
+    fine_bool = as_bool(df["fine_imposed_bool"])
+
+    df["measure_any_bool"] = fine_bool | measure_bool_df.any(axis=1)
+    df["measure_count"] = measure_bool_df.sum(axis=1).astype("Int64")
 
     def sanction_profile(row: pd.Series) -> str:
         if yes_no_to_bool(row.get("a52_data_flow_suspension")):

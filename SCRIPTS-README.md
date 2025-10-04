@@ -391,6 +391,9 @@ During development, the following values were added to schema to reflect actual 
 - `/outputs/phase4_enrichment/5_articles_breached.csv` – Parsed GDPR articles with numeric anchors and positions.
 - `/outputs/phase4_enrichment/graph/` – Neo4j bulk-import node and edge CSVs for Decisions, Authorities, Defendants, Articles, Guidelines, and Contexts.
 
+For a step-by-step explanation of each enrichment helper and derived column family, consult
+`docs/phase4_enrichment_reference.md`.
+
 **Key Transformations:**
 
 1. **Temporal normalization** – Derives `decision_year`, `decision_month`, inferred dates, quarter buckets, and granularity flags even when only the year is known.
