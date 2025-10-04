@@ -19,4 +19,16 @@ This reference explains every CSV emitted by the GDPR enforcement data pipeline 
 - `repaired_dataset_validation_errors.csv`: Validation failures that remain after repairs; use this to decide whether to extend pattern coverage or perform manual curation.
 - `repaired_dataset_validation_report.txt`: Summary stats for the post-repair validation pass (mirrors the Phase 2 report format).
 
+## Phase 4 – Enrichment (`outputs/phase4_enrichment/`)
+- `1_enriched_master.csv`: Feature-complete master table (one row per decision) with temporal granularity, inferred dates, FX-normalized fines/turnover, 2025 EUR deflators, sanction profiles, Art. 5/83 indicators, context flags, OSS geography, QA signals, and keyword metadata.
+- `2_processing_contexts.csv`: Long table of processing contexts with decision IDs and positional order.
+- `3_vulnerable_groups.csv`: Long table of vulnerable group mentions per decision.
+- `4_guidelines.csv`: Long table capturing guidelines cited in each decision.
+- `5_articles_breached.csv`: Parsed GDPR article references including numeric article identifiers and sequence order.
+- `graph/nodes_*.csv`, `graph/edges_*.csv`: Neo4j bulk-import ready node and edge files linking decisions to authorities, defendants, articles, guidelines, and processing contexts.
+
+### Reference Tables (`raw_data/reference/`)
+- `fx_rates.csv`: ECB-inspired annual FX rates (and identity rows for EUR) used to standardize fines/turnover to euro values.
+- `hicp_ea19.csv`: Euro area HICP index (2016–2025) supporting deflation to constant 2025 euros.
+
 Keep this document close when sharing datasets or designing new automation so collaborators can confirm which artefacts are authoritative for a given workflow stage.

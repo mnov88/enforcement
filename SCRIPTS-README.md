@@ -372,6 +372,42 @@ During development, the following values were added to schema to reflect actual 
 
 ---
 
+## Phase 4: Enrichment & Multi-format Delivery
+
+### Script: `scripts/4_enrich_prepare_outputs.py`
+
+**Purpose:** Convert the repaired Phase 3 dataset into a feature-complete analytical package and graph-friendly extracts.
+
+**Inputs:**
+- `/outputs/phase3_repair/repaired_dataset.csv`
+- FX lookups: `/raw_data/reference/fx_rates.csv`
+- HICP deflators: `/raw_data/reference/hicp_ea19.csv`
+
+**Outputs:**
+- `/outputs/phase4_enrichment/1_enriched_master.csv` – Adds temporal fields, FX/EUR normalization (nominal & real 2025 euros), sanction and Art. 83 scoring, contextual flags, OSS geography, QA signals, and keyword metadata.
+- `/outputs/phase4_enrichment/2_processing_contexts.csv` – Long table of processing contexts with positional order.
+- `/outputs/phase4_enrichment/3_vulnerable_groups.csv` – Exploded vulnerable group annotations.
+- `/outputs/phase4_enrichment/4_guidelines.csv` – Guidelines referenced per decision.
+- `/outputs/phase4_enrichment/5_articles_breached.csv` – Parsed GDPR articles with numeric anchors and positions.
+- `/outputs/phase4_enrichment/graph/` – Neo4j bulk-import node and edge CSVs for Decisions, Authorities, Defendants, Articles, Guidelines, and Contexts.
+
+**Key Transformations:**
+
+1. **Temporal normalization** – Derives `decision_year`, `decision_month`, inferred dates, quarter buckets, and granularity flags even when only the year is known.
+2. **Monetary harmonization** – Maps all fines/turnover to EUR using ECB-informed FX tables, adds deflated 2025 EUR values, log scaling, ratio metrics, and categorical buckets.
+3. **Rights & breaches** – Computes Art. 5 boolean flags, rights violation profiles, per-article presence flags, and priority breach families.
+4. **Sanctions & Article 83 scoring** – Produces sanction profiles, measure counts, warning/fine convenience booleans, and numerical Art. 83 factor scores with coverage counts.
+5. **Contextual cross-features** – Expands processing contexts into binary indicators, builds `sector_x_context_key`, and surfaces `context_profile` strings.
+6. **Quality and QA flags** – Highlights sector detail gaps, currency omissions, Article 33 inconsistencies, and systematic-factor mismatches.
+7. **Graph exports** – Emits node/edge CSVs aligning with the schema described in the analyst brief for direct Neo4j bulk import or further network analysis.
+
+**Usage:**
+```bash
+python scripts/4_enrich_prepare_outputs.py
+```
+
+---
+
 ## Important Notes
 
 1. **Phase 2 validation is non-destructive** - it only reads and reports, never modifies data
