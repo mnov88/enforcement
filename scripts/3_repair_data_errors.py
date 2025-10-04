@@ -96,20 +96,21 @@ REPAIR_RULES = {
         'reason': 'Field expects YES/NO format, not BREACHED/NOT_BREACHED'
     },
 
-    # Pattern 5: Sector values in defendant_class → OTHER
-    'pattern5_sector_in_defendant_class': {
-        'fields': ['a8_defendant_class'],
-        'from_values': ['MEDIA', 'EDUCATION', 'JUDICIAL', 'TELECOM'],
-        'to_value': 'OTHER',
-        'reason': 'Sector values incorrectly used in defendant_class field'
-    },
-
     # Pattern 6: INTENTIONAL → AGGRAVATING (Art 83 factors)
     'pattern6_intentional_to_aggravating': {
         'fields': ['a60_intentional_negligent'],
         'from_value': 'INTENTIONAL',
         'to_value': 'AGGRAVATING',
         'reason': 'Field expects AGGRAVATING/MITIGATING/NEUTRAL/NOT_DISCUSSED, not INTENTIONAL'
+    }
+}
+
+
+FLAG_PATTERNS = {
+    'pattern5_sector_in_defendant_class': {
+        'field': 'a8_defendant_class',
+        'flag_values': ['MEDIA', 'EDUCATION', 'JUDICIAL', 'TELECOM'],
+        'reason': 'Sector-specific label captured in defendant_class; requires manual review'
     }
 }
 
@@ -132,10 +133,10 @@ def load_validation_errors(error_file: str) -> dict:
 def apply_repairs(row: dict, row_id: str, errors_by_row: dict) -> dict:
     """
     Apply automatic repairs to a row.
-    Returns (repaired_row, repairs_applied)
+    Returns (repaired_row, actions_taken)
     """
     repaired = row.copy()
-    repairs = []
+    actions = []
 
     # Get errors for this row
     row_errors = errors_by_row.get(row_id, {})
@@ -150,12 +151,13 @@ def apply_repairs(row: dict, row_id: str, errors_by_row: dict) -> dict:
             if 'from_value' in rule:
                 if repaired[field] == rule['from_value'] and field in row_errors:
                     repaired[field] = rule['to_value']
-                    repairs.append({
+                    actions.append({
                         'field': field,
                         'from': rule['from_value'],
                         'to': rule['to_value'],
                         'pattern': pattern_name,
-                        'reason': rule['reason']
+                        'reason': rule['reason'],
+                        'action': 'REPAIR'
                     })
 
             # Handle rules with multiple from_values (e.g., pattern5)
@@ -163,15 +165,30 @@ def apply_repairs(row: dict, row_id: str, errors_by_row: dict) -> dict:
                 if repaired[field] in rule['from_values'] and field in row_errors:
                     old_value = repaired[field]
                     repaired[field] = rule['to_value']
-                    repairs.append({
+                    actions.append({
                         'field': field,
                         'from': old_value,
                         'to': rule['to_value'],
                         'pattern': pattern_name,
-                        'reason': rule['reason']
+                        'reason': rule['reason'],
+                        'action': 'REPAIR'
                     })
 
-    return repaired, repairs
+    for pattern_name, rule in FLAG_PATTERNS.items():
+        field = rule['field']
+        if field not in repaired or field not in row_errors:
+            continue
+        if repaired[field] in rule['flag_values']:
+            actions.append({
+                'field': field,
+                'from': repaired[field],
+                'to': repaired[field],
+                'pattern': pattern_name,
+                'reason': rule['reason'],
+                'action': 'FLAG'
+            })
+
+    return repaired, actions
 
 
 def repair_dataset(input_file: str, error_file: str, output_file: str, log_file: str):
@@ -190,24 +207,38 @@ def repair_dataset(input_file: str, error_file: str, output_file: str, log_file:
         rows = list(reader)
 
     repaired_rows = []
-    all_repairs = defaultdict(int)
+    repairs_by_pattern = defaultdict(int)
+    flags_by_pattern = defaultdict(int)
     rows_repaired = 0
+    rows_flagged = 0
     repair_details = []
 
     for row in rows:
         row_id = row.get('id', 'unknown')
-        repaired_row, repairs = apply_repairs(row, row_id, errors_by_row)
+        repaired_row, actions = apply_repairs(row, row_id, errors_by_row)
 
-        if repairs:
-            rows_repaired += 1
-            for repair in repairs:
-                all_repairs[repair['pattern']] += 1
+        if actions:
+            has_repair = any(action['action'] == 'REPAIR' for action in actions)
+            has_flag = any(action['action'] == 'FLAG' for action in actions)
+
+            if has_repair:
+                rows_repaired += 1
+            if has_flag:
+                rows_flagged += 1
+
+            for action in actions:
+                if action['action'] == 'REPAIR':
+                    repairs_by_pattern[action['pattern']] += 1
+                elif action['action'] == 'FLAG':
+                    flags_by_pattern[action['pattern']] += 1
+
                 repair_details.append({
                     'row_id': row_id,
-                    'field': repair['field'],
-                    'from_value': repair['from'],
-                    'to_value': repair['to'],
-                    'pattern': repair['pattern']
+                    'field': action['field'],
+                    'from_value': action['from'],
+                    'to_value': action['to'],
+                    'pattern': action['pattern'],
+                    'action': action['action']
                 })
 
         repaired_rows.append(repaired_row)
@@ -219,7 +250,10 @@ def repair_dataset(input_file: str, error_file: str, output_file: str, log_file:
         writer.writerows(repaired_rows)
 
     print(f"✓ Repaired {rows_repaired} rows")
-    print(f"✓ Total repairs: {sum(all_repairs.values())}")
+    if rows_flagged:
+        print(f"⚑ Flagged {rows_flagged} rows for manual review")
+    total_actions = sum(repairs_by_pattern.values()) + sum(flags_by_pattern.values())
+    print(f"✓ Total actions logged: {total_actions}")
 
     # Generate repair log
     with open(log_file, 'w', encoding='utf-8') as f:
@@ -234,34 +268,55 @@ def repair_dataset(input_file: str, error_file: str, output_file: str, log_file:
         f.write("-" * 70 + "\n")
         f.write(f"Total rows processed: {len(rows)}\n")
         f.write(f"Rows repaired: {rows_repaired}\n")
-        f.write(f"Total repairs applied: {sum(all_repairs.values())}\n\n")
+        f.write(f"Rows flagged for manual review: {rows_flagged}\n")
+        total_actions = sum(repairs_by_pattern.values()) + sum(flags_by_pattern.values())
+        f.write(f"Total actions logged: {total_actions}\n\n")
 
         f.write("REPAIRS BY PATTERN\n")
         f.write("-" * 70 + "\n")
-        for pattern, count in sorted(all_repairs.items()):
-            f.write(f"{pattern}: {count} repairs\n")
-            rule = REPAIR_RULES[pattern]
-            if 'from_value' in rule:
-                f.write(f"  Rule: {rule['from_value']} → {rule['to_value']}\n")
-            elif 'from_values' in rule:
-                from_vals = ', '.join(rule['from_values'])
-                f.write(f"  Rule: [{from_vals}] → {rule['to_value']}\n")
-            f.write(f"  Reason: {rule['reason']}\n\n")
+        if repairs_by_pattern:
+            for pattern, count in sorted(repairs_by_pattern.items()):
+                f.write(f"{pattern}: {count} repairs\n")
+                rule = REPAIR_RULES[pattern]
+                if 'from_value' in rule:
+                    f.write(f"  Rule: {rule['from_value']} → {rule['to_value']}\n")
+                elif 'from_values' in rule:
+                    from_vals = ', '.join(rule['from_values'])
+                    f.write(f"  Rule: [{from_vals}] → {rule['to_value']}\n")
+                f.write(f"  Reason: {rule['reason']}\n\n")
+        else:
+            f.write("(no automatic repairs applied)\n\n")
 
-        f.write("DETAILED REPAIRS\n")
+        f.write("FLAGS BY PATTERN\n")
         f.write("-" * 70 + "\n")
-        f.write(f"Row ID, Field, From, To, Pattern\n")
+        if flags_by_pattern:
+            for pattern, count in sorted(flags_by_pattern.items()):
+                f.write(f"{pattern}: {count} flags\n")
+                rule = FLAG_PATTERNS[pattern]
+                values = ', '.join(rule['flag_values'])
+                f.write(f"  Values flagged: {values}\n")
+                f.write(f"  Reason: {rule['reason']}\n\n")
+        else:
+            f.write("(no rows flagged for manual review)\n\n")
+
+        f.write("DETAILED ACTIONS\n")
+        f.write("-" * 70 + "\n")
+        f.write(f"Row ID, Field, From, To, Pattern, Action\n")
         for detail in repair_details[:100]:  # First 100 for brevity
-            f.write(f"{detail['row_id']}, {detail['field']}, {detail['from_value']}, {detail['to_value']}, {detail['pattern']}\n")
+            f.write(
+                f"{detail['row_id']}, {detail['field']}, {detail['from_value']}, {detail['to_value']}, "
+                f"{detail['pattern']}, {detail['action']}\n"
+            )
 
         if len(repair_details) > 100:
-            f.write(f"... and {len(repair_details) - 100} more repairs\n")
+            f.write(f"... and {len(repair_details) - 100} more actions\n")
 
         f.write("\n" + "=" * 70 + "\n")
         f.write("Repair complete. Run Phase 2 validation again to verify.\n")
         f.write("=" * 70 + "\n")
 
-    return rows_repaired, sum(all_repairs.values())
+    total_actions = sum(repairs_by_pattern.values()) + sum(flags_by_pattern.values())
+    return rows_repaired, total_actions
 
 
 def run_phase3(
@@ -294,7 +349,7 @@ def run_phase3(
         print(f"Log:    {log_file}")
         print()
 
-    rows_repaired, total_repairs = repair_dataset(
+    rows_repaired, total_actions = repair_dataset(
         str(input_file), str(error_file), str(output_file), str(log_file)
     )
 
@@ -315,7 +370,7 @@ def run_phase3(
         'repaired_csv': output_file,
         'log_file': log_file,
         'rows_repaired': rows_repaired,
-        'total_repairs': total_repairs,
+        'total_actions': total_actions,
     }
 
 

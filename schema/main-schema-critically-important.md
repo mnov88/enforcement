@@ -87,10 +87,10 @@ All Article 58 corrective measure fields use standard three-option validation:
 |-------|---------------|---------------|
 | `a53_fine_imposed` | YES, NO | Two-option field |
 | `a54_fine_amount` | Positive integer or **NOT_APPLICABLE** | No separators or symbols |
-| `a55_fine_currency` | EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, **NOT_APPLICABLE** | ISO currency codes |
+| `a55_fine_currency` | EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, CHF, ISK, USD, **NOT_APPLICABLE** | ISO currency codes |
 | `a56_turnover_discussed` | YES, NO | Two-option field |
 | `a57_turnover_amount` | Positive integer, **NOT_APPLICABLE**, or **NOT_DISCUSSED** | Three options |
-| `a58_turnover_currency` | EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, ISK, USD, **NOT_APPLICABLE**, **NOT_DISCUSSED** | Currency with special values |
+| `a58_turnover_currency` | EUR, GBP, SEK, DKK, NOK, PLN, CZK, HUF, RON, BGN, HRK, CHF, ISK, USD, **NOT_APPLICABLE**, **NOT_DISCUSSED** | Currency with special values |
 
 ### Section 12: Article 83(2) Factors (Questions 59-69)
 
