@@ -16,6 +16,7 @@ import csv
 from pathlib import Path
 from datetime import datetime
 from collections import defaultdict
+from typing import Any, Dict, Optional
 
 # Define repair rules
 REPAIR_RULES = {
@@ -263,42 +264,67 @@ def repair_dataset(input_file: str, error_file: str, output_file: str, log_file:
     return rows_repaired, sum(all_repairs.values())
 
 
-def main():
-    # Paths
+def run_phase3(
+    input_file: Path,
+    error_file: Path,
+    output_file: Optional[Path] = None,
+    log_file: Optional[Path] = None,
+    *,
+    verbose: bool = True,
+) -> Dict[str, Any]:
+    """Execute phase 3 repairs with configurable paths."""
+
     script_dir = Path(__file__).parent
     project_root = script_dir.parent
-    input_file = project_root / 'outputs' / 'phase1_extraction' / 'main_dataset.csv'
-    error_file = project_root / 'outputs' / 'phase2_validation' / 'validation_errors.csv'
-    output_file = project_root / 'outputs' / 'phase3_repair' / 'repaired_dataset.csv'
-    log_file = project_root / 'outputs' / 'phase3_repair' / 'repair_log.txt'
 
-    # Ensure output directory exists
+    if output_file is None:
+        output_file = project_root / 'outputs' / 'phase3_repair' / 'repaired_dataset.csv'
+    if log_file is None:
+        log_file = output_file.parent / 'repair_log.txt'
+
     output_file.parent.mkdir(parents=True, exist_ok=True)
 
-    print("=" * 70)
-    print("Phase 3: Auto-Repair Data Errors")
-    print("=" * 70)
-    print(f"Input:  {input_file}")
-    print(f"Errors: {error_file}")
-    print(f"Output: {output_file}")
-    print(f"Log:    {log_file}")
-    print()
+    if verbose:
+        print("=" * 70)
+        print("Phase 3: Auto-Repair Data Errors")
+        print("=" * 70)
+        print(f"Input:  {input_file}")
+        print(f"Errors: {error_file}")
+        print(f"Output: {output_file}")
+        print(f"Log:    {log_file}")
+        print()
 
-    # Repair
     rows_repaired, total_repairs = repair_dataset(
         str(input_file), str(error_file), str(output_file), str(log_file)
     )
 
-    print()
-    print(f"✓ Wrote repaired dataset to {output_file.name}")
-    print(f"✓ Wrote repair log to {log_file.name}")
+    if verbose:
+        print()
+        print(f"✓ Wrote repaired dataset to {output_file.name}")
+        print(f"✓ Wrote repair log to {log_file.name}")
+        print()
+        print("=" * 70)
+        print("✓ Phase 3 repair complete!")
+        print("=" * 70)
+        print("\nNext step: Re-run Phase 2 validation on repaired dataset")
+        print("  python3 scripts/2_validate_dataset.py --input outputs/phase3_repair/repaired_dataset.csv")
 
-    print()
-    print("=" * 70)
-    print("✓ Phase 3 repair complete!")
-    print("=" * 70)
-    print(f"\nNext step: Re-run Phase 2 validation on repaired dataset")
-    print(f"  python3 scripts/2_validate_dataset.py --input outputs/phase3_repair/repaired_dataset.csv")
+    return {
+        'input_file': input_file,
+        'error_file': error_file,
+        'repaired_csv': output_file,
+        'log_file': log_file,
+        'rows_repaired': rows_repaired,
+        'total_repairs': total_repairs,
+    }
+
+
+def main():
+    script_dir = Path(__file__).parent
+    project_root = script_dir.parent
+    input_file = project_root / 'outputs' / 'phase1_extraction' / 'main_dataset.csv'
+    error_file = project_root / 'outputs' / 'phase2_validation' / 'validation_errors.csv'
+    run_phase3(input_file, error_file, verbose=True)
 
 
 if __name__ == '__main__':

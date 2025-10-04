@@ -20,6 +20,7 @@ import csv
 from pathlib import Path
 from datetime import datetime
 from collections import defaultdict
+from typing import Any, Dict, Optional
 
 # ============================================================================
 # VALIDATION RULES FOR ALL 77 FIELDS
@@ -543,51 +544,90 @@ def generate_report(valid_rows, all_errors, all_rows, output_report, output_vali
     print(f"✓ Wrote validation report to {Path(output_report).name}")
 
 
+def run_phase2(
+    input_file: Path,
+    output_validated: Optional[Path] = None,
+    output_errors: Optional[Path] = None,
+    output_report: Optional[Path] = None,
+    *,
+    verbose: bool = True,
+) -> Dict[str, Any]:
+    """Execute phase 2 validation with configurable input/output paths."""
+
+    script_dir = Path(__file__).parent
+    project_root = script_dir.parent
+    input_path = Path(input_file)
+
+    if output_validated is None or output_errors is None or output_report is None:
+        default_input = project_root / 'outputs' / 'phase1_extraction' / 'main_dataset.csv'
+        if input_path.resolve() == default_input.resolve():
+            base_dir = project_root / 'outputs' / 'phase2_validation'
+            output_validated = base_dir / 'validated_data.csv'
+            output_errors = base_dir / 'validation_errors.csv'
+            output_report = base_dir / 'validation_report.txt'
+        else:
+            base_dir = input_path.parent
+            stem = input_path.stem
+            output_validated = base_dir / f"{stem}_validated.csv"
+            output_errors = base_dir / f"{stem}_validation_errors.csv"
+            output_report = base_dir / f"{stem}_validation_report.txt"
+
+    if output_validated is None or output_errors is None or output_report is None:
+        raise ValueError("Output paths could not be determined for validation results.")
+
+    output_validated.parent.mkdir(parents=True, exist_ok=True)
+
+    if verbose:
+        print("=" * 70)
+        print("Phase 2: Dataset Validation (All 77 Fields)")
+        print("=" * 70)
+        print(f"Input:  {input_path}")
+        print(f"Output: {output_validated.parent}")
+        print()
+
+    valid_rows, all_errors, all_rows = validate_dataset(str(input_path))
+
+    if verbose:
+        print()
+
+    write_outputs(
+        valid_rows,
+        all_errors,
+        all_rows,
+        str(output_validated),
+        str(output_errors),
+        str(output_report),
+    )
+
+    if verbose:
+        print()
+        print("=" * 70)
+        print("✓ Phase 2 validation complete!")
+        print("=" * 70)
+
+    return {
+        'input_file': input_path,
+        'validated_csv': output_validated if valid_rows else None,
+        'errors_csv': output_errors if all_errors else None,
+        'report_file': output_report,
+        'valid_count': len(valid_rows),
+        'error_count': len(all_errors),
+        'row_count': len(all_rows),
+    }
+
+
 def main():
     import sys
 
-    # Paths
     script_dir = Path(__file__).parent
     project_root = script_dir.parent
 
-    # Check if custom input provided
     if len(sys.argv) > 1 and sys.argv[1] == '--input':
-        input_file = Path(sys.argv[2]) if not sys.argv[2].startswith('/') else Path(sys.argv[2])
-        if not input_file.is_absolute():
-            input_file = project_root / input_file
-        # Determine output directory based on input
-        output_dir = input_file.parent
-        stem = input_file.stem
-        output_validated = output_dir / f"{stem}_validated.csv"
-        output_errors = output_dir / f"{stem}_validation_errors.csv"
-        output_report = output_dir / f"{stem}_validation_report.txt"
+        input_file = Path(sys.argv[2]) if sys.argv[2].startswith('/') else project_root / sys.argv[2]
     else:
         input_file = project_root / 'outputs' / 'phase1_extraction' / 'main_dataset.csv'
-        output_validated = project_root / 'outputs' / 'phase2_validation' / 'validated_data.csv'
-        output_errors = project_root / 'outputs' / 'phase2_validation' / 'validation_errors.csv'
-        output_report = project_root / 'outputs' / 'phase2_validation' / 'validation_report.txt'
 
-    # Ensure output directory exists
-    output_validated.parent.mkdir(parents=True, exist_ok=True)
-
-    print("=" * 70)
-    print("Phase 2: Dataset Validation (All 77 Fields)")
-    print("=" * 70)
-    print(f"Input:  {input_file}")
-    print(f"Output: {output_validated.parent}")
-    print()
-
-    # Validate
-    valid_rows, all_errors, all_rows = validate_dataset(str(input_file))
-
-    # Write outputs
-    print()
-    write_outputs(valid_rows, all_errors, all_rows, str(output_validated), str(output_errors), str(output_report))
-
-    print()
-    print("=" * 70)
-    print("✓ Phase 2 validation complete!")
-    print("=" * 70)
+    run_phase2(Path(input_file), verbose=True)
 
 
 if __name__ == '__main__':
