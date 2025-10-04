@@ -103,7 +103,7 @@ python3 scripts/2_analyze_enum_values.py
 
 **Script:** `scripts/3_repair_data_errors.py`
 
-**Purpose:** Automatically fix common validation errors using 6 targeted pattern-based repair rules
+**Purpose:** Automatically fix common validation errors using 5 targeted repair patterns and 1 manual-review flag
 
 **Input:**
 - `/outputs/phase1_extraction/main_dataset.csv` (data to repair)
@@ -113,17 +113,17 @@ python3 scripts/2_analyze_enum_values.py
 - `/outputs/phase3_repair/repaired_dataset.csv` - Repaired data
 - `/outputs/phase3_repair/repair_log.txt` - Detailed repair log
 
-**Repair Patterns (6):**
+**Repair Patterns & Flags:**
 1. NOT_DISCUSSED → NO (two-option YES/NO fields)
 2. NOT_APPLICABLE → NOT_DISCUSSED (discussion/violation fields that accept NOT_DISCUSSED)
 3. BREACHED → YES (rights violation fields)
 4. NOT_BREACHED → NO (rights violation fields)
-5. [Sector values] → OTHER (defendant_class field)
+5. Flag sector labels in `a8_defendant_class` for manual review (no automatic remap)
 6. INTENTIONAL → AGGRAVATING (Art 83 factors)
 
 > Binary fields (YES/NO only) are intentionally left for manual review if annotators supplied `NOT_APPLICABLE`.
 
-**Financial currency support:** Both `a55_fine_currency` and `a58_turnover_currency` now accept `USD` alongside existing EEA codes. The repair script no longer rewrites non-EU currencies; review these rows manually if downstream analysis expects consolidation.
+**Financial currency support:** Both `a55_fine_currency` and `a58_turnover_currency` now accept `USD` and `CHF` alongside existing EEA codes. The repair script no longer rewrites non-EU currencies; review these rows manually if downstream analysis expects consolidation.
 
 **Command:**
 ```bash
@@ -166,7 +166,7 @@ python3 scripts/2_validate_dataset.py
 # Phase 2 Utility: Analyze enum patterns (identifies 1,421 invalid values)
 python3 scripts/2_analyze_enum_values.py
 
-# Phase 3: Repair common errors (latest run applied 805 repairs; see repair_log for breakdown)
+# Phase 3: Repair common errors (see repair_log for current repair vs. flag breakdown)
 python3 scripts/3_repair_data_errors.py
 
 # Re-validate repaired data (final: 623/757 valid = 82.3%)
@@ -189,8 +189,8 @@ python3 scripts/2_validate_dataset.py --input outputs/phase3_repair/repaired_dat
 
 **Repair (Phase 3):**
 - Rows repaired: 261/757 (34.5%)
-- Total repairs applied: 805 repairs across 6 patterns
-- Most common fixes: NOT_DISCUSSED → NO (464), NOT_APPLICABLE → NOT_DISCUSSED (282), BREACHED → YES (50)
+- Total automatic repairs (latest run pre-flag update): 805 across 6 patterns; updated pipeline now logs manual-review flags for sector-class mismatches in addition to these repairs
+- Most common fixes: NOT_DISCUSSED → NO, NOT_APPLICABLE → NOT_DISCUSSED, BREACHED → YES
 
 **Validation (Phase 2 - Post-Repair):**
 - Input rows: 757

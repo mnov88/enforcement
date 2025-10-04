@@ -17,6 +17,7 @@ overwriting phase artefacts.
 """
 
 import csv
+import re
 from pathlib import Path
 from datetime import datetime
 from collections import defaultdict
@@ -160,13 +161,13 @@ VALIDATION_RULES = {
     'a54_fine_amount': {'type': 'integer_or_sentinel', 'sentinel': 'NOT_APPLICABLE'},
     'a55_fine_currency': {
         'type': 'enum',
-        'allowed': ['EUR', 'GBP', 'SEK', 'DKK', 'NOK', 'PLN', 'CZK', 'HUF', 'RON', 'BGN', 'HRK', 'ISK', 'USD', 'NOT_APPLICABLE']
+        'allowed': ['EUR', 'GBP', 'SEK', 'DKK', 'NOK', 'PLN', 'CZK', 'HUF', 'RON', 'BGN', 'HRK', 'CHF', 'ISK', 'USD', 'NOT_APPLICABLE']
     },
     'a56_turnover_discussed': {'type': 'enum', 'allowed': ['YES', 'NO']},
     'a57_turnover_amount': {'type': 'integer_or_sentinels', 'sentinels': ['NOT_APPLICABLE', 'NOT_DISCUSSED']},
     'a58_turnover_currency': {
         'type': 'enum',
-        'allowed': ['EUR', 'GBP', 'SEK', 'DKK', 'NOK', 'PLN', 'CZK', 'HUF', 'RON', 'BGN', 'HRK', 'ISK', 'USD',
+        'allowed': ['EUR', 'GBP', 'SEK', 'DKK', 'NOK', 'PLN', 'CZK', 'HUF', 'RON', 'BGN', 'HRK', 'CHF', 'ISK', 'USD',
                    'NOT_APPLICABLE', 'NOT_DISCUSSED']
     },
 
@@ -199,6 +200,125 @@ VALIDATION_RULES = {
     }
 }
 
+BINARY_ONLY_FIELDS = {
+    'a18_art33_discussed',
+    'a28_art9_discussed',
+    'a53_fine_imposed',
+    'a56_turnover_discussed',
+    'a70_systematic_art83_discussion',
+}
+
+FORBIDDEN_BINARY_SENTINELS = {'NOT_APPLICABLE', 'NOT_DISCUSSED'}
+
+ARTICLE_PREFIX_PATTERN = re.compile(r'^(art\.?|article)\s*', re.IGNORECASE)
+GDPR_SUFFIX_PATTERN = re.compile(r'(gdpr)$', re.IGNORECASE)
+
+
+def normalize_article_token(token: str) -> str:
+    """Normalize GDPR article token to its leading numeric anchor."""
+    stripped = token.strip()
+    if not stripped:
+        return ''
+
+    stripped = ARTICLE_PREFIX_PATTERN.sub('', stripped)
+    stripped = GDPR_SUFFIX_PATTERN.sub('', stripped)
+    stripped = stripped.replace(' ', '')
+
+    match = re.match(r'(\d+)', stripped)
+    if match:
+        return match.group(1)
+
+    match = re.search(r'(\d+)', stripped)
+    if match:
+        return match.group(1)
+
+    return stripped
+
+
+def parse_article_numbers(value: str) -> set[str]:
+    """Parse semicolon-separated article list into a set of numeric strings."""
+    if not value or value in {'NONE_VIOLATED', 'NOT_DISCUSSED'}:
+        return set()
+
+    tokens = [normalize_article_token(tok) for tok in value.split(';')]
+    return {tok for tok in tokens if tok.isdigit()}
+
+
+ARTICLE5_FIELDS = [
+    'a21_art5_lawfulness_fairness',
+    'a22_art5_purpose_limitation',
+    'a23_art5_data_minimization',
+    'a24_art5_accuracy',
+    'a25_art5_storage_limitation',
+    'a26_art5_integrity_confidentiality',
+    'a27_art5_accountability',
+]
+
+RIGHT_TO_ARTICLE_MAP = {
+    'a37_right_access_violated': {'15'},
+    'a38_right_rectification_violated': {'16'},
+    'a39_right_erasure_violated': {'17'},
+    'a40_right_restriction_violated': {'18'},
+    'a41_right_portability_violated': {'20'},
+    'a42_right_object_violated': {'21'},
+    'a43_transparency_violated': {'12', '13', '14'},
+    'a44_automated_decisions_violated': {'22'},
+}
+
+
+def apply_additional_checks(row: dict) -> list[dict]:
+    """Run cross-field consistency checks that escalate to hard errors."""
+
+    errors = []
+
+    fine_imposed = row.get('a53_fine_imposed')
+    fine_amount = row.get('a54_fine_amount', '')
+    if fine_imposed == 'YES':
+        if not fine_amount.isdigit() or int(fine_amount) <= 0:
+            errors.append({
+                'field_name': 'a54_fine_amount',
+                'field_value': fine_amount,
+                'validation_rule': 'consistency',
+                'error_message': 'a54_fine_amount must be a positive integer when a53_fine_imposed = YES',
+                'severity': 'ERROR',
+            })
+
+        fine_currency = row.get('a55_fine_currency', '')
+        if fine_currency in {'', 'NOT_APPLICABLE', 'NOT_DISCUSSED'}:
+            errors.append({
+                'field_name': 'a55_fine_currency',
+                'field_value': fine_currency,
+                'validation_rule': 'consistency',
+                'error_message': 'a55_fine_currency must specify an ISO code when a53_fine_imposed = YES',
+                'severity': 'ERROR',
+            })
+
+    breached_articles = parse_article_numbers(row.get('a77_articles_breached', ''))
+
+    if any(row.get(field) == 'BREACHED' for field in ARTICLE5_FIELDS):
+        if '5' not in breached_articles:
+            errors.append({
+                'field_name': 'a77_articles_breached',
+                'field_value': row.get('a77_articles_breached', ''),
+                'validation_rule': 'consistency',
+                'error_message': 'Article 5 breach flagged (a21-a27) but Art. 5 missing from a77_articles_breached',
+                'severity': 'ERROR',
+            })
+
+    for field, required_articles in RIGHT_TO_ARTICLE_MAP.items():
+        if row.get(field) == 'YES' and breached_articles.isdisjoint(required_articles):
+            errors.append({
+                'field_name': 'a77_articles_breached',
+                'field_value': row.get('a77_articles_breached', ''),
+                'validation_rule': 'consistency',
+                'error_message': (
+                    f"{field} = YES requires one of Articles {', '.join(sorted(required_articles))} in a77_articles_breached"
+                ),
+                'severity': 'ERROR',
+            })
+
+    return errors
+
 # Conditional validation rules
 CONDITIONAL_RULES = [
     {
@@ -227,14 +347,16 @@ CONDITIONAL_RULES = [
         'condition_field': 'a53_fine_imposed',
         'condition_value': 'NO',
         'expected': 'NOT_APPLICABLE',
-        'message': 'a54_fine_amount must be NOT_APPLICABLE when fine_imposed = NO'
+        'message': 'a54_fine_amount must be NOT_APPLICABLE when fine_imposed = NO',
+        'severity': 'ERROR'
     },
     {
         'field': 'a55_fine_currency',
         'condition_field': 'a53_fine_imposed',
         'condition_value': 'NO',
         'expected': 'NOT_APPLICABLE',
-        'message': 'a55_fine_currency must be NOT_APPLICABLE when fine_imposed = NO'
+        'message': 'a55_fine_currency must be NOT_APPLICABLE when fine_imposed = NO',
+        'severity': 'ERROR'
     },
     {
         'field': 'a57_turnover_amount',
@@ -339,7 +461,18 @@ class FieldValidator:
             return (True, '', 'VALID')
 
         tokens = [t.strip() for t in value.split(';')]
-        invalid_tokens = [t for t in tokens if t and not t.isdigit()]
+        invalid_tokens = []
+        for token in tokens:
+            if not token:
+                continue
+            if token.isdigit():
+                continue
+
+            normalized = normalize_article_token(token)
+            if normalized.isdigit():
+                continue
+
+            invalid_tokens.append(token)
 
         if invalid_tokens:
             return (False, f"Invalid article numbers: {', '.join(invalid_tokens)}", 'ERROR')
@@ -405,6 +538,8 @@ def validate_row(row: dict) -> list[dict]:
             )
 
         if not valid:
+            if field_name in BINARY_ONLY_FIELDS and value in FORBIDDEN_BINARY_SENTINELS:
+                error_msg = f"Binary field expects YES or NO; found '{value}'"
             errors.append({
                 'field_name': field_name,
                 'field_value': value,
@@ -436,8 +571,10 @@ def validate_row(row: dict) -> list[dict]:
                 'field_value': row[field],
                 'validation_rule': 'conditional',
                 'error_message': cond_rule['message'],
-                'severity': 'WARNING'
+                'severity': cond_rule.get('severity', 'WARNING')
             })
+
+    errors.extend(apply_additional_checks(row))
 
     return errors
 

@@ -26,7 +26,7 @@ This document provides comprehensive documentation for all three phases of the G
 
 2. **Field Mapping:**
    - `Answer 1` → `a1_country_code`
-   - `Answer 2` → `a2_case_name`
+   - `Answer 2` → `a2_authority_name`
    - `Answer 3` → `a3_appellate_decision`
    - ... (77 total fields)
    - `Answer 77` → `a77_articles_breached`
@@ -81,7 +81,7 @@ python3 scripts/1_parse_ai_responses.py
    - Generates ERROR if negative or non-numeric
 
 4. **`free_text`** - Allows any text (length validation only)
-   - Example: `a2_case_name` can be any string
+   - Example: `a2_authority_name` can be any string
    - Generates WARNING if exceeds 500 characters
 
 5. **`delimited_list`** - Semicolon-separated enum values
@@ -98,19 +98,25 @@ python3 scripts/1_parse_ai_responses.py
    - Generates WARNING if missing when expected
 
 8. **`articles_list`** - Special format for GDPR article citations
-   - Example: `a77_articles_breached` format: "Art. 5(1)(a); Art. 6(1)"
-   - Validates semicolon-separated article references
+   - Example: `a77_articles_breached` canonical format `5;6;15;17`
+   - Validator auto-strips prefixes like "Art."/"Article" and `(1)(a)` suffixes before checking numeric anchors
 
 **Conditional Cross-Field Rules (8 Rules):**
 
-1. `a19_art33_breached = NOT_APPLICABLE` when `a18_art33_discussed ≠ YES`
-2. `a20_breach_notification_effect = NOT_DISCUSSED` when `a18_art33_discussed ≠ YES`
-3. `a29_vulnerable_groups` should be empty when `a28_art9_discussed ≠ YES`
-4. `a36_art6_legal_basis_other` should have content when any Art 6 basis = INVALID
-5. `a13_sector_other` should have content when `a12_sector = OTHER`
-6. `a54_fine_amount` should be > 0 when `a53_fine_imposed = YES`
-7. `a55_fine_currency ≠ NOT_APPLICABLE` when `a53_fine_imposed = YES`
+1. `a10_gov_level = NOT_APPLICABLE` when `a8_defendant_class ≠ PUBLIC`
+2. `a13_sector_other = NOT_APPLICABLE` when `a12_sector ≠ OTHER`
+3. `a19_art33_breached = NOT_APPLICABLE` when `a18_art33_discussed = NO`
+4. `a54_fine_amount = NOT_APPLICABLE` when `a53_fine_imposed = NO` (ERROR)
+5. `a55_fine_currency = NOT_APPLICABLE` when `a53_fine_imposed = NO` (ERROR)
+6. `a57_turnover_amount = NOT_DISCUSSED` when `a56_turnover_discussed = NO`
+7. `a58_turnover_currency = NOT_DISCUSSED` when `a56_turnover_discussed = NO`
 8. `a73_oss_role = NOT_APPLICABLE` when `a72_cross_border_oss ≠ YES`
+
+**Hard Consistency Checks (phase-2 errors):**
+
+- If `a53_fine_imposed = YES`, then `a54_fine_amount` must be a positive integer and `a55_fine_currency` must be a real ISO code (no sentinels).
+- If any of `a21`–`a27` = BREACHED, then `a77_articles_breached` must include `5`.
+- If any rights field (`a37`–`a44`) = YES, then `a77_articles_breached` must list the corresponding article(s) (e.g., `a43 = YES` ⇒ Article 12/13/14 present).
 
 **No Data Modification:** This script only validates and reports errors; it does not modify data.
 
@@ -201,7 +207,7 @@ python3 scripts/2_analyze_enum_values.py --input outputs/phase3_repair/repaired_
 - `/outputs/phase3_repair/repaired_dataset_validation_report.txt`
 - `/outputs/phase3_repair/repair_log.txt` (detailed repair log)
 
-**Repair Rules (6 Patterns):**
+**Repair Rules (5 Automatic Patterns + 1 Flag):**
 
 ### Pattern 1: `NOT_DISCUSSED → NO`
 **Fields (5):** a18_art33_discussed, a28_art9_discussed, a53_fine_imposed, a56_turnover_discussed, a70_systematic_art83_discussion
@@ -247,16 +253,16 @@ python3 scripts/2_analyze_enum_values.py --input outputs/phase3_repair/repaired_
 
 ---
 
-### Pattern 5: `[Sector Values] → OTHER`
+### Flag 5: `a8_defendant_class` sector labels
 **Field (1):** a8_defendant_class
 
-**Values Changed:** MEDIA, EDUCATION, JUDICIAL, TELECOM → OTHER
+**Values Flagged:** MEDIA, EDUCATION, JUDICIAL, TELECOM (left untouched)
 
-**Reason:** Sector values incorrectly used in defendant classification field
+**Reason:** Sector labels captured in the defendant-class field require human review; no automatic remapping is applied.
 
 **Example:**
-- Before: `a8_defendant_class = MEDIA`
-- After: `a8_defendant_class = OTHER`
+- Logged: `a8_defendant_class = MEDIA` → `FLAG`
+- Analyst should confirm correct class (e.g., PUBLIC/PRIVATE) before publication.
 
 ---
 
@@ -275,10 +281,11 @@ python3 scripts/2_analyze_enum_values.py --input outputs/phase3_repair/repaired_
 1. Only repairs fields with validation errors (not warnings)
 2. Applies repairs only when field value matches rule condition
 3. Preserves original data structure (no columns added/removed)
-4. Logs every repair with row ID, field, old value, new value
+4. Logs every action (repair or flag) with row ID, field, old value, new value/action
 
 **Data Modifications:**
 - Changes enum values to schema-compliant alternatives
+- Records flagged-but-unmodified values for manual follow-up
 - Does NOT modify numeric values, free text, or dates
 - Does NOT delete or add rows
 - Does NOT change field names or structure
@@ -314,7 +321,7 @@ python3 scripts/2_analyze_enum_values.py
 ```bash
 python3 scripts/3_repair_data_errors.py
 ```
-**Result:** Applies 805 repairs to 261 rows (latest run; see repair_log for pattern mix)
+**Result:** Applies hundreds of targeted repairs per run and logs any outstanding flags (see `repair_log.txt` for the precise mix).
 
 ### Step 5: Validate (Post-Repair)
 ```bash
@@ -342,8 +349,8 @@ During development, the following values were added to schema to reflect actual 
 1. **a1_country_code:** Added 'EL' (Greece alternative code)
 2. **a8_defendant_class:** Added 'POLITICAL_PARTY'
 3. **a14_processing_contexts:** Added 'EMPLOYEE_MONITORING'
-4. **a55_fine_currency:** Added 'ISK' (Icelandic Króna) and 'USD' (US Dollar)
-5. **a58_turnover_currency:** Added 'ISK' (Icelandic Króna) and 'USD' (US Dollar)
+4. **a55_fine_currency:** Added 'ISK' (Icelandic Króna), 'USD' (US Dollar), and 'CHF' (Swiss Franc)
+5. **a58_turnover_currency:** Added 'ISK' (Icelandic Króna), 'USD' (US Dollar), and 'CHF' (Swiss Franc)
 
 ---
 
