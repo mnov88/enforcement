@@ -12,10 +12,12 @@ Output: /outputs/phase1_extraction/main_dataset.csv
         /outputs/phase1_extraction/extraction_log.txt
 """
 
+import json
 import re
 import csv
 from pathlib import Path
 from datetime import datetime
+from collections import Counter
 from typing import Any, Dict, Optional
 
 # Field mapping: Answer number → CSV column name (per schema)
@@ -103,12 +105,12 @@ FIELD_MAPPING = {
 CSV_HEADERS = ['id'] + [FIELD_MAPPING[i] for i in range(1, 78)]
 
 
-def parse_response_file(filepath: str) -> tuple[list[dict], list[dict]]:
+def parse_response_file(filepath: str) -> tuple[list[dict], list[dict], dict[str, int]]:
     """
     Parse AI-responses.txt into valid and malformed response dicts.
 
     Returns:
-        (valid_responses, malformed_responses)
+        (valid_responses, malformed_responses, duplicate_stats)
     """
     with open(filepath, 'r', encoding='utf-8') as f:
         content = f.read()
@@ -125,11 +127,11 @@ def parse_response_file(filepath: str) -> tuple[list[dict], list[dict]]:
 
     matches = re.findall(pattern, content, re.DOTALL)
 
-    valid_responses = []
-    malformed_responses = []
+    parsed_entries: list[dict[str, Any]] = []
 
     for id_value, answer_block in matches:
         id_clean = id_value.strip()
+        raw_block = answer_block.strip()
 
         # Extract all "Answer N: VALUE" lines
         answer_lines = re.findall(r'^Answer (\d+): (.*)$', answer_block, re.MULTILINE)
@@ -146,23 +148,68 @@ def parse_response_file(filepath: str) -> tuple[list[dict], list[dict]]:
         answer_nums = sorted(answers.keys())
         expected_nums = list(range(1, 78))
 
+        entry: dict[str, Any] = {
+            'id': id_clean,
+            'raw_block': raw_block,
+            'answers': answers,
+            'answer_nums': answer_nums,
+        }
+
         if answer_nums == expected_nums:
-            # Valid response
             row = {'id': id_clean}
             for num in range(1, 78):
                 field_name = FIELD_MAPPING[num]
                 row[field_name] = answers[num]
-            valid_responses.append(row)
+            entry['status'] = 'valid'
+            entry['row'] = row
         else:
-            # Malformed response
-            row = {
-                'id': id_clean,
-                'error': f"Expected 77 answers (1-77), got {len(answers)} answers: {answer_nums}",
-                'raw_answers': str(answers)
-            }
-            malformed_responses.append(row)
+            entry['status'] = 'malformed'
+            entry['error'] = (
+                f"Expected 77 answers (1-77), got {len(answers)} answers: {answer_nums}"
+            )
 
-    return valid_responses, malformed_responses
+        parsed_entries.append(entry)
+
+    id_counts = Counter(entry['id'] for entry in parsed_entries)
+    duplicate_tracker: Counter[str] = Counter()
+
+    valid_responses: list[dict] = []
+    malformed_responses: list[dict] = []
+
+    for entry in parsed_entries:
+        entry_id = entry['id']
+        raw_block = entry['raw_block']
+        answers = entry.get('answers', {})
+        serialized_answers = json.dumps(answers, ensure_ascii=False)
+
+        if id_counts[entry_id] > 1:
+            duplicate_tracker[entry_id] += 1
+            occurrence = duplicate_tracker[entry_id]
+            total = id_counts[entry_id]
+            malformed_responses.append({
+                'id': entry_id,
+                'error': (
+                    f"Duplicate ID encountered ({total} occurrences); "
+                    f"this is occurrence #{occurrence}"
+                ),
+                'raw_answers': serialized_answers,
+                'raw_response_block': raw_block,
+            })
+            continue
+
+        if entry['status'] == 'valid':
+            valid_responses.append(entry['row'])
+        else:
+            malformed_responses.append({
+                'id': entry_id,
+                'error': entry['error'],
+                'raw_answers': serialized_answers,
+                'raw_response_block': raw_block,
+            })
+
+    duplicate_stats = {entry_id: count for entry_id, count in id_counts.items() if count > 1}
+
+    return valid_responses, malformed_responses, duplicate_stats
 
 
 def write_csv(filepath: str, rows: list[dict], fieldnames: list[str]):
@@ -203,11 +250,13 @@ def run_phase1(
         print()
         print("Parsing responses...")
 
-    valid_responses, malformed_responses = parse_response_file(str(input_file))
+    valid_responses, malformed_responses, duplicate_stats = parse_response_file(str(input_file))
 
     if verbose:
         print(f"✓ Valid responses:     {len(valid_responses)}")
         print(f"✗ Malformed responses: {len(malformed_responses)}")
+        if duplicate_stats:
+            print(f"  • Duplicate IDs quarantined: {len(duplicate_stats)}")
         print()
 
     if valid_responses:
@@ -219,7 +268,7 @@ def run_phase1(
     elif verbose:
         print("⚠ No valid responses to write!")
 
-    error_headers = ['id', 'error', 'raw_answers']
+    error_headers = ['id', 'error', 'raw_answers', 'raw_response_block']
     if malformed_responses:
         if verbose:
             print(f"\nWriting {len(malformed_responses)} malformed rows to {output_errors.name}...")
@@ -247,6 +296,11 @@ def run_phase1(
         f.write(f"  Total responses found: {len(valid_responses) + len(malformed_responses)}\n")
         f.write(f"  Valid responses (77 answers): {len(valid_responses)}\n")
         f.write(f"  Malformed responses: {len(malformed_responses)}\n\n")
+        if duplicate_stats:
+            f.write("Duplicate ID summary:\n")
+            for dup_id, count in sorted(duplicate_stats.items()):
+                f.write(f"  - {dup_id}: {count} occurrences\n")
+            f.write("\n")
         if malformed_responses:
             f.write("Malformed response details:\n")
             for row in malformed_responses:
@@ -270,6 +324,7 @@ def run_phase1(
         'log_file': output_log,
         'valid_count': len(valid_responses),
         'malformed_count': len(malformed_responses),
+        'duplicate_ids': duplicate_stats,
     }
 
 
