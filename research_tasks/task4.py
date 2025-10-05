@@ -107,9 +107,14 @@ def _bundle_entropy(values: pd.Series) -> float:
     total = counts.sum()
     if total == 0:
         return 0.0
-    probabilities = counts / total
+    probabilities = (counts / total).astype(float)
+    # Exclude zero-probability categories to avoid log(0) warnings
+    probabilities = probabilities[probabilities > 0]
+    if probabilities.empty:
+        return 0.0
     entropy = -(probabilities * np.log(probabilities)).sum()
-    max_entropy = np.log(len(probabilities)) if len(probabilities) > 1 else 1.0
+    support_size = len(probabilities)
+    max_entropy = np.log(support_size) if support_size > 1 else 1.0
     if max_entropy <= 0:
         return 0.0
     return float(entropy / max_entropy)
@@ -128,7 +133,12 @@ def _authority_factor_summary(df: pd.DataFrame) -> pd.DataFrame:
         coverage_std = float(group["factor_coverage"].std(ddof=0)) if len(group) > 1 else 0.0
         direction_mean = float(group["direction_ratio"].mean())
         balance_mean = float(group["art83_balance_score"].mean())
-        systematic_share = float(group["art83_systematic_bool"].mean())
+        # Robustly compute share while handling pd.NA in nullable boolean dtype
+        systematic_series = pd.to_numeric(group["art83_systematic_bool"], errors="coerce")
+        if systematic_series.notna().any():
+            systematic_share = float(systematic_series.mean())
+        else:
+            systematic_share = float("nan")
         coherence = _spearman_coherence(group)
         fine_std = float(group.loc[group["fine_amount_log"].notna(), "fine_amount_log"].std(ddof=0))
         measure_std = float(group["measure_count"].astype(float).std(ddof=0))
