@@ -403,6 +403,8 @@ During development, the following values were added to schema to reflect actual 
 - Region groupings: `/raw_data/reference/region_map.csv`
 
 **Outputs:**
+- `/outputs/phase4_enrichment/0_fx_conversion_metadata.csv` – Captures FX lookup method (`MONTHLY_AVG`, `ANNUAL_AVG`, `FALLBACK`), source year/month, and converted values for fines and turnover.
+- `/outputs/phase4_enrichment/0_fx_missing_review.csv` – Summarises cases where FX conversion failed so reviewers can intervene.
 - `/outputs/phase4_enrichment/1_enriched_master.csv` – Adds temporal fields, FX/EUR normalization (nominal & real 2025 euros), sanction and Art. 83 scoring, contextual flags, OSS geography, QA signals, and keyword metadata.
 - `/outputs/phase4_enrichment/2_processing_contexts.csv` – Long table of processing contexts with positional order.
 - `/outputs/phase4_enrichment/3_vulnerable_groups.csv` – Exploded vulnerable group annotations.

@@ -969,6 +969,49 @@ def enrich_dataset(
     df = compute_text_features(df, guidelines_df)
     df = compute_quality_flags(df)
 
+    fx_metadata_columns = [
+        "id",
+        "fine_currency",
+        "fine_amount_orig",
+        "fine_amount_eur",
+        "fine_fx_method",
+        "fine_fx_year",
+        "fine_fx_month",
+        "flag_fine_fx_fallback",
+        "turnover_currency",
+        "turnover_amount_orig",
+        "turnover_amount_eur",
+        "turnover_fx_method",
+        "turnover_fx_year",
+        "turnover_fx_month",
+        "flag_turnover_fx_fallback",
+    ]
+
+    fx_metadata = df[fx_metadata_columns].copy()
+    fx_metadata.to_csv(output_dir / "0_fx_conversion_metadata.csv", index=False)
+
+    fx_missing = df[
+        (
+            df["fine_amount_orig"].notna()
+            & df["fine_amount_eur"].isna()
+        )
+        | (
+            df["turnover_amount_orig"].notna()
+            & df["turnover_amount_eur"].isna()
+        )
+    ][
+        [
+            "id",
+            "fine_currency",
+            "fine_amount_orig",
+            "fine_fx_method",
+            "turnover_currency",
+            "turnover_amount_orig",
+            "turnover_fx_method",
+        ]
+    ].copy()
+    fx_missing.to_csv(output_dir / "0_fx_missing_review.csv", index=False)
+
     df.to_csv(output_dir / "1_enriched_master.csv", index=False)
     contexts_df.to_csv(output_dir / "2_processing_contexts.csv", index=False)
     vulnerable_df.to_csv(output_dir / "3_vulnerable_groups.csv", index=False)

@@ -9,11 +9,13 @@ Prioritise items according to research deadlines and data availability.
    - Add targeted unit tests around `compute_art5_and_rights` and `compute_measures` to ensure boolean roll-ups and QA flags
      remain stable as additional sentinel values appear.
    - Include a golden-record snapshot test for `build_graph_exports` covering node ID formatting and relationship de-duplication.
+   - *Status: Completed — pytest suite now exercises the Art. 5/right roll-ups, sanction aggregations, and graph export files.*
 
 2. **FX metadata transparency**
    - Persist a supplementary table that records FX lookup method (`MONTHLY_AVG`, `ANNUAL_AVG`, `FALLBACK`) alongside the
      source year/month so analysts can filter out fallback conversions when required.
    - Consider exposing a warning list (log or CSV) for rows lacking FX coverage to streamline manual review.
+   - *Status: Completed — enrichment now emits `0_fx_conversion_metadata.csv` and `0_fx_missing_review.csv` with conversion audit trails.*
 
 ## Medium Priority
 
