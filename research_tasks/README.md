@@ -14,6 +14,7 @@ the plan provided in `/research-tasks` (see project brief).
 | Task 2 | `scripts/rt2_two_part_models.py` | Estimates the two-part sanction model: logistic fining incidence with IPW robustness, multinomial sanction bundle choice, OLS/quantile log-fine regressions, and scenario predictions. | Model coefficient tables, design matrix, scenario predictions, figure bundle, serialized models |
 | Task 3 | `scripts/rt3_harmonization_tests.py` | Tests harmonization via nearest-neighbour fine gaps, mixed-effects variance decomposition, interaction contrasts, and within-authority public/private comparisons. | NN pair tables, variance components CSV, interaction diagnostics, figure bundle, serialized models |
 | Task 4 | `scripts/rt4_factor_use_and_pack.py` | Measures Article 83(2) factor systematicity by authority, links it to dispersion metrics, and assembles publication-ready figures/tables. | Authority factor tables, systematicity index, dispersion regression outputs, figure bundle, executive summary, reproducibility README |
+| Task 5 | `scripts/rt5_0_measurement_audit.py` et al. | Stress-tests the systematicity index, links it to dispersion through FE/DML/event-study designs, decomposes mechanisms, and produces forecasting scorecards. | Weighting grid, latent index draws, FE/DML tables, interaction & mediation diagnostics, policy frontier & benchmark packs |
 
 The helper package `research_tasks` exposes reusable utilities in
 `common.py` and task-specific modules (`task0.py`, `task1.py`) so future
