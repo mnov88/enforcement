@@ -111,6 +111,7 @@ ANALYSIS_COLUMNS: Sequence[str] = (
     "fine_fx_method",
     "rights_violated_count",
     "breach_count_total",
+    "breach_notification_effect_num",
     "first_violation_status",
     "a70_systematic_art83_discussion",
     "a71_first_violation",
@@ -257,6 +258,9 @@ def load_typed_enforcement_data(
     data["breach_count_total"] = pd.to_numeric(
         data["breach_count_total"], errors="coerce"
     ).astype("Int64")
+    data["breach_notification_effect_num"] = pd.to_numeric(
+        data["breach_notification_effect_num"], errors="coerce"
+    )
     data["measure_count"] = pd.to_numeric(
         data["measure_count"], errors="coerce"
     ).fillna(0).astype("Int64")
