@@ -23,7 +23,6 @@ from . import common
 
 EXTRA_COLUMNS: Sequence[str] = (
     "id",
-    "breach_notification_effect_num",
     "has_cookies",
 )
 
@@ -96,7 +95,24 @@ def _prepare_dataset(data: pd.DataFrame, extra: pd.DataFrame) -> pd.DataFrame:
     merged["repeat_offender"] = merged["first_violation_status"].map(
         _clean_repeat_offender
     )
-    merged["self_report_flag"] = merged["breach_notification_effect_num"].fillna(0).lt(0)
+    breach_column = "breach_notification_effect_num"
+    if breach_column in merged:
+        breach_series = merged[breach_column]
+    else:
+        left = merged.get(f"{breach_column}_x")
+        right = merged.get(f"{breach_column}_y")
+        if left is not None and right is not None:
+            breach_series = left.fillna(right)
+        elif left is not None:
+            breach_series = left
+        elif right is not None:
+            breach_series = right
+        else:
+            breach_series = pd.Series(0, index=merged.index, dtype="float64")
+
+    merged["self_report_flag"] = (
+        pd.to_numeric(breach_series, errors="coerce").fillna(0).lt(0)
+    )
     merged["has_cookies_flag"] = merged["has_cookies"].fillna(False).astype(bool)
 
     merged[FINE_AMOUNT_COLUMN] = pd.to_numeric(
