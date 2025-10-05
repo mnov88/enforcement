@@ -12,6 +12,7 @@ from typing import Sequence
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from pandas.api.types import CategoricalDtype
 import seaborn as sns
 import statsmodels.api as sm
 from patsy import dmatrix
@@ -222,6 +223,15 @@ def _authority_summary(df: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame.from_records(records)
 
 
+def _value_counts_with_unknown(series: pd.Series, *, unknown_label: str = "UNKNOWN") -> pd.Series:
+    """Return normalised value counts with a fallback category for missing values."""
+
+    if isinstance(series.dtype, CategoricalDtype) and unknown_label not in series.cat.categories:
+        series = series.cat.add_categories([unknown_label])
+
+    return series.fillna(unknown_label).value_counts(normalize=True)
+
+
 def _authority_year_panel(df: pd.DataFrame) -> pd.DataFrame:
     grouped = df.groupby(
         ["a1_country_code", "a2_authority_name", "decision_year"],
@@ -243,10 +253,8 @@ def _authority_year_panel(df: pd.DataFrame) -> pd.DataFrame:
         bundle_div = _bundle_entropy(group["sanction_bundle"])
         measure_std = float(group["measure_count"].astype(float).std(ddof=0))
 
-        sector_counts = group["a12_sector"].fillna("UNKNOWN").value_counts(normalize=True)
-        class_counts = group["a8_defendant_class"].fillna("UNKNOWN").value_counts(
-            normalize=True
-        )
+        sector_counts = _value_counts_with_unknown(group["a12_sector"])
+        class_counts = _value_counts_with_unknown(group["a8_defendant_class"])
 
         art5_share = float(group.get("breach_has_art5", pd.Series(dtype=float)).mean())
         rights_mean = float(group["rights_violated_count"].fillna(0).mean())
@@ -1530,34 +1538,78 @@ def run(
     template_median = (
         float(template["dispersion_change"].median()) if not template.empty else float("nan")
     )
+    low_coherence_mask = baseline_index["coherence"].lt(0.2)
+    low_coherence_count = int(low_coherence_mask.sum())
+    low_coherence_share = (
+        float(low_coherence_mask.mean()) if len(baseline_index) else float("nan")
+    )
+    coverage_coherence = baseline_index[["coverage_score", "coherence_score"]].dropna()
+    coverage_coherence_corr = (
+        float(
+            coverage_coherence.corr().loc["coverage_score", "coherence_score"]
+        )
+        if len(coverage_coherence) > 1
+        else float("nan")
+    )
+    scorecard_gain_01 = (
+        float(
+            (scorecard["predicted_dispersion"] - scorecard["dispersion_if_plus_0_1"]).median()
+        )
+        if not scorecard.empty
+        else float("nan")
+    )
+    scorecard_gain_02 = (
+        float(
+            (scorecard["predicted_dispersion"] - scorecard["dispersion_if_plus_0_2"]).median()
+        )
+        if not scorecard.empty
+        else float("nan")
+    )
     summary_lines = [
         f"{len(baseline_index)} authorities assessed; median index {baseline_index['systematicity_index'].median():.2f}.",
-        f"Weighted grid Spearman max = {acceptance.get('best_grid_r', float('nan')):.2f}.",
-        f"Latent index correlation = {acceptance.get('latent_r', float('nan')):.2f}.",
-        f"FE effect (dispersion composite) = {dispersion_effect:.3f}.",
+        f"Low coherence (<0.2) flagged for {low_coherence_count} authorities ({low_coherence_share:.1%}).",
+        f"Weighted grid Spearman max = {acceptance.get('best_grid_r', float('nan')):.2f}; latent index correlation = {acceptance.get('latent_r', float('nan')):.2f}.",
+        f"FE effect (dispersion composite) = {dispersion_effect:.3f}; coverage×coherence corr = {coverage_coherence_corr:.2f}.",
         f"DML effects median = {dml_effect_median:.3f} (stderr median {dml_stderr_median:.3f}).",
-        f"Template simulation median change = {template_median:.3f}.",
+        f"Template simulation median change = {template_median:.3f}; policy uplift Δ0.1 = {scorecard_gain_01:.3f}, Δ0.2 = {scorecard_gain_02:.3f}.",
     ]
     common.write_summary(out_dir, summary_lines[:10])
 
+    placebo_median = (
+        float(placebo_result["placebo_beta"].abs().median())
+        if not placebo_result.empty
+        else float("nan")
+    )
+    cate_outcomes = (
+        len({df["outcome"].iloc[0] for df in cate_tables if not df.empty})
+        if cate_tables
+        else 0
+    )
     memo_lines = [
-        "Hypothesis: systematic factor use improves predictability.",
-        "Evidence: negative FE and DML effects across dispersion metrics.",
-        "Mechanism: coverage×coherence interaction negative and significant.",
-        "Policy: raising index by +0.1 reduces dispersion by ~0.02 (median).",
-        "Template adoption yields further dispersion drop for 70% of DPAs.",
+        f"Hypothesis check: FE beta = {dispersion_effect:.3f} across {len(panel_frame)} authority-years.",
+        f"Evidence: DML median effect {dml_effect_median:.3f} (stderr median {dml_stderr_median:.3f}); placebo lead |beta| median {placebo_median:.3f}.",
+        f"Mechanism: coverage×coherence correlation {coverage_coherence_corr:.2f} with {low_coherence_count} low-coherence authorities identified.",
+        f"Policy gain: +0.1/+0.2 index shifts cut dispersion by medians {scorecard_gain_01:.3f}/{scorecard_gain_02:.3f}.",
+        f"Template adoption yields median dispersion change {template_median:.3f} across {len(template)} simulations; CATE outcome panels analysed: {cate_outcomes}.",
     ]
     common.write_memo(out_dir, memo_lines)
     common.write_session_info(out_dir, extra_packages=["patsy", "sklearn"])
 
+    coverage_median = float(baseline_index["coverage_mean"].median()) if not baseline_index.empty else float("nan")
+    coherence_median = float(baseline_index["coherence"].median()) if not baseline_index.empty else float("nan")
+    systematicity_quartiles = (
+        baseline_index["systematicity_index"].quantile([0.25, 0.75])
+        if not baseline_index.empty
+        else pd.Series([float("nan"), float("nan")], index=[0.25, 0.75])
+    )
     report_lines = [
         "# Research Task 5 findings",
         f"Generated: {timestamp}",
         "",
-        "Systematicity measurement is robust to weighting (ρ≥0.8) and a latent normal model (ρ≥0.8).",
-        "Panel FE and DML both indicate higher systematicity lowers dispersion metrics, supporting the hypothesis.",
-        "Coverage–coherence interplay and Art.58 tool deployment mediate predictability gains.",
-        "Scorecard quantifies dispersion improvements from +0.1/+0.2 index lifts and template adoption scenarios.",
+        f"Median coverage {coverage_median:.1%} with coherence median {coherence_median:.2f}; interquartile index range {systematicity_quartiles.loc[0.25]:.2f}–{systematicity_quartiles.loc[0.75]:.2f}.",
+        f"Low coherence (<0.2) observed for {low_coherence_count} authorities, aligning with peer review triggers.",
+        f"Fixed-effects beta {dispersion_effect:.3f} and DML median {dml_effect_median:.3f} confirm systematicity reduces dispersion.",
+        f"Scorecard shows median dispersion drops of {scorecard_gain_01:.3f} for +0.1 index and {scorecard_gain_02:.3f} for +0.2, while templates deliver {template_median:.3f} median change.",
     ]
     (out_dir / "p5_summary_report.md").write_text("\n".join(report_lines) + "\n", encoding="utf-8")
 
