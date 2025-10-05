@@ -254,7 +254,27 @@ All data validated against:
 
 ## Research Tasks (Phase 5+ analytics)
 
-Dedicated research scripts extend the pipeline using the enriched master dataset. Task 0 (`scripts/rt0_sanity_check.py`) performs type enforcement and data readiness checks; Task 1 (`scripts/rt1_sanctions_architecture.py`) analyses sanction incidence, sanction mix indices, trigger/OSS deltas, and Art. 58 measure co-occurrence with bootstrap confidence intervals; and Task 2 (`scripts/rt2_two_part_models.py`) estimates two-part sanction models (logit, multinomial, OLS, quantile) with robustness checks. Run `python run_research_tasks.py` to execute completed tasks sequentially; outputs are stored under `outputs/research_tasks/`.
+Dedicated research scripts extend the pipeline using the enriched master dataset. Task 0 (`scripts/rt0_sanity_check.py`) performs type enforcement and data readiness checks; Task 1 (`scripts/rt1_sanctions_architecture.py`) analyses sanction incidence, sanction mix indices, trigger/OSS deltas, and Art. 58 measure co-occurrence with bootstrap confidence intervals; Task 2 (`scripts/rt2_two_part_models.py`) estimates two-part sanction models (logit, multinomial, OLS, quantile) with robustness checks; Task 3 (`scripts/rt3_harmonization_tests.py`) quantifies cross-jurisdiction dispersion via nearest neighbours and mixed-effects models; and Task 4 (`scripts/rt4_factor_use_and_pack.py`) measures Article 83(2) systematicity, links it to dispersion, and assembles publication-ready figures/tables. Run `python run_research_tasks.py` to execute completed tasks sequentially; outputs are stored under `outputs/research_tasks/`.
+
+### Phase 0–4 readiness notes
+
+- **Task 0 (sanity view):** Upgrade duplicate-ID reporting into a hard gate once schema hashes are versioned so downstream joins cannot silently overwrite cases.
+- **Task 1 (sanctions architecture):** Introduce decision-year weights or facets to monitor sanction-mix drift over time.
+- **Task 2 (two-part models):** Add turnover-normalised fine ratios to tighten proportionality analysis under Art. 83(5).
+- **Task 3 (harmonisation tests):** Extend nearest-neighbour features with qualitative context flags (cookies, employment, marketing) to sharpen comparisons.
+- **Phase 4 enrichment:** Elevate FX fallback flags into default filters inside analytical loaders to prevent stale-rate conversions from contaminating inference.
+
+### Running the full pipeline
+
+```bash
+# End-to-end Phases 1–4
+python scripts/run_all_pipeline.py --input-file raw_data/AI_analysis/AI-responses.txt
+
+# Orchestrate research tasks (Task 0 → Task 4)
+python run_research_tasks.py
+```
+
+For iterative debugging, each phase can still be executed independently via the numbered scripts under `scripts/`.
 
 ## Directory Structure
 
