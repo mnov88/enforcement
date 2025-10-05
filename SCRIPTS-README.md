@@ -494,12 +494,45 @@ python scripts/rt1_sanctions_architecture.py
 python scripts/rt2_two_part_models.py
 ```
 
+### Script: `scripts/rt3_harmonization_tests.py`
+
+**Purpose:** Runs Research Task 3 nearest-neighbour dispersion diagnostics, Bayesian mixed-effects models, and interaction contrasts for harmonisation testing.
+
+**Outputs:** `outputs/research_tasks/task3/` (NN tables, variance components, interaction figures, summary/memo, session info).
+
+**Usage:**
+```bash
+python scripts/rt3_harmonization_tests.py
+```
+
+### Script: `scripts/rt4_factor_use_and_pack.py`
+
+**Purpose:** Executes Research Task 4 to assemble systematicity indices, dispersion regressions, and publication-ready dashboards.
+
+**Outputs:** `outputs/research_tasks/task4/` (systematicity tables, dispersion regression outputs, policy figures, summary/memo, session info).
+
+**Usage:**
+```bash
+python scripts/rt4_factor_use_and_pack.py
+```
+
+### Scripts: `scripts/rt5_0_measurement_audit.py` → `scripts/rt5_4_forecasting_benchmarks.py`
+
+**Purpose:** Implement Research Task 5 modules covering measurement robustness, index sensitivity, dispersion inference, mechanism decomposition, and forecasting/benchmarking.
+
+**Outputs:** `outputs/research_tasks/task5/` (weighting grid, latent index draws, FE/DML diagnostics, interaction & mediation tables, policy frontier & benchmark artefacts, summary/memo, session info).
+
+**Usage (any module invokes the full Task 5 run):**
+```bash
+python scripts/rt5_0_measurement_audit.py
+```
+
 ### Runner: `run_research_tasks.py`
 
-Sequential orchestrator for `rt0` → `rt2` (extensible to future tasks). Accepts `--tasks`, `--data-path`, and `--output-root` overrides to support reproducible pipelines.
+Sequential orchestrator for `rt0` → `rt5`. Accepts `--tasks`, `--data-path`, and `--output-root` overrides to support reproducible pipelines.
 
 ```bash
-python run_research_tasks.py
+python run_research_tasks.py --tasks task0 task3 task5
 ```
 
 All research-task artefacts live under `outputs/research_tasks/` and are git-ignored by default.
