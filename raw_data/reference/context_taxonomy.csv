@@ -1,0 +1,16 @@
+processing_context,priority_rank,flag_column
+ARTIFICIAL_INTELLIGENCE,1,has_ai
+MARKETING,2,has_marketing
+COOKIES,3,has_cookies
+CCTV,4,has_cctv
+EMPLOYEE_MONITORING,5,has_employee_monitoring
+CREDIT_SCORING,6,has_credit_scoring
+PROBLEMATIC_THIRD_PARTY_SHARING_STATED,7,has_problematic_third_party_sharing
+DPO_ROLE_PROBLEMS_STATED,8,has_dpo_issues
+RECRUITMENT_AND_HR,9,has_recruitment_hr
+BACKGROUND_CHECKS,10,has_background_checks
+CUSTOMER_LOYALTY_CLUBS,11,has_loyalty_club
+JOURNALISM,12,has_journalism
+HEALTH_DATA_PROCESSING,13,has_health_data_processing
+HEALTH,14,has_health_context
+EDUCATION,15,has_education_context

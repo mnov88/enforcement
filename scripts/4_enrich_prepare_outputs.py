@@ -73,24 +73,6 @@ MEASURE_FIELDS = [
     "a52_data_flow_suspension",
 ]
 
-CONTEXT_PRIORITY = [
-    "ARTIFICIAL_INTELLIGENCE",
-    "MARKETING",
-    "COOKIES",
-    "CCTV",
-    "EMPLOYEE_MONITORING",
-    "CREDIT_SCORING",
-    "PROBLEMATIC_THIRD_PARTY_SHARING_STATED",
-    "DPO_ROLE_PROBLEMS_STATED",
-    "RECRUITMENT_AND_HR",
-    "BACKGROUND_CHECKS",
-    "CUSTOMER_LOYALTY_CLUBS",
-    "JOURNALISM",
-    "HEALTH_DATA_PROCESSING",
-    "HEALTH",
-    "EDUCATION",
-]
-
 LEGAL_KEYWORDS: Dict[str, Sequence[str]] = {
     "invalid consent": ("invalid consent", "consent not valid", "lack of consent"),
     "contract": ("contractual necessity", "contract basis", "performance of a contract"),
@@ -99,42 +81,46 @@ LEGAL_KEYWORDS: Dict[str, Sequence[str]] = {
     "cookies": ("cookie", "cookies"),
 }
 
-REGION_MAP = {
-    "AT": "DACH",
-    "DE": "DACH",
-    "CH": "DACH",
-    "LI": "EEA-Non-EU",
-    "BE": "Benelux",
-    "NL": "Benelux",
-    "LU": "Benelux",
-    "DK": "Nordics",
-    "FI": "Nordics",
-    "SE": "Nordics",
-    "NO": "EEA-Non-EU",
-    "IS": "EEA-Non-EU",
-    "EE": "CEE",
-    "LV": "CEE",
-    "LT": "CEE",
-    "PL": "CEE",
-    "CZ": "CEE",
-    "SK": "CEE",
-    "HU": "CEE",
-    "RO": "CEE",
-    "BG": "CEE",
-    "SI": "CEE",
-    "HR": "CEE",
-    "IE": "British-Irish",
-    "UK": "British-Irish",
-    "GB": "British-Irish",
-    "FR": "Southern",
-    "ES": "Southern",
-    "PT": "Southern",
-    "IT": "Southern",
-    "CY": "Southern",
-    "GR": "Southern",
-    "EL": "Southern",
-    "MT": "Southern",
-}
+
+def load_context_taxonomy(path: Path) -> pd.DataFrame:
+    """Load processing context taxonomy with priority and flag column metadata."""
+
+    taxonomy = pd.read_csv(path)
+    expected_columns = {"processing_context", "priority_rank", "flag_column"}
+    missing = expected_columns.difference(taxonomy.columns)
+    if missing:
+        raise ValueError(
+            f"Context taxonomy at {path} missing required columns: {', '.join(sorted(missing))}"
+        )
+    if taxonomy.empty:
+        raise ValueError(f"Context taxonomy at {path} is empty; at least one entry is required")
+
+    taxonomy["processing_context"] = taxonomy["processing_context"].astype(str).str.strip()
+    taxonomy["flag_column"] = taxonomy["flag_column"].astype(str).str.strip()
+    taxonomy["priority_rank"] = taxonomy["priority_rank"].astype(int)
+    taxonomy = taxonomy.sort_values("priority_rank").reset_index(drop=True)
+    return taxonomy
+
+
+def load_region_map(path: Path) -> Dict[str, str]:
+    """Load country-to-region mappings from a CSV reference."""
+
+    mapping_df = pd.read_csv(path)
+    expected_columns = {"country_code", "region"}
+    missing = expected_columns.difference(mapping_df.columns)
+    if missing:
+        raise ValueError(
+            f"Region map at {path} missing required columns: {', '.join(sorted(missing))}"
+        )
+    mapping: Dict[str, str] = {}
+    for _, row in mapping_df.iterrows():
+        code = str(row["country_code"]).strip().upper()
+        if not code:
+            continue
+        mapping[code] = str(row["region"]).strip()
+    if not mapping:
+        raise ValueError(f"Region map at {path} produced no usable rows")
+    return mapping
 
 ARTICLE_PRIORITY = [5, 6, 32, 13, 15, 21, 33, 34]
 TARGET_ARTICLE_FLAGS = [5, 6, 13, 15, 21, 32, 33, 34]
@@ -223,10 +209,14 @@ def parse_articles(df: pd.DataFrame) -> pd.DataFrame:
         if not raw_value:
             continue
         for position, token in enumerate([t.strip() for t in raw_value.split(";") if t.strip()], start=1):
-            matches = pattern.findall(token)
-            article_number = int(matches[0]) if matches else None
-            if article_number is None:
+            matches = list(pattern.finditer(token))
+            if not matches:
                 continue
+            first_match = matches[0]
+            article_number = int(first_match.group())
+            trailing_text = token[first_match.end():].strip()
+            extra_numeric_tokens = [m.group() for m in matches[1:]]
+            detail_truncated = bool(extra_numeric_tokens) or bool(re.search(r"[A-Za-z]", trailing_text))
             article_records.append(
                 {
                     "id": row["id"],
@@ -234,6 +224,9 @@ def parse_articles(df: pd.DataFrame) -> pd.DataFrame:
                     "article_number": article_number,
                     "article_label": f"GDPR_{article_number}",
                     "position": position,
+                    "article_reference_detail": trailing_text or None,
+                    "article_detail_tokens": ";".join(extra_numeric_tokens) if extra_numeric_tokens else None,
+                    "article_detail_truncated": detail_truncated,
                 }
             )
     return pd.DataFrame.from_records(article_records)
@@ -323,9 +316,11 @@ def convert_monetary_columns(df: pd.DataFrame, fx_rates: pd.DataFrame, hicp_inde
     fx_methods: List[Optional[str]] = []
     fx_years: List[Optional[int]] = []
     fx_months: List[Optional[int]] = []
+    fine_fx_fallback_flags: List[bool] = []
     turnover_fx_methods: List[Optional[str]] = []
     turnover_fx_years: List[Optional[int]] = []
     turnover_fx_months: List[Optional[int]] = []
+    turnover_fx_fallback_flags: List[bool] = []
 
     for _, row in df.iterrows():
         year = int(row["decision_year"]) if pd.notna(row["decision_year"]) else None
@@ -340,16 +335,19 @@ def convert_monetary_columns(df: pd.DataFrame, fx_rates: pd.DataFrame, hicp_inde
                 fx_methods.append(method)
                 fx_years.append(rate_year)
                 fx_months.append(rate_month)
+                fine_fx_fallback_flags.append(method == "FALLBACK")
             else:
                 fine_amount_eur.append(None)
                 fx_methods.append(None)
                 fx_years.append(None)
                 fx_months.append(None)
+                fine_fx_fallback_flags.append(False)
         else:
             fine_amount_eur.append(None)
             fx_methods.append(None)
             fx_years.append(None)
             fx_months.append(None)
+            fine_fx_fallback_flags.append(False)
 
         turnover_amount = row["turnover_amount_orig"]
         turnover_currency = row["turnover_currency"]
@@ -360,16 +358,19 @@ def convert_monetary_columns(df: pd.DataFrame, fx_rates: pd.DataFrame, hicp_inde
                 turnover_fx_methods.append(method)
                 turnover_fx_years.append(rate_year)
                 turnover_fx_months.append(rate_month)
+                turnover_fx_fallback_flags.append(method == "FALLBACK")
             else:
                 turnover_amount_eur.append(None)
                 turnover_fx_methods.append(None)
                 turnover_fx_years.append(None)
                 turnover_fx_months.append(None)
+                turnover_fx_fallback_flags.append(False)
         else:
             turnover_amount_eur.append(None)
             turnover_fx_methods.append(None)
             turnover_fx_years.append(None)
             turnover_fx_months.append(None)
+            turnover_fx_fallback_flags.append(False)
 
     df["fine_amount_eur"] = fine_amount_eur
     df["turnover_amount_eur"] = turnover_amount_eur
@@ -379,6 +380,8 @@ def convert_monetary_columns(df: pd.DataFrame, fx_rates: pd.DataFrame, hicp_inde
     df["turnover_fx_method"] = turnover_fx_methods
     df["turnover_fx_year"] = pd.Series(turnover_fx_years, dtype="Int64")
     df["turnover_fx_month"] = pd.Series(turnover_fx_months, dtype="Int64")
+    df["flag_fine_fx_fallback"] = fine_fx_fallback_flags
+    df["flag_turnover_fx_fallback"] = turnover_fx_fallback_flags
 
     df["fine_present"] = df["fine_imposed_bool"]
     df["turnover_present"] = df["turnover_discussed_bool"] & df["turnover_amount_eur"].notna()
@@ -597,24 +600,26 @@ def compute_art83_scores(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def compute_context_features(df: pd.DataFrame, contexts_df: pd.DataFrame) -> pd.DataFrame:
+def compute_context_features(
+    df: pd.DataFrame,
+    contexts_df: pd.DataFrame,
+    context_taxonomy: pd.DataFrame,
+) -> pd.DataFrame:
+    flag_columns: Dict[str, str] = {
+        row["processing_context"]: row["flag_column"]
+        for _, row in context_taxonomy.iterrows()
+    }
+    priority_contexts: List[str] = context_taxonomy["processing_context"].tolist()
+
+    configured_contexts = set(flag_columns.keys())
+
     if contexts_df.empty:
-        for flag in [
-            "has_marketing",
-            "has_cookies",
-            "has_cctv",
-            "has_employee_monitoring",
-            "has_ai",
-            "has_credit_scoring",
-            "has_dpo_issues",
-            "has_problematic_third_party_sharing",
-            "has_recruitment_hr",
-            "has_journalism",
-            "has_loyalty_club",
-        ]:
-            df[flag] = False
+        for column in flag_columns.values():
+            df[column] = False
         df["context_count"] = 0
         df["context_profile"] = None
+        df["flag_context_token_unmapped"] = False
+        df["context_unknown_tokens"] = None
         df["sector_x_context_key"] = df["a12_sector"].fillna("UNKNOWN") + "::NONE"
         df["role_sector_key"] = df["a11_defendant_role"].fillna("UNKNOWN") + "::" + df["a12_sector"].fillna("UNKNOWN")
         return df
@@ -625,19 +630,8 @@ def compute_context_features(df: pd.DataFrame, contexts_df: pd.DataFrame) -> pd.
         contexts = context_map.get(id_value, [])
         return target in contexts
 
-    df["has_marketing"] = df["id"].map(lambda _id: has_context(_id, "MARKETING"))
-    df["has_cookies"] = df["id"].map(lambda _id: has_context(_id, "COOKIES"))
-    df["has_cctv"] = df["id"].map(lambda _id: has_context(_id, "CCTV"))
-    df["has_employee_monitoring"] = df["id"].map(lambda _id: has_context(_id, "EMPLOYEE_MONITORING"))
-    df["has_ai"] = df["id"].map(lambda _id: has_context(_id, "ARTIFICIAL_INTELLIGENCE"))
-    df["has_credit_scoring"] = df["id"].map(lambda _id: has_context(_id, "CREDIT_SCORING"))
-    df["has_dpo_issues"] = df["id"].map(lambda _id: has_context(_id, "DPO_ROLE_PROBLEMS_STATED"))
-    df["has_problematic_third_party_sharing"] = df["id"].map(
-        lambda _id: has_context(_id, "PROBLEMATIC_THIRD_PARTY_SHARING_STATED")
-    )
-    df["has_recruitment_hr"] = df["id"].map(lambda _id: has_context(_id, "RECRUITMENT_AND_HR"))
-    df["has_journalism"] = df["id"].map(lambda _id: has_context(_id, "JOURNALISM"))
-    df["has_loyalty_club"] = df["id"].map(lambda _id: has_context(_id, "CUSTOMER_LOYALTY_CLUBS"))
+    for context_name, column in flag_columns.items():
+        df[column] = df["id"].map(lambda _id: has_context(_id, context_name))
 
     df["context_count"] = df["id"].map(lambda _id: len(context_map.get(_id, [])))
 
@@ -649,11 +643,20 @@ def compute_context_features(df: pd.DataFrame, contexts_df: pd.DataFrame) -> pd.
 
     df["context_profile"] = df["id"].map(context_profile)
 
+    def unknown_tokens(_id: str) -> Optional[str]:
+        tokens = sorted({ctx for ctx in context_map.get(_id, []) if ctx not in configured_contexts})
+        if not tokens:
+            return None
+        return ";".join(tokens)
+
+    df["context_unknown_tokens"] = df["id"].map(unknown_tokens)
+    df["flag_context_token_unmapped"] = df["context_unknown_tokens"].notna()
+
     def top_context(_id: str) -> str:
         contexts = context_map.get(_id, [])
         if not contexts:
             return "NONE"
-        for candidate in CONTEXT_PRIORITY:
+        for candidate in priority_contexts:
             if candidate in contexts:
                 return candidate
         return contexts[0]
@@ -680,7 +683,7 @@ def compute_complaint_and_flags(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def compute_oss_and_geography(df: pd.DataFrame) -> pd.DataFrame:
+def compute_oss_and_geography(df: pd.DataFrame, region_map: Dict[str, str]) -> pd.DataFrame:
     df["oss_case_bool"] = df["a72_cross_border_oss"].apply(yes_no_to_bool)
 
     def oss_role_lead(row: pd.Series) -> bool:
@@ -725,7 +728,7 @@ def compute_oss_and_geography(df: pd.DataFrame) -> pd.DataFrame:
     df["authority_name_raw"] = df["a2_authority_name"]
     df["authority_name_norm"] = df["a2_authority_name"].apply(normalize_authority)
 
-    df["region"] = df["country_code"].map(REGION_MAP)
+    df["region"] = df["country_code"].map(region_map)
     return df
 
 
@@ -894,9 +897,18 @@ def build_graph_exports(
         article_edges[":START_ID"] = article_edges["id"].apply(decision_node_id)
         article_edges[":END_ID"] = article_edges["article_label"].apply(lambda label: f"Article|{label}")
         article_edges[":TYPE"] = "BREACHES"
-        article_edges[[":START_ID", ":END_ID", ":TYPE"]].drop_duplicates().to_csv(
-            graph_dir / "edges_decision_article.csv", index=False
-        )
+        article_edges_out = article_edges[
+            [
+                ":START_ID",
+                ":END_ID",
+                ":TYPE",
+                "article_reference",
+                "article_reference_detail",
+                "article_detail_tokens",
+                "position",
+            ]
+        ].drop_duplicates()
+        article_edges_out.to_csv(graph_dir / "edges_decision_article.csv", index=False)
 
     if not guidelines_df.empty:
         guideline_edges = guidelines_df.copy()
@@ -919,10 +931,19 @@ def build_graph_exports(
         )
 
 
-def enrich_dataset(input_path: Path, output_dir: Path, fx_path: Path, hicp_path: Path) -> None:
+def enrich_dataset(
+    input_path: Path,
+    output_dir: Path,
+    fx_path: Path,
+    hicp_path: Path,
+    context_taxonomy_path: Path,
+    region_map_path: Path,
+) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
 
     fx_rates, hicp_index = load_reference_tables(fx_path, hicp_path)
+    context_taxonomy = load_context_taxonomy(context_taxonomy_path)
+    region_map = load_region_map(region_map_path)
 
     df = pd.read_csv(input_path)
     df = compute_temporal_features(df)
@@ -933,12 +954,18 @@ def enrich_dataset(input_path: Path, output_dir: Path, fx_path: Path, hicp_path:
     guidelines_df = explode_semicolon_list(df, "a74_guidelines_referenced", "guideline")
     articles_df = parse_articles(df)
 
+    if not articles_df.empty:
+        truncated_ids = set(articles_df.loc[articles_df["article_detail_truncated"], "id"].tolist())
+    else:
+        truncated_ids = set()
+    df["flag_article_detail_truncated"] = df["id"].isin(truncated_ids)
+
     df = compute_art5_and_rights(df, articles_df)
     df = compute_measures(df)
     df = compute_art83_scores(df)
-    df = compute_context_features(df, contexts_df)
+    df = compute_context_features(df, contexts_df, context_taxonomy)
     df = compute_complaint_and_flags(df)
-    df = compute_oss_and_geography(df)
+    df = compute_oss_and_geography(df, region_map)
     df = compute_text_features(df, guidelines_df)
     df = compute_quality_flags(df)
 
@@ -977,12 +1004,31 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         help="CSV with HICP index for EUR deflation",
     )
+    parser.add_argument(
+        "--context-taxonomy",
+        default="raw_data/reference/context_taxonomy.csv",
+        type=Path,
+        help="CSV describing processing context taxonomy and flag columns",
+    )
+    parser.add_argument(
+        "--region-map",
+        default="raw_data/reference/region_map.csv",
+        type=Path,
+        help="CSV mapping country codes to analyst region groupings",
+    )
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
-    enrich_dataset(args.input, args.output, args.fx_table, args.hicp_table)
+    enrich_dataset(
+        args.input,
+        args.output,
+        args.fx_table,
+        args.hicp_table,
+        args.context_taxonomy,
+        args.region_map,
+    )
     print(f"✓ Phase 4 enrichment complete. Outputs written to {args.output}")
 
 

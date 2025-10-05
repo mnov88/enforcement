@@ -7,10 +7,11 @@ import argparse
 import importlib.util
 import tempfile
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Callable, Dict, Optional, TypeVar
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
+T = TypeVar("T")
 
 
 def load_module(name: str, relative_path: str):
@@ -30,6 +31,20 @@ def resolve_path(path: Path) -> Path:
     """Resolve paths relative to the project root."""
 
     return path if path.is_absolute() else (PROJECT_ROOT / path).resolve()
+
+
+def run_with_guard(label: str, func: Callable[..., T], *args, **kwargs) -> T:
+    """Execute a callable and re-wrap common IO errors with actionable messages."""
+
+    try:
+        return func(*args, **kwargs)
+    except FileNotFoundError as exc:
+        missing = getattr(exc, "filename", None) or str(exc)
+        raise SystemExit(
+            f"[{label}] Missing file: {missing}. Re-run the preceding phase or update the path."
+        ) from exc
+    except Exception as exc:
+        raise SystemExit(f"[{label}] Failed with error: {exc}") from exc
 
 
 def parse_args() -> argparse.Namespace:
@@ -98,14 +113,22 @@ def main() -> None:
     phase3_module = load_module("phase3_repair", "scripts/3_repair_data_errors.py")
 
     phase1_dir = output_root / "phase1_extraction"
-    phase1_results: Dict[str, Any] = phase1_module.run_phase1(input_path, output_dir=phase1_dir, verbose=True)
+    phase1_results: Dict[str, Any] = run_with_guard(
+        "Phase 1",
+        phase1_module.run_phase1,
+        input_path,
+        output_dir=phase1_dir,
+        verbose=True,
+    )
     main_dataset_path = Path(phase1_results["main_csv"])
 
     phase2_dir = output_root / "phase2_validation"
     phase2_validated_path = phase2_dir / "validated_data.csv"
     phase2_errors_path = phase2_dir / "validation_errors.csv"
     phase2_report_path = phase2_dir / "validation_report.txt"
-    phase2_results: Dict[str, Any] = phase2_module.run_phase2(
+    phase2_results: Dict[str, Any] = run_with_guard(
+        "Phase 2",
+        phase2_module.run_phase2,
         main_dataset_path,
         output_validated=phase2_validated_path,
         output_errors=phase2_errors_path,
@@ -121,7 +144,9 @@ def main() -> None:
         phase3_dir = output_root / "phase3_repair"
         repaired_dataset_path = phase3_dir / "repaired_dataset.csv"
         repair_log_path = phase3_dir / "repair_log.txt"
-        phase3_results: Dict[str, Any] = phase3_module.run_phase3(
+        phase3_results: Dict[str, Any] = run_with_guard(
+            "Phase 3",
+            phase3_module.run_phase3,
             main_dataset_path,
             Path(error_csv_path),
             output_file=repaired_dataset_path,
@@ -131,7 +156,9 @@ def main() -> None:
         repaired_dataset_path = Path(phase3_results["repaired_csv"])
 
     phase3_dir = output_root / "phase3_repair"
-    revalidation_results = phase2_module.run_phase2(
+    revalidation_results = run_with_guard(
+        "Phase 2 revalidation",
+        phase2_module.run_phase2,
         repaired_dataset_path,
         output_validated=phase3_dir / "repaired_dataset_validated.csv",
         output_errors=phase3_dir / "repaired_dataset_validation_errors.csv",
@@ -145,7 +172,18 @@ def main() -> None:
         enrichment_dir.mkdir(parents=True, exist_ok=True)
         fx_table = PROJECT_ROOT / "raw_data" / "reference" / "fx_rates.csv"
         hicp_table = PROJECT_ROOT / "raw_data" / "reference" / "hicp_ea19.csv"
-        phase4_module.enrich_dataset(repaired_dataset_path, enrichment_dir, fx_table, hicp_table)
+        context_taxonomy = PROJECT_ROOT / "raw_data" / "reference" / "context_taxonomy.csv"
+        region_map = PROJECT_ROOT / "raw_data" / "reference" / "region_map.csv"
+        run_with_guard(
+            "Phase 4",
+            phase4_module.enrich_dataset,
+            repaired_dataset_path,
+            enrichment_dir,
+            fx_table,
+            hicp_table,
+            context_taxonomy,
+            region_map,
+        )
         print(f"✓ Phase 4 enrichment complete. Outputs written to {enrichment_dir}")
     else:
         print("Phase 4 enrichment skipped by user request.")
