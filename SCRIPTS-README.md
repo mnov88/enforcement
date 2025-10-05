@@ -469,6 +469,42 @@ python scripts/5_analysis_similarity.py
 
 ---
 
+## Research Tasks (Phase 5+ analytics)
+
+### Script: `scripts/rt0_sanity_check.py`
+
+**Purpose:** Implements Research Task 0 by loading the enriched master dataset, enforcing analysis-friendly dtypes, profiling missingness, and generating an `analysis_view.parquet` alongside a readiness one-pager and heatmap.
+
+**Outputs:** `outputs/research_tasks/task0/` (analysis view, `data_check.json`, summary/memo, figures, session info).
+
+**Usage:**
+```bash
+python scripts/rt0_sanity_check.py
+```
+
+### Script: `scripts/rt1_sanctions_architecture.py`
+
+**Purpose:** Delivers Research Task 1 by estimating sanctions incidence/mix descriptives with 95% bootstrap CIs, constructing the sanction mix index, trigger/OSS deltas, and Art. 58 measure co-occurrence diagnostics.
+
+**Outputs:** `outputs/research_tasks/task1/` (CSV tables, figure bundle, `t1_summary.parquet`, summary/memo, session info).
+
+**Usage:**
+```bash
+python scripts/rt1_sanctions_architecture.py
+```
+
+### Runner: `run_research_tasks.py`
+
+Sequential orchestrator for `rt0` → `rt1` (extensible to future tasks). Accepts `--tasks`, `--data-path`, and `--output-root` overrides to support reproducible pipelines.
+
+```bash
+python run_research_tasks.py
+```
+
+All research-task artefacts live under `outputs/research_tasks/` and are git-ignored by default.
+
+---
+
 ## Important Notes
 
 1. **Phase 2 validation is non-destructive** - it only reads and reports, never modifies data
