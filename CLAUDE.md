@@ -10,22 +10,32 @@ This repository implements a data pipeline for analyzing GDPR enforcement decisi
 
 ## Key Architecture
 
-### Data Flow (3-Phase Pipeline)
+### Data Flow (5-Phase Pipeline)
 
 **Phase 1: Extraction**
-1. **Input:** `/raw_data/AI_analysis/AI-responses.txt` (768 AI-annotated responses)
+1. **Input:** `/raw_data/AI_analysis/AI-responses.txt` (1,518 AI-annotated responses)
 2. **Script:** `scripts/1_parse_ai_responses.py`
-3. **Output:** `/outputs/phase1_extraction/main_dataset.csv` (757 rows × 77 fields)
+3. **Output:** `/outputs/phase1_extraction/main_dataset.csv` (1,473 rows × 77 fields) + `data_with_errors.csv` (45 malformed bundles)
 
 **Phase 2: Validation**
 1. **Input:** `/outputs/phase1_extraction/main_dataset.csv`
 2. **Script:** `scripts/2_validate_dataset.py`
-3. **Output:** `/outputs/phase2_validation/validated_data.csv` (623 clean rows after repair)
+3. **Output:** `/outputs/phase2_validation/validated_data.csv` (742 clean rows in the latest run) + validation error/report artefacts
 
 **Phase 3: Repair**
-1. **Input:** `/outputs/phase1_extraction/main_dataset.csv` + validation errors
-2. **Script:** `scripts/3_repair_data_errors.py` (6 pattern-based repair rules)
-3. **Output:** `/outputs/phase3_repair/repaired_dataset.csv` (repaired rows) + `/outputs/phase3_repair/repaired_dataset_validated.csv` (623-row clean subset)
+1. **Input:** `/outputs/phase1_extraction/main_dataset.csv` + `/outputs/phase2_validation/validation_errors.csv`
+2. **Script:** `scripts/3_repair_data_errors.py` (5 automated repair patterns + sector flagging)
+3. **Output:** `/outputs/phase3_repair/repaired_dataset.csv` + `/outputs/phase3_repair/repaired_dataset_validated.csv` (941-row clean subset)
+
+**Phase 4: Enrichment**
+1. **Input:** `/outputs/phase3_repair/repaired_dataset.csv` + reference tables (`fx_rates.csv`, `hicp_ea19.csv`, `context_taxonomy.csv`, `region_map.csv`)
+2. **Script:** `scripts/4_enrich_prepare_outputs.py`
+3. **Output:** `/outputs/phase4_enrichment/` bundle (enriched master, long tables, FX diagnostics, graph exports)
+
+**Phase 5: Analysis**
+1. **Input:** `/outputs/phase4_enrichment/1_enriched_master.csv`
+2. **Script:** `scripts/5_analysis_similarity.py`
+3. **Output:** `/outputs/phase5_analysis/` cohort comparisons, cross-country matches, and mixed-effects models
 
 **Phase 2 Utility:** `scripts/2_analyze_enum_values.py` - Enum frequency analysis for identifying repair patterns
 
@@ -44,7 +54,7 @@ The schema defines:
 - Article 58(2) corrective measures
 - Article 83(2) penalty factors (AGGRAVATING/MITIGATING/NEUTRAL/NOT_DISCUSSED)
 - Financial penalties and turnover data
-- Financial currency enums accept EUR/GBP/… plus USD; do not auto-convert values in scripts.
+- Financial currency enums accept the EUR/GBP set plus USD, CHF, ISK (see schema); do not auto-convert values in scripts.
 - Cross-border processing (One-Stop-Shop)
 
 ### Phase-Based Organization
@@ -52,13 +62,15 @@ The schema defines:
 Scripts and outputs follow a phase structure:
 
 - Script filenames: `<phase_number>_<description>.py` (e.g., `1_parse_ai_responses.py`, `2_validate_dataset.py`)
-- Outputs: `/outputs/<phase_name>/` folders (e.g., `/outputs/phase1_extraction/`, `/outputs/phase2_validation/`)
+- Outputs: `/outputs/<phase_name>/` folders (e.g., `/outputs/phase1_extraction/`, `/outputs/phase2_validation/`, `/outputs/phase4_enrichment/`, `/outputs/phase5_analysis/`)
 - Update `readme.md` and `SCRIPTS-README.md` when adding new phases or modifying behavior
 
 **Current Pipeline:**
 1. **Phase 1 (Extraction):** Parse delimited text → CSV with 77 fields
 2. **Phase 2 (Validation):** Validate all fields against schema (8 validation types, 8 cross-field rules)
-3. **Phase 3 (Repair):** Auto-fix common errors using 6 pattern-based rules
+3. **Phase 3 (Repair):** Auto-fix common errors using pattern-based rules
+4. **Phase 4 (Enrichment):** Build enriched master dataset, long tables, and graph exports
+5. **Phase 5 (Analysis):** Generate similarity cohorts and modelling artefacts from the enriched data
 
 See `SCRIPTS-README.md` for comprehensive documentation of all data transformations.
 
@@ -108,7 +120,7 @@ pytest  # Once tests exist in tests/
 
 ### Data Pipeline Context
 
-**Critical Fix Applied:** Original parser had regex bug requiring double delimiter before ID line, causing 50% data loss. Fixed to single delimiter pattern, achieving 98.6% extraction rate (757/768).
+**Critical Fix Applied:** Original parser had a delimiter bug that discarded about half the responses. The current regex accepts single delimiters and retains 97.0% of responses (1,473/1,518).
 
 **AI Response Format:**
 ```
@@ -124,7 +136,7 @@ Answer 77: <value>
 
 **Field Mapping:** Answer N → aN_field_name (e.g., Answer 1 → a1_country_code)
 
-**Data Quality:** 82.3% of extracted rows pass all validation checks after Phase 3 repair (623/757 valid rows)
+**Data Quality:** 63.9% of extracted rows pass all validation checks after Phase 3 repair (941/1,473 valid rows); review validation reports for remaining issues.
 
 ## API Configuration
 

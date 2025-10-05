@@ -1,6 +1,6 @@
 # Data Pipeline Scripts Documentation
 
-This document provides comprehensive documentation for all three phases of the GDPR enforcement data pipeline.
+This document provides comprehensive documentation for all five phases of the GDPR enforcement data pipeline.
 
 ---
 
@@ -11,11 +11,12 @@ This document provides comprehensive documentation for all three phases of the G
 **Purpose:** Parse AI-generated responses from delimited text format into structured CSV.
 
 **Input:**
-- `/raw_data/AI_analysis/AI-responses.txt` (768 responses in delimited text format)
+- `/raw_data/AI_analysis/AI-responses.txt` (1,518 responses in delimited text format)
 
 **Output:**
-- `/outputs/phase1_extraction/main_dataset.csv` (757 rows × 77 fields)
-- `/outputs/phase1_extraction/extraction_log.txt` (parsing statistics)
+- `/outputs/phase1_extraction/main_dataset.csv` (1,473 rows × 77 fields)
+- `/outputs/phase1_extraction/extraction_log.txt` (parsing statistics + malformed roster)
+- `/outputs/phase1_extraction/data_with_errors.csv` (45 malformed responses for audit)
 
 **Data Transformations:**
 
@@ -38,8 +39,8 @@ This document provides comprehensive documentation for all three phases of the G
    - Preserves empty answers as empty strings
 
 4. **Results:**
-   - Successfully parsed: 757/768 responses (98.6%)
-   - Incomplete/skipped: 11 responses (1.4%)
+   - Successfully parsed: 1,473/1,518 responses (97.0%)
+   - Malformed/skipped: 45 responses (3.0%, typically truncated after Q73 or empty bodies)
 
 **Key Fix:** Original regex pattern required double delimiter before ID line, causing 50% data loss. Fixed to single delimiter pattern.
 
@@ -65,41 +66,18 @@ python3 scripts/1_parse_ai_responses.py
 - `/outputs/phase2_validation/validation_errors.csv` (detailed error report)
 - `/outputs/phase2_validation/validation_report.txt` (summary statistics)
 
+_Latest run (2025-10-05): 742 rows passed validation, 731 rows with issues, and 2,800 total problems logged (2,501 errors / 299 warnings)._
+
 **Validation Rules (8 Types):**
 
-1. **`enum`** - Must match allowed values exactly
-   - Example: `a1_country_code` must be in [AT, BE, BG, ..., EL, IS, ...]
-   - Generates ERROR if value not in allowed list
-
-2. **`integer_range`** - Must be valid integer within range
-   - Example: `a4_decision_year` must be 2018-2025
-   - Generates ERROR if non-integer or outside range
-   - Generates WARNING if `warn_outside` flag set
-
-3. **`float_positive`** - Must be positive number
-   - Example: `a54_fine_amount` must be ≥ 0
-   - Generates ERROR if negative or non-numeric
-
-4. **`free_text`** - Allows any text (length validation only)
-   - Example: `a2_authority_name` can be any string
-   - Generates WARNING if exceeds 500 characters
-
-5. **`delimited_list`** - Semicolon-separated enum values
-   - Example: `a14_processing_contexts` must be list of valid contexts
-   - Validates each item against allowed values
-   - Generates ERROR if any item invalid
-
-6. **`conditional`** - Value depends on other field
-   - Example: `a73_oss_role` must be NOT_APPLICABLE when `a72_cross_border_oss ≠ YES`
-   - Generates ERROR if condition violated
-
-7. **`optional_free_text`** - Text field that's conditional
-   - Example: `a13_sector_other` should have content when `a12_sector = OTHER`
-   - Generates WARNING if missing when expected
-
-8. **`articles_list`** - Special format for GDPR article citations
-   - Example: `a77_articles_breached` canonical format `5;6;15;17`
-   - Validator auto-strips prefixes like "Art."/"Article" and `(1)(a)` suffixes before checking numeric anchors
+1. **`enum`** – Exact match against the schema list (e.g., `a1_country_code`).
+2. **`integer_range`** – Bounded integer checks with optional warning ranges (e.g., decision year/month).
+3. **`free_text`** – Non-empty text enforcement for required narrative fields (e.g., authority name, case summary).
+4. **`free_text_or_sentinel`** – Text allowed when populated, otherwise a single sentinel (e.g., `a13_sector_other`).
+5. **`integer_or_sentinel`** – Accepts positive integers or a sentinel token (e.g., `a54_fine_amount`).
+6. **`integer_or_sentinels`** – Accepts positive integers or multiple sentinels (e.g., `a57_turnover_amount`).
+7. **`semicolon_list_or_sentinel`** – Semicolon-delimited enums or a sentinel (e.g., `a14_processing_contexts`, `a29_vulnerable_groups`).
+8. **`semicolon_integers_or_sentinels`** – Semicolon-delimited article numbers with normalization of "Art." prefixes and paragraph detail (e.g., `a77_articles_breached`).
 
 **Conditional Cross-Field Rules (8 Rules):**
 
@@ -160,15 +138,15 @@ next to the provided file to avoid overwriting Phase 2 outputs.
    Schema allows: NO, NOT_DISCUSSED, YES
 
    Valid values:
-     ✓ NOT_DISCUSSED                    564
-     ✓ YES                              136
-     ✓ NO                                 3
+     ✓ NOT_DISCUSSED                    <count>
+     ✓ YES                              <count>
+     ✓ NO                               <count>
 
    Invalid values (NOT IN SCHEMA):
-     ✗ BREACHED                          47  ← FIX NEEDED
-     ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
+     ✗ BREACHED                         <count>  ← FIX NEEDED
+     ✗ NOT_APPLICABLE                   <count>  ← FIX NEEDED
 
-   Summary: 53/757 (7.0%) values are invalid
+   Summary: <invalid>/<total> values are invalid (counts update with each run)
    ```
 
 3. **CSV Output:**
@@ -178,6 +156,8 @@ next to the provided file to avoid overwriting Phase 2 outputs.
    ```
 
 **No Data Modification:** This is a read-only analysis utility.
+
+**Maintenance tip:** When schema enums expand (e.g., new currency codes), update the `ENUM_FIELDS` map here to keep the analysis in sync with the validator.
 
 **Usage:**
 ```bash
@@ -201,11 +181,11 @@ python3 scripts/2_analyze_enum_values.py --input outputs/phase3_repair/repaired_
 - `/outputs/phase2_validation/validation_errors.csv` (errors to fix)
 
 **Output:**
-- `/outputs/phase3_repair/repaired_dataset.csv` (repaired data)
-- `/outputs/phase3_repair/repaired_dataset_validated.csv` (rows that pass all checks post-repair)
+- `/outputs/phase3_repair/repaired_dataset.csv` (1,473 rows with targeted repairs applied)
+- `/outputs/phase3_repair/repaired_dataset_validated.csv` (941-row clean subset after revalidation)
 - `/outputs/phase3_repair/repaired_dataset_validation_errors.csv`
 - `/outputs/phase3_repair/repaired_dataset_validation_report.txt`
-- `/outputs/phase3_repair/repair_log.txt` (detailed repair log)
+- `/outputs/phase3_repair/repair_log.txt` (detailed repair log + pattern counts)
 
 **Repair Rules (5 Automatic Patterns + 1 Flag):**
 
@@ -313,31 +293,31 @@ python3 scripts/3_repair_data_errors.py --allow-stale-errors
 ```bash
 python3 scripts/1_parse_ai_responses.py
 ```
-**Result:** 768 → 757 rows (98.6% extraction rate)
+**Result:** 1,518 → 1,473 rows (97.0% extraction rate)
 
 ### Step 2: Validate (Initial)
 ```bash
 python3 scripts/2_validate_dataset.py
 ```
-**Result:** 568/757 valid rows (75.0%)
+**Result:** 742/1,473 valid rows (50.4%)
 
 ### Step 3: Analyze Patterns
 ```bash
 python3 scripts/2_analyze_enum_values.py
 ```
-**Result:** Identifies 1,421 invalid enum values across 62 fields
+**Result:** See `outputs/phase2_validation/enum_analysis.txt` for field-by-field invalid token counts (updated each run).
 
 ### Step 4: Repair
 ```bash
 python3 scripts/3_repair_data_errors.py
 ```
-**Result:** Applies hundreds of targeted repairs per run and logs any outstanding flags (see `repair_log.txt` for the precise mix).
+**Result:** 1,016 automatic repairs + 18 manual flags (406 rows touched) in the latest run; review `repair_log.txt` for details.
 
 ### Step 5: Validate (Post-Repair)
 ```bash
 python3 scripts/2_validate_dataset.py --input outputs/phase3_repair/repaired_dataset.csv
 ```
-**Result:** 623/757 valid rows (82.3%) - **+55 rows improved, +7.3%**
+**Result:** 941/1,473 valid rows (63.9%) - **+199 rows improved, +13.5%**
 
 ---
 
@@ -345,10 +325,10 @@ python3 scripts/2_validate_dataset.py --input outputs/phase3_repair/repaired_dat
 
 | Metric | Initial | After Phase 3 | Change |
 |--------|---------|---------------|--------|
-| **Valid Rows** | 568/757 (75.0%) | 623/757 (82.3%) | +55 rows (+7.3%) |
-| **Total Errors** | 1,511 | 1,288 | -223 errors (-14.8%) |
-| **Schema Violations (ERROR)** | 1,144 | 921 | -223 errors (-19.5%) |
-| **Suspicious Values (WARNING)** | 367 | 367 | 0 (±0%) |
+| **Valid Rows** | 742/1,473 (50.4%) | 941/1,473 (63.9%) | +199 rows (+13.5%) |
+| **Total Errors** | 2,800 | 2,026 | -774 issues (-27.6%) |
+| **Schema Violations (ERROR)** | 2,501 | 1,642 | -859 errors (-34.3%) |
+| **Suspicious Values (WARNING)** | 299 | 384 | +85 warnings (+28.4%) |
 
 ---
 
@@ -384,8 +364,18 @@ During development, the following values were added to schema to reflect actual 
 - Repaired dataset: `/outputs/phase3_repair/repaired_dataset.csv`
 - Repair log: `/outputs/phase3_repair/repair_log.txt`
 - Re-validated data: `/outputs/phase3_repair/repaired_dataset_validated.csv`
-- Re-validation errors: `/outputs/phase3_repair/validation_errors.csv`
-- Re-validation report: `/outputs/phase3_repair/validation_report.txt`
+- Re-validation errors: `/outputs/phase3_repair/repaired_dataset_validation_errors.csv`
+- Re-validation report: `/outputs/phase3_repair/repaired_dataset_validation_report.txt`
+
+### Phase 4 Output
+- Enriched master dataset: `/outputs/phase4_enrichment/1_enriched_master.csv`
+- FX diagnostics: `/outputs/phase4_enrichment/0_fx_conversion_metadata.csv`
+- FX missing review list: `/outputs/phase4_enrichment/0_fx_missing_review.csv`
+- Long tables: `2_processing_contexts.csv`, `3_vulnerable_groups.csv`, `4_guidelines.csv`, `5_articles_breached.csv`
+- Graph bundle: `/outputs/phase4_enrichment/graph/`
+
+### Phase 5 Output
+- Cohort + modelling artefacts in `/outputs/phase5_analysis/` (case-level features, cohorts, contrasts, mixed-effects results)
 
 ---
 
@@ -409,7 +399,7 @@ During development, the following values were added to schema to reflect actual 
 - `/outputs/phase4_enrichment/2_processing_contexts.csv` – Long table of processing contexts with positional order.
 - `/outputs/phase4_enrichment/3_vulnerable_groups.csv` – Exploded vulnerable group annotations.
 - `/outputs/phase4_enrichment/4_guidelines.csv` – Guidelines referenced per decision.
-- `/outputs/phase4_enrichment/5_articles_breached.csv` – Parsed GDPR articles with numeric anchors and positions.
+- `/outputs/phase4_enrichment/5_articles_breached.csv` – Parsed GDPR articles with numeric anchors and preserved detail tokens.
 - `/outputs/phase4_enrichment/graph/` – Neo4j bulk-import node and edge CSVs for Decisions, Authorities, Defendants, Articles, Guidelines, and Contexts.
 
 For a step-by-step explanation of each enrichment helper and derived column family, consult

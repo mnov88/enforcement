@@ -19,7 +19,7 @@
 - Conditional rules align with documented business logic (e.g., OSS scope, fine sentinels), preventing contradictory sentinel usage.【F:scripts/2_validate_dataset.py†L278-L344】
 
 **Risks / Gaps**
-- Integer checks rely on `str.isdigit()`, rejecting negative placeholders like `-1` but allowing blank strings to skate by earlier type guards when fields are optional.
+- Integer validators rely on string digit checks, so they cannot accommodate signed sentinel placeholders (e.g., `-1`) if the schema ever evolves to permit them.
 - Free text validation does not cap length or detect obviously malformed placeholders (e.g., `lorem ipsum` sentinel proxies) that can signal prompt bleed-through.
 - Warning vs error thresholds are static; enumerated warnings (e.g., year outside range) lack contextual tuning (no tolerance for future-dated draft decisions).
 
@@ -30,7 +30,7 @@
 
 **Risks / Gaps**
 - Rules enforce `NOT_DISCUSSED → NO` for binary fields regardless of contextual plausibility, potentially laundering genuine “unknown” states into negative assertions.
-- No safeguard prevents a stale `validation_errors.csv` from a previous run being reused after schema changes, risking misaligned repairs.
+- Detailed action logs truncate after ~100 rows, so auditors must rerun the repair script or inspect CSV diffs to review the full set of automated changes.
 - Manual flags (e.g., sector bleed into `a8_defendant_class`) are only counted; there is no downstream routing to ensure human follow-up.
 
 ### Phase 4 – Enrichment (`scripts/4_enrich_prepare_outputs.py`)
@@ -40,9 +40,9 @@
 - Uses sentinel-aware cleaners before casting, reducing the risk of propagating placeholder strings into numeric outputs.【F:scripts/4_enrich_prepare_outputs.py†L46-L123】
 
 **Risks / Gaps**
-- FX lookup silently falls back to the most recent historical rate when year/month matches are absent, without marking the precision downgrade in the enriched output beyond the generic method label.【F:scripts/4_enrich_prepare_outputs.py†L220-L256】
-- Region and context priority tables are hard-coded; divergence from the canonical schema or future expansions requires code edits rather than data-driven configuration.
-- Article parsing keeps only the first numeric token; composite references like “Art. 5(1)(a)” lose granularity needed for factor-level research.
+- FX lookup still falls back to the most recent historical rate when month/year matches are absent; use `flag_fine_fx_fallback`/`flag_turnover_fx_fallback` to exclude these rows for precision-critical analysis.【F:scripts/4_enrich_prepare_outputs.py†L220-L360】
+- Reference CSVs (`context_taxonomy.csv`, `region_map.csv`) now drive context/geography expansion; missing governance around these files can trigger runtime errors or unmapped-token flags when schema changes outpace the lookup tables.【F:scripts/4_enrich_prepare_outputs.py†L24-L123】
+- Enrichment emits every long table and graph bundle on each run; without CLI pruning, iterative debugging produces large diffs and heavier local processing.
 
 ## 2. Contract Compliance & Data Risk Audit (Engineering Perspective)
 
@@ -50,9 +50,9 @@
 - **Schema Alignment**: Validation rules encode current enumerations but lack automated reconciliation against `schema/` documents; drift must be manually spotted, increasing breach risk if the schema evolves without code updates.
 - **Error Handling**: Absence of exception guards around file IO/CSV parsing means contract-specified runbooks may terminate abruptly on encoding anomalies, lacking graceful degradation.
 - **Data Quality Threats**:
-  - Potential duplicate IDs and stale error ledgers can compromise referential integrity across phases.
+  - Potential duplicate IDs and cross-machine reuse of validation ledgers still threaten referential integrity; timestamp guards mitigate most stale-ledger cases but rely on filesystem clocks.
   - Automatic conversion of uncertain sentinel states to hard negatives (Phase 3) may violate data minimization expectations if downstream consumers assume high-confidence labels.
-  - FX fallbacks without explicit QA flags could mislead regulatory reporting that requires precision provenance.
+  - FX fallbacks are surfaced via `flag_fine_fx_fallback`/`flag_turnover_fx_fallback`, but downstream consumers must actively filter on these flags to avoid stale-rate analysis.
 
 ## 3. Improvement Plan (Highest Priority First)
 
@@ -79,7 +79,6 @@
    - ✅ Implemented `--allow-stale-errors` guard rails with timestamp/row-count checks in Phase 3 and centralized error guards in the orchestration script.
 
 6. **Low – Analytical Enhancements**
-   - Extend article parsing to retain paragraph/sub-item tokens for downstream legal analytics and reintroduce them in the graph exports.【F:scripts/4_enrich_prepare_outputs.py†L204-L360】
    - Capture multi-line answers in Phase 1 using delimiter-aware parsing (e.g., storing subsequent lines until the next `Answer N` header).【F:scripts/1_parse_ai_responses.py†L66-L108】
 
 ---
