@@ -12,6 +12,7 @@ the plan provided in `/research-tasks` (see project brief).
 | Task 0 | `scripts/rt0_sanity_check.py` | Loads the enriched dataset, enforces analysis dtypes, profiles missingness, and emits a slim `analysis_view.parquet` for downstream phases. | `outputs/research_tasks/task0/analysis_view.parquet`, `data_check.json`, readiness one-pager, missingness heatmap |
 | Task 1 | `scripts/rt1_sanctions_architecture.py` | Produces sanctions incidence and mix descriptives with bootstrap confidence intervals, sanction mix index, trigger/OSS deltas, and measure co-occurrence diagnostics. | Stratified CSVs, figure bundle, `t1_summary.parquet` |
 | Task 2 | `scripts/rt2_two_part_models.py` | Estimates the two-part sanction model: logistic fining incidence with IPW robustness, multinomial sanction bundle choice, OLS/quantile log-fine regressions, and scenario predictions. | Model coefficient tables, design matrix, scenario predictions, figure bundle, serialized models |
+| Task 3 | `scripts/rt3_harmonization_tests.py` | Tests harmonization via nearest-neighbour fine gaps, mixed-effects variance decomposition, interaction contrasts, and within-authority public/private comparisons. | NN pair tables, variance components CSV, interaction diagnostics, figure bundle, serialized models |
 
 The helper package `research_tasks` exposes reusable utilities in
 `common.py` and task-specific modules (`task0.py`, `task1.py`) so future
