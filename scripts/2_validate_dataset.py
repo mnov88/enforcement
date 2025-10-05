@@ -23,6 +23,8 @@ from datetime import datetime
 from collections import defaultdict
 from typing import Any, Dict, Optional
 
+from schema_utils import compute_schema_hash, resolve_schema_files, write_schema_snapshot
+
 # ============================================================================
 # VALIDATION RULES FOR ALL 77 FIELDS
 # ============================================================================
@@ -37,7 +39,8 @@ VALIDATION_RULES = {
     },
     'a2_authority_name': {
         'type': 'free_text',
-        'non_empty': True
+        'non_empty': True,
+        'max_length': 255,
     },
     'a3_appellate_decision': {
         'type': 'enum',
@@ -47,7 +50,8 @@ VALIDATION_RULES = {
         'type': 'integer_range',
         'min': 2018,
         'max': 2025,
-        'warn_outside': True
+        'warn_outside': True,
+        'future_tolerance_years': 2,
     },
     'a5_decision_month': {
         'type': 'integer_range',
@@ -63,7 +67,8 @@ VALIDATION_RULES = {
     },
     'a7_defendant_name': {
         'type': 'free_text',
-        'non_empty': True
+        'non_empty': True,
+        'max_length': 255,
     },
     'a8_defendant_class': {
         'type': 'enum',
@@ -89,7 +94,8 @@ VALIDATION_RULES = {
     },
     'a13_sector_other': {
         'type': 'free_text_or_sentinel',
-        'sentinel': 'NOT_APPLICABLE'
+        'sentinel': 'NOT_APPLICABLE',
+        'max_length': 255,
     },
 
     # Section 3-4: Processing Context and Case Origins
@@ -134,7 +140,11 @@ VALIDATION_RULES = {
     'a33_art6_vital_interests': {'type': 'enum', 'allowed': ['VALID', 'INVALID', 'NOT_DISCUSSED']},
     'a34_art6_public_task': {'type': 'enum', 'allowed': ['VALID', 'INVALID', 'NOT_DISCUSSED']},
     'a35_art6_legitimate_interest': {'type': 'enum', 'allowed': ['VALID', 'INVALID', 'NOT_DISCUSSED']},
-    'a36_legal_basis_summary': {'type': 'free_text_or_sentinel', 'sentinel': 'NOT_DISCUSSED'},
+    'a36_legal_basis_summary': {
+        'type': 'free_text_or_sentinel',
+        'sentinel': 'NOT_DISCUSSED',
+        'max_length': 2000,
+    },
 
     # Section 9: Data Subject Rights (a37-a44)
     'a37_right_access_violated': {'type': 'enum', 'allowed': ['YES', 'NO', 'NOT_DISCUSSED']},
@@ -189,11 +199,23 @@ VALIDATION_RULES = {
     # Section 13: Cross-Border & References
     'a72_cross_border_oss': {'type': 'enum', 'allowed': ['YES', 'NO', 'NOT_DISCUSSED']},
     'a73_oss_role': {'type': 'enum', 'allowed': ['LEAD', 'CONCERNED', 'NOT_APPLICABLE']},
-    'a74_guidelines_referenced': {'type': 'free_text_or_sentinel', 'sentinel': 'NOT_APPLICABLE'},
+    'a74_guidelines_referenced': {
+        'type': 'free_text_or_sentinel',
+        'sentinel': 'NOT_APPLICABLE',
+        'max_length': 1000,
+    },
 
     # Section 14: Summaries
-    'a75_case_summary': {'type': 'free_text', 'non_empty': True},
-    'a76_art83_weighing_summary': {'type': 'free_text_or_sentinel', 'sentinel': 'NOT_DISCUSSED'},
+    'a75_case_summary': {
+        'type': 'free_text',
+        'non_empty': True,
+        'max_length': 4000,
+    },
+    'a76_art83_weighing_summary': {
+        'type': 'free_text_or_sentinel',
+        'sentinel': 'NOT_DISCUSSED',
+        'max_length': 4000,
+    },
     'a77_articles_breached': {
         'type': 'semicolon_integers_or_sentinels',
         'sentinels': ['NONE_VIOLATED', 'NOT_DISCUSSED']
@@ -212,6 +234,11 @@ FORBIDDEN_BINARY_SENTINELS = {'NOT_APPLICABLE', 'NOT_DISCUSSED'}
 
 ARTICLE_PREFIX_PATTERN = re.compile(r'^(art\.?|article)\s*', re.IGNORECASE)
 GDPR_SUFFIX_PATTERN = re.compile(r'(gdpr)$', re.IGNORECASE)
+
+DEFAULT_FREE_TEXT_PATTERNS = [
+    re.compile(r'lorem ipsum', re.IGNORECASE),
+    re.compile(r'placeholder text', re.IGNORECASE),
+]
 
 
 def normalize_article_token(token: str) -> str:
@@ -241,7 +268,26 @@ def parse_article_numbers(value: str) -> set[str]:
         return set()
 
     tokens = [normalize_article_token(tok) for tok in value.split(';')]
-    return {tok for tok in tokens if tok.isdigit()}
+    parsed_tokens: set[str] = set()
+    for token in tokens:
+        ok, number, _ = parse_int(token)
+        if ok and number is not None:
+            parsed_tokens.add(str(number))
+    return parsed_tokens
+
+
+def parse_int(value: str, *, allow_negative: bool = False) -> tuple[bool, Optional[int], str]:
+    """Attempt to parse an integer, flagging empty or negative placeholders."""
+    normalized = value.strip()
+    if normalized == '':
+        return False, None, 'Empty value; expected integer'
+    try:
+        number = int(normalized)
+    except ValueError:
+        return False, None, f"Expected integer but received '{value}'"
+    if not allow_negative and number < 0:
+        return False, None, f"Negative value {number} is not permitted"
+    return True, number, ''
 
 
 ARTICLE5_FIELDS = [
@@ -274,12 +320,13 @@ def apply_additional_checks(row: dict) -> list[dict]:
     fine_imposed = row.get('a53_fine_imposed')
     fine_amount = row.get('a54_fine_amount', '')
     if fine_imposed == 'YES':
-        if not fine_amount.isdigit() or int(fine_amount) <= 0:
+        ok_amount, parsed_amount, amount_error = parse_int(fine_amount)
+        if not ok_amount or parsed_amount is None or parsed_amount <= 0:
             errors.append({
                 'field_name': 'a54_fine_amount',
                 'field_value': fine_amount,
                 'validation_rule': 'consistency',
-                'error_message': 'a54_fine_amount must be a positive integer when a53_fine_imposed = YES',
+                'error_message': amount_error or 'a54_fine_amount must be a positive integer when a53_fine_imposed = YES',
                 'severity': 'ERROR',
             })
 
@@ -397,49 +444,118 @@ class FieldValidator:
         return (False, f"Invalid enum value '{value}'. Allowed: {', '.join(allowed)}", 'ERROR')
 
     @staticmethod
-    def validate_integer_range(value: str, min_val: int, max_val: int, warn_outside: bool = False) -> tuple[bool, str, str]:
-        """Validate integer within range."""
-        if not value.lstrip('-').isdigit():
-            return (False, f"Not an integer: '{value}'", 'ERROR')
+    def validate_integer_range(
+        value: str,
+        min_val: int,
+        max_val: int,
+        warn_outside: bool = False,
+        future_tolerance_years: Optional[int] = None,
+    ) -> tuple[bool, str, str]:
+        """Validate integer within range with optional future tolerance."""
+        ok, number, parse_error = parse_int(value, allow_negative=False)
+        if not ok or number is None:
+            return (False, parse_error, 'ERROR')
 
-        num = int(value)
-        if min_val <= num <= max_val:
+        current_year = datetime.utcnow().year
+        if future_tolerance_years is not None:
+            future_limit = current_year + future_tolerance_years
+            if number > future_limit:
+                return (
+                    False,
+                    f"Integer {number} exceeds allowed future tolerance (max {future_limit})",
+                    'ERROR',
+                )
+            if number > current_year:
+                return (
+                    False,
+                    f"Integer {number} is in the future relative to data vintage ({current_year})",
+                    'WARNING',
+                )
+
+        if min_val <= number <= max_val:
             return (True, '', 'VALID')
 
         severity = 'WARNING' if warn_outside else 'ERROR'
-        return (False, f"Integer {num} outside valid range [{min_val}, {max_val}]", severity)
+        return (False, f"Integer {number} outside valid range [{min_val}, {max_val}]", severity)
 
     @staticmethod
-    def validate_free_text(value: str, non_empty: bool = False) -> tuple[bool, str, str]:
-        """Validate free text field."""
-        if non_empty and not value.strip():
+    def validate_free_text(
+        value: str,
+        non_empty: bool = False,
+        *,
+        max_length: Optional[int] = None,
+        forbidden_patterns: Optional[list[re.Pattern]] = None,
+    ) -> tuple[bool, str, str]:
+        """Validate free text field with length and placeholder checks."""
+        text = value or ''
+        if non_empty and not text.strip():
             return (False, "Empty text field (required non-empty)", 'ERROR')
+
+        disallowed = [ch for ch in text if ord(ch) < 32 and ch not in {'\t', '\n', '\r'}]
+        if disallowed:
+            return (False, 'Control characters detected in text field', 'ERROR')
+
+        stripped = text.strip()
+        if max_length is not None and len(stripped) > max_length:
+            return (
+                False,
+                f"Text exceeds configured limit of {max_length} characters",
+                'WARNING',
+            )
+
+        patterns = forbidden_patterns if forbidden_patterns is not None else DEFAULT_FREE_TEXT_PATTERNS
+        for pattern in patterns:
+            if pattern.search(text):
+                return (
+                    False,
+                    f"Suspicious placeholder text matches pattern '{pattern.pattern}'",
+                    'WARNING',
+                )
+
         return (True, '', 'VALID')
 
     @staticmethod
-    def validate_free_text_or_sentinel(value: str, sentinel: str) -> tuple[bool, str, str]:
+    def validate_free_text_or_sentinel(
+        value: str,
+        sentinel: str,
+        *,
+        max_length: Optional[int] = None,
+        forbidden_patterns: Optional[list[re.Pattern]] = None,
+    ) -> tuple[bool, str, str]:
         """Validate free text or sentinel value."""
-        if value == sentinel or value.strip():
+        if value == sentinel:
             return (True, '', 'VALID')
-        return (False, f"Empty text (expected text or '{sentinel}')", 'ERROR')
+
+        return FieldValidator.validate_free_text(
+            value,
+            False,
+            max_length=max_length,
+            forbidden_patterns=forbidden_patterns,
+        )
 
     @staticmethod
     def validate_integer_or_sentinel(value: str, sentinel: str) -> tuple[bool, str, str]:
         """Validate integer or sentinel."""
         if value == sentinel:
             return (True, '', 'VALID')
-        if value.isdigit():
+        ok, _, parse_error = parse_int(value)
+        if ok:
             return (True, '', 'VALID')
-        return (False, f"Not integer or '{sentinel}': '{value}'", 'ERROR')
+        return (False, parse_error or f"Not integer or '{sentinel}': '{value}'", 'ERROR')
 
     @staticmethod
     def validate_integer_or_sentinels(value: str, sentinels: list) -> tuple[bool, str, str]:
         """Validate integer or one of multiple sentinels."""
         if value in sentinels:
             return (True, '', 'VALID')
-        if value.isdigit():
+        ok, _, parse_error = parse_int(value)
+        if ok:
             return (True, '', 'VALID')
-        return (False, f"Not integer or sentinel ({', '.join(sentinels)}): '{value}'", 'ERROR')
+        return (
+            False,
+            parse_error or f"Not integer or sentinel ({', '.join(sentinels)}): '{value}'",
+            'ERROR',
+        )
 
     @staticmethod
     def validate_semicolon_list_or_sentinel(value: str, allowed_tokens: list, sentinel: str) -> tuple[bool, str, str]:
@@ -465,11 +581,9 @@ class FieldValidator:
         for token in tokens:
             if not token:
                 continue
-            if token.isdigit():
-                continue
-
             normalized = normalize_article_token(token)
-            if normalized.isdigit():
+            ok, _, _ = parse_int(normalized)
+            if ok:
                 continue
 
             invalid_tokens.append(token)
@@ -512,14 +626,28 @@ def validate_row(row: dict) -> list[dict]:
 
         elif val_type == 'integer_range':
             valid, error_msg, severity = validator.validate_integer_range(
-                value, rules['min'], rules['max'], rules.get('warn_outside', False)
+                value,
+                rules['min'],
+                rules['max'],
+                rules.get('warn_outside', False),
+                rules.get('future_tolerance_years'),
             )
 
         elif val_type == 'free_text':
-            valid, error_msg, severity = validator.validate_free_text(value, rules.get('non_empty', False))
+            valid, error_msg, severity = validator.validate_free_text(
+                value,
+                rules.get('non_empty', False),
+                max_length=rules.get('max_length'),
+                forbidden_patterns=rules.get('forbidden_patterns'),
+            )
 
         elif val_type == 'free_text_or_sentinel':
-            valid, error_msg, severity = validator.validate_free_text_or_sentinel(value, rules['sentinel'])
+            valid, error_msg, severity = validator.validate_free_text_or_sentinel(
+                value,
+                rules['sentinel'],
+                max_length=rules.get('max_length'),
+                forbidden_patterns=rules.get('forbidden_patterns'),
+            )
 
         elif val_type == 'integer_or_sentinel':
             valid, error_msg, severity = validator.validate_integer_or_sentinel(value, rules['sentinel'])
@@ -614,7 +742,16 @@ def validate_dataset(input_file: str):
     return valid_rows, all_errors, rows
 
 
-def write_outputs(valid_rows, all_errors, all_rows, output_validated, output_errors, output_report):
+def write_outputs(
+    valid_rows,
+    all_errors,
+    all_rows,
+    output_validated,
+    output_errors,
+    output_report,
+    schema_hash: str,
+    schema_files: list[Path],
+):
     """Write validation outputs."""
 
     # Write validated data
@@ -629,18 +766,51 @@ def write_outputs(valid_rows, all_errors, all_rows, output_validated, output_err
 
     # Write validation errors
     if all_errors:
-        error_fieldnames = ['row_id', 'field_name', 'field_value', 'validation_rule', 'error_message', 'severity']
+        error_fieldnames = [
+            'row_id',
+            'field_name',
+            'field_value',
+            'validation_rule',
+            'error_message',
+            'severity',
+            'schema_hash',
+        ]
         with open(output_errors, 'w', encoding='utf-8', newline='') as f:
             writer = csv.DictWriter(f, fieldnames=error_fieldnames)
             writer.writeheader()
-            writer.writerows(all_errors)
+            for error in all_errors:
+                writer.writerow({**error, 'schema_hash': schema_hash})
         print(f"✓ Wrote {len(all_errors)} validation errors to {Path(output_errors).name}")
 
+    base_dir = Path(output_validated).parent
+    snapshot_path = write_schema_snapshot(base_dir, schema_hash, schema_files)
+    print(f"✓ Recorded schema snapshot to {snapshot_path.name}")
+
     # Generate validation report
-    generate_report(valid_rows, all_errors, all_rows, output_report, output_validated, output_errors)
+    generate_report(
+        valid_rows,
+        all_errors,
+        all_rows,
+        output_report,
+        output_validated,
+        output_errors,
+        schema_hash,
+        schema_files,
+        snapshot_path,
+    )
 
 
-def generate_report(valid_rows, all_errors, all_rows, output_report, output_validated, output_errors):
+def generate_report(
+    valid_rows,
+    all_errors,
+    all_rows,
+    output_report,
+    output_validated,
+    output_errors,
+    schema_hash: str,
+    schema_files: list[Path],
+    snapshot_path: Path,
+):
     """Generate detailed validation report."""
 
     # Count errors by field
@@ -659,6 +829,12 @@ def generate_report(valid_rows, all_errors, all_rows, output_report, output_vali
         f.write("=" * 70 + "\n\n")
         f.write(f"Generated: {datetime.now().isoformat()}\n")
         f.write(f"Dataset: {len(all_rows)} rows, 77 fields each\n\n")
+        f.write(f"Schema hash: {schema_hash}\n")
+        f.write(f"Schema snapshot: {snapshot_path}\n")
+        f.write("Schema files:\n")
+        for schema_path in schema_files:
+            f.write(f"  - {schema_path}\n")
+        f.write("\n")
 
         f.write("VALIDATION SUMMARY\n")
         f.write("-" * 70 + "\n")
@@ -727,6 +903,9 @@ def run_phase2(
     if verbose:
         print()
 
+    schema_files = resolve_schema_files(project_root)
+    schema_hash = compute_schema_hash(project_root)
+
     write_outputs(
         valid_rows,
         all_errors,
@@ -734,6 +913,8 @@ def run_phase2(
         str(output_validated),
         str(output_errors),
         str(output_report),
+        schema_hash,
+        schema_files,
     )
 
     if verbose:
@@ -750,6 +931,7 @@ def run_phase2(
         'valid_count': len(valid_rows),
         'error_count': len(all_errors),
         'row_count': len(all_rows),
+        'schema_hash': schema_hash,
     }
 
 

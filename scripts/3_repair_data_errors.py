@@ -2,14 +2,18 @@
 """
 Phase 3: Auto-Repair Common Data Errors
 
-Automatically fixes targeted validation errors identified in Phase 2:
-1. NOT_DISCUSSED → NO (two-option YES/NO fields)
-2. NOT_APPLICABLE → NOT_DISCUSSED (three-option fields with NOT_DISCUSSED sentinel)
+Automatically fixes targeted validation errors identified in Phase 2 while
+preserving auditability:
+1. Sentinel coercions (e.g., NOT_DISCUSSED → NO) are tracked in
+   `phase3_coercion_flags` rather than silently overwriting uncertainty.
+2. Schema hashes from Phase 2 are verified before repairs run and are
+   embedded into Phase 3 artefacts for provenance.
 
 Input:  /outputs/phase1_extraction/main_dataset.csv
         /outputs/phase2_validation/validation_errors.csv
 Output: /outputs/phase3_repair/repaired_dataset.csv
         /outputs/phase3_repair/repair_log.txt
+        /outputs/phase3_repair/schema_snapshot.json
 """
 
 import csv
@@ -17,6 +21,13 @@ from pathlib import Path
 from datetime import datetime
 from collections import defaultdict
 from typing import Any, Dict, Optional
+
+from schema_utils import (
+    compute_schema_hash,
+    read_schema_snapshot,
+    resolve_schema_files,
+    write_schema_snapshot,
+)
 
 # Define repair rules
 REPAIR_RULES = {
@@ -31,7 +42,8 @@ REPAIR_RULES = {
         ],
         'from_value': 'NOT_DISCUSSED',
         'to_value': 'NO',
-        'reason': 'Two-option field expects YES or NO, NOT_DISCUSSED invalid'
+        'reason': 'Two-option field expects YES or NO, NOT_DISCUSSED invalid',
+        'track_coercion': True,
     },
 
     # Pattern 2: NOT_APPLICABLE → NOT_DISCUSSED (fields that allow NOT_DISCUSSED)
@@ -115,9 +127,35 @@ FLAG_PATTERNS = {
 }
 
 
-def load_validation_errors(error_file: str) -> dict:
+COERCION_NOTES_COLUMN = 'phase3_coercion_flags'
+
+
+def verify_schema_alignment(error_file: str, project_root: Path) -> tuple[str, Path]:
+    """Ensure the validation artefacts align with the current schema snapshot."""
+    error_path = Path(error_file)
+    snapshot_path = error_path.parent / 'schema_snapshot.json'
+
+    snapshot = read_schema_snapshot(snapshot_path)
+    if not snapshot or 'schema_hash' not in snapshot:
+        raise RuntimeError(
+            "Schema snapshot metadata missing alongside validation errors; rerun Phase 2."
+        )
+
+    expected_hash = snapshot['schema_hash']
+    current_hash = compute_schema_hash(project_root)
+    if expected_hash != current_hash:
+        raise RuntimeError(
+            "Schema hash mismatch between Phase 2 and current repository. "
+            "Rerun validation before applying repairs."
+        )
+
+    return expected_hash, snapshot_path
+
+
+def load_validation_errors(error_file: str) -> tuple[dict, Optional[str]]:
     """Load validation errors and group by row_id and field."""
     errors_by_row = defaultdict(lambda: defaultdict(list))
+    observed_schema_hash: Optional[str] = None
 
     with open(error_file, 'r', encoding='utf-8') as f:
         reader = csv.DictReader(f)
@@ -127,16 +165,26 @@ def load_validation_errors(error_file: str) -> dict:
                 field = error['field_name']
                 errors_by_row[row_id][field].append(error)
 
-    return errors_by_row
+            schema_hash = error.get('schema_hash')
+            if schema_hash:
+                if observed_schema_hash is None:
+                    observed_schema_hash = schema_hash
+                elif observed_schema_hash != schema_hash:
+                    raise RuntimeError(
+                        "Validation errors reference multiple schema hashes; rerun Phase 2."
+                    )
+
+    return errors_by_row, observed_schema_hash
 
 
-def apply_repairs(row: dict, row_id: str, errors_by_row: dict) -> dict:
+def apply_repairs(row: dict, row_id: str, errors_by_row: dict) -> tuple[dict, list[dict], list[str]]:
     """
     Apply automatic repairs to a row.
-    Returns (repaired_row, actions_taken)
+    Returns (repaired_row, actions_taken, coerced_fields)
     """
     repaired = row.copy()
     actions = []
+    coerced_fields: list[str] = []
 
     # Get errors for this row
     row_errors = errors_by_row.get(row_id, {})
@@ -151,14 +199,18 @@ def apply_repairs(row: dict, row_id: str, errors_by_row: dict) -> dict:
             if 'from_value' in rule:
                 if repaired[field] == rule['from_value'] and field in row_errors:
                     repaired[field] = rule['to_value']
-                    actions.append({
+                    action = {
                         'field': field,
                         'from': rule['from_value'],
                         'to': rule['to_value'],
                         'pattern': pattern_name,
                         'reason': rule['reason'],
                         'action': 'REPAIR'
-                    })
+                    }
+                    if rule.get('track_coercion'):
+                        action['coercion'] = True
+                        coerced_fields.append(field)
+                    actions.append(action)
 
             # Handle rules with multiple from_values (e.g., pattern5)
             elif 'from_values' in rule:
@@ -188,34 +240,60 @@ def apply_repairs(row: dict, row_id: str, errors_by_row: dict) -> dict:
                 'action': 'FLAG'
             })
 
-    return repaired, actions
+    return repaired, actions, coerced_fields
 
 
 def repair_dataset(input_file: str, error_file: str, output_file: str, log_file: str):
     """Repair dataset and generate log."""
 
+    project_root = Path(__file__).parent.parent
+
+    print("Verifying schema snapshot...")
+    schema_hash, snapshot_path = verify_schema_alignment(error_file, project_root)
+    print(f"✓ Schema snapshot verified ({schema_hash})")
+
     # Load validation errors
     print("Loading validation errors...")
-    errors_by_row = load_validation_errors(error_file)
+    errors_by_row, observed_schema_hash = load_validation_errors(error_file)
     print(f"✓ Loaded errors for {len(errors_by_row)} rows")
+    if observed_schema_hash and observed_schema_hash != schema_hash:
+        raise RuntimeError(
+            "Validation errors were generated against a different schema hash; rerun Phase 2."
+        )
 
     # Load and repair dataset
     print(f"\nRepairing dataset...")
     with open(input_file, 'r', encoding='utf-8') as f:
         reader = csv.DictReader(f)
-        fieldnames = reader.fieldnames
+        fieldnames = reader.fieldnames or []
         rows = list(reader)
+
+    if COERCION_NOTES_COLUMN not in fieldnames:
+        fieldnames.append(COERCION_NOTES_COLUMN)
 
     repaired_rows = []
     repairs_by_pattern = defaultdict(int)
     flags_by_pattern = defaultdict(int)
+    coercions_by_field = defaultdict(int)
     rows_repaired = 0
     rows_flagged = 0
+    coercion_rows = 0
     repair_details = []
 
     for row in rows:
+        row.setdefault(COERCION_NOTES_COLUMN, '')
         row_id = row.get('id', 'unknown')
-        repaired_row, actions = apply_repairs(row, row_id, errors_by_row)
+        repaired_row, actions, coerced_fields = apply_repairs(row, row_id, errors_by_row)
+
+        if coerced_fields:
+            coercion_rows += 1
+            existing = [note.strip() for note in repaired_row.get(COERCION_NOTES_COLUMN, '').split(';') if note.strip()]
+            combined = sorted(set(existing + coerced_fields))
+            repaired_row[COERCION_NOTES_COLUMN] = ';'.join(combined)
+            for field in coerced_fields:
+                coercions_by_field[field] += 1
+        else:
+            repaired_row.setdefault(COERCION_NOTES_COLUMN, '')
 
         if actions:
             has_repair = any(action['action'] == 'REPAIR' for action in actions)
@@ -238,7 +316,8 @@ def repair_dataset(input_file: str, error_file: str, output_file: str, log_file:
                     'from_value': action['from'],
                     'to_value': action['to'],
                     'pattern': action['pattern'],
-                    'action': action['action']
+                    'action': action['action'],
+                    'coercion': 'YES' if action.get('coercion') else '',
                 })
 
         repaired_rows.append(repaired_row)
@@ -252,8 +331,15 @@ def repair_dataset(input_file: str, error_file: str, output_file: str, log_file:
     print(f"✓ Repaired {rows_repaired} rows")
     if rows_flagged:
         print(f"⚑ Flagged {rows_flagged} rows for manual review")
+    if coercion_rows:
+        print(f"✓ Recorded {coercion_rows} rows with coercion flags")
     total_actions = sum(repairs_by_pattern.values()) + sum(flags_by_pattern.values())
     print(f"✓ Total actions logged: {total_actions}")
+
+    output_dir = Path(output_file).parent
+    schema_files = resolve_schema_files(project_root)
+    snapshot_out = write_schema_snapshot(output_dir, schema_hash, schema_files)
+    print(f"✓ Recorded schema snapshot to {snapshot_out.name}")
 
     # Generate repair log
     with open(log_file, 'w', encoding='utf-8') as f:
@@ -262,15 +348,26 @@ def repair_dataset(input_file: str, error_file: str, output_file: str, log_file:
         f.write("=" * 70 + "\n\n")
         f.write(f"Generated: {datetime.now().isoformat()}\n")
         f.write(f"Input: {input_file}\n")
-        f.write(f"Output: {output_file}\n\n")
+        f.write(f"Output: {output_file}\n")
+        f.write(f"Schema hash: {schema_hash}\n")
+        f.write(f"Validation snapshot: {snapshot_path}\n")
+        f.write(f"Phase 3 snapshot: {snapshot_out}\n\n")
 
         f.write("REPAIR SUMMARY\n")
         f.write("-" * 70 + "\n")
         f.write(f"Total rows processed: {len(rows)}\n")
         f.write(f"Rows repaired: {rows_repaired}\n")
         f.write(f"Rows flagged for manual review: {rows_flagged}\n")
+        f.write(f"Rows with coercion flags: {coercion_rows}\n")
         total_actions = sum(repairs_by_pattern.values()) + sum(flags_by_pattern.values())
         f.write(f"Total actions logged: {total_actions}\n\n")
+
+        if coercions_by_field:
+            f.write("COERCION FLAGS BY FIELD\n")
+            f.write("-" * 70 + "\n")
+            for field, count in sorted(coercions_by_field.items()):
+                f.write(f"{field}: {count}\n")
+            f.write("\n")
 
         f.write("REPAIRS BY PATTERN\n")
         f.write("-" * 70 + "\n")
@@ -301,11 +398,11 @@ def repair_dataset(input_file: str, error_file: str, output_file: str, log_file:
 
         f.write("DETAILED ACTIONS\n")
         f.write("-" * 70 + "\n")
-        f.write(f"Row ID, Field, From, To, Pattern, Action\n")
+        f.write(f"Row ID, Field, From, To, Pattern, Action, Coercion\n")
         for detail in repair_details[:100]:  # First 100 for brevity
             f.write(
                 f"{detail['row_id']}, {detail['field']}, {detail['from_value']}, {detail['to_value']}, "
-                f"{detail['pattern']}, {detail['action']}\n"
+                f"{detail['pattern']}, {detail['action']}, {detail['coercion']}\n"
             )
 
         if len(repair_details) > 100:
@@ -316,7 +413,7 @@ def repair_dataset(input_file: str, error_file: str, output_file: str, log_file:
         f.write("=" * 70 + "\n")
 
     total_actions = sum(repairs_by_pattern.values()) + sum(flags_by_pattern.values())
-    return rows_repaired, total_actions
+    return rows_repaired, total_actions, schema_hash
 
 
 def run_phase3(
@@ -349,7 +446,7 @@ def run_phase3(
         print(f"Log:    {log_file}")
         print()
 
-    rows_repaired, total_actions = repair_dataset(
+    rows_repaired, total_actions, schema_hash = repair_dataset(
         str(input_file), str(error_file), str(output_file), str(log_file)
     )
 
@@ -371,6 +468,7 @@ def run_phase3(
         'log_file': log_file,
         'rows_repaired': rows_repaired,
         'total_actions': total_actions,
+        'schema_hash': schema_hash,
     }
 
 

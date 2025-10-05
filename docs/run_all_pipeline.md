@@ -43,11 +43,14 @@ python scripts/run_all_pipeline.py \
 2. **Phase 2 – Validation**
    - Calls `run_phase2` from `scripts/2_validate_dataset.py` on the Phase 1 CSV.
    - Output: `/outputs/phase2_validation/validated_data.csv`, `validation_errors.csv`, and `validation_report.txt`.
-   - The generated `validation_errors.csv` is passed directly into Phase 3 when present.
+   - Records a `schema_snapshot.json` alongside the validation artefacts so downstream phases can verify the schema hash used for checks.
+   - The generated `validation_errors.csv` (tagged with the schema hash) is passed directly into Phase 3 when present.
 
 3. **Phase 3 – Repair**
    - Invokes `run_phase3` from `scripts/3_repair_data_errors.py` using the Phase 1 dataset plus the Phase 2 error ledger.
-   - Output: `/outputs/phase3_repair/repaired_dataset.csv` and `repair_log.txt`.
+   - Verifies that the Phase 2 schema snapshot matches the current repository before making any edits.
+   - Output: `/outputs/phase3_repair/repaired_dataset.csv`, `repair_log.txt`, and a mirrored `schema_snapshot.json` for provenance.
+   - Adds a `phase3_coercion_flags` column so any sentinel coercions (e.g., forcing `NOT_DISCUSSED` → `NO`) remain transparent for auditors.
    - Immediately re-validates the repaired dataset, producing `repaired_dataset_validated.csv` (clean subset) and updated validation artefacts in the same folder.
 
 4. **Phase 4 – Enrichment (optional)**
@@ -61,7 +64,9 @@ The script prints a concise summary of the generated files at the end of the run
 
 - The underlying modules enforce the schema documented in
   `schema/main-schema-critically-important.md`, so schema updates will flow
-  through the pipeline automatically.
+  through the pipeline automatically. Each validation run emits a schema hash;
+  keep the `schema_snapshot.json` files with their companion CSVs so later
+  phases (and reviewers) can confirm alignment.
 - When experimenting with alternate output locations (via `--output-root`),
   remember that Phase 4 still expects the FX and HICP references from
   `raw_data/reference/`.

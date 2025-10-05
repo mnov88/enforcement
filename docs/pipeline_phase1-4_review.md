@@ -59,14 +59,17 @@
 1. **Critical – Strengthen Data Integrity Guards**
    - Deduplicate and collision-check `id` values during Phase 1; halt or quarantine duplicates to preserve referential integrity.【F:scripts/1_parse_ai_responses.py†L90-L158】
    - Embed schema version hashes into validation/repair outputs and verify Phase 3 consumes a matching schema snapshot before applying repairs, preventing misaligned rewrites.【F:scripts/2_validate_dataset.py†L368-L464】【F:scripts/3_repair_data_errors.py†L170-L286】
+   - _Status update:_ Phase 1 now quarantines duplicate IDs and records the raw response block, while Phases 2–3 exchange and verify `schema_snapshot.json` manifests before applying repairs.【F:scripts/1_parse_ai_responses.py†L96-L158】【F:scripts/2_validate_dataset.py†L617-L704】【F:scripts/3_repair_data_errors.py†L210-L357】
 
 2. **High – Preserve Uncertainty & Traceability**
    - Reclassify `NOT_DISCUSSED` repairs in binary fields as warnings requiring manual adjudication or add a confidence column documenting automated coercions.【F:scripts/3_repair_data_errors.py†L24-L87】
    - Store full malformed response blocks (not just parsed dicts) in Phase 1 error output to aid forensic backtracking and contractual audit trails.【F:scripts/1_parse_ai_responses.py†L90-L158】
+   - _Status update:_ Automated binary coercions are now tracked in the `phase3_coercion_flags` column and detailed repair logs, and malformed responses include the original text block for audit review.【F:scripts/1_parse_ai_responses.py†L122-L156】【F:scripts/3_repair_data_errors.py†L210-L357】
 
 3. **High – Enhance Validation Robustness**
    - Replace `str.isdigit()` checks with tolerant numeric parsers that still reject empty strings and flag negative placeholders explicitly.【F:scripts/2_validate_dataset.py†L188-L248】
    - Introduce length/character filters for free-text fields and configurable warning thresholds (e.g., future-dated decisions) to reduce silent schema drift.【F:scripts/2_validate_dataset.py†L18-L188】
+   - _Status update:_ Field validators now parse integers with explicit negative safeguards, enforce configurable future-year warnings, and apply control/placeholder filters plus max-length policies to free-text inputs.【F:scripts/2_validate_dataset.py†L196-L356】
 
 4. **Medium – Improve Enrichment Transparency**
    - Emit explicit QA flags when FX lookup relies on fallback rates or when article parsing drops sub-article references, supporting contract-grade provenance.【F:scripts/4_enrich_prepare_outputs.py†L204-L360】
