@@ -483,9 +483,20 @@ python scripts/rt0_sanity_check.py
 python scripts/rt1_sanctions_architecture.py
 ```
 
+### Script: `scripts/rt2_two_part_models.py`
+
+**Purpose:** Executes Research Task 2 by estimating two-part sanction models: logistic fining incidence with cluster-robust and IPW specifications, multinomial bundle choice (fine-only / measures-only / both / neither), and log-fine magnitude regressions with OLS, quantile fits, and specification-curve robustness.
+
+**Outputs:** `outputs/research_tasks/task2/` (model coefficient CSVs, scenario predictions, design matrix feather, serialized models, figure bundle, summary/memo, session info).
+
+**Usage:**
+```bash
+python scripts/rt2_two_part_models.py
+```
+
 ### Runner: `run_research_tasks.py`
 
-Sequential orchestrator for `rt0` → `rt1` (extensible to future tasks). Accepts `--tasks`, `--data-path`, and `--output-root` overrides to support reproducible pipelines.
+Sequential orchestrator for `rt0` → `rt2` (extensible to future tasks). Accepts `--tasks`, `--data-path`, and `--output-root` overrides to support reproducible pipelines.
 
 ```bash
 python run_research_tasks.py

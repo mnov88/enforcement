@@ -254,7 +254,7 @@ All data validated against:
 
 ## Research Tasks (Phase 5+ analytics)
 
-Dedicated research scripts extend the pipeline using the enriched master dataset. Task 0 (`scripts/rt0_sanity_check.py`) performs type enforcement and data readiness checks, while Task 1 (`scripts/rt1_sanctions_architecture.py`) analyses sanction incidence, sanction mix indices, trigger/OSS deltas, and Art. 58 measure co-occurrence with bootstrap confidence intervals. Run `python run_research_tasks.py` to execute completed tasks sequentially; outputs are stored under `outputs/research_tasks/`.
+Dedicated research scripts extend the pipeline using the enriched master dataset. Task 0 (`scripts/rt0_sanity_check.py`) performs type enforcement and data readiness checks; Task 1 (`scripts/rt1_sanctions_architecture.py`) analyses sanction incidence, sanction mix indices, trigger/OSS deltas, and Art. 58 measure co-occurrence with bootstrap confidence intervals; and Task 2 (`scripts/rt2_two_part_models.py`) estimates two-part sanction models (logit, multinomial, OLS, quantile) with robustness checks. Run `python run_research_tasks.py` to execute completed tasks sequentially; outputs are stored under `outputs/research_tasks/`.
 
 ## Directory Structure
 
