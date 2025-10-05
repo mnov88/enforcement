@@ -12,6 +12,8 @@ logic, ensuring that each stage reads the exact output from the previous one.
 - Reuses the phase modules directly (`run_phase1`, `run_phase2`,
   `run_phase3`, `enrich_dataset`) so the data flow mirrors the documented
   pipeline.
+- Wraps each phase call in guarded error handling so missing inputs or
+  unexpected IO problems surface with actionable messages.
 - Writes all artefacts to the standard `/outputs/phase*_*/` directories by
   default, while allowing overrides through `--output-root`.
 - Automatically re-validates the repaired dataset before triggering Phase 4
@@ -49,10 +51,11 @@ python scripts/run_all_pipeline.py \
    - Invokes `run_phase3` from `scripts/3_repair_data_errors.py` using the Phase 1 dataset plus the Phase 2 error ledger.
    - Output: `/outputs/phase3_repair/repaired_dataset.csv` and `repair_log.txt`.
    - Immediately re-validates the repaired dataset, producing `repaired_dataset_validated.csv` (clean subset) and updated validation artefacts in the same folder.
+   - The run halts if the validation ledger predates the dataset or references unknown IDs, preventing stale repairs.
 
 4. **Phase 4 – Enrichment (optional)**
    - Unless `--skip-enrichment` is supplied, calls `enrich_dataset` from `scripts/4_enrich_prepare_outputs.py`.
-   - Input: `/outputs/phase3_repair/repaired_dataset.csv`.
+   - Input: `/outputs/phase3_repair/repaired_dataset.csv` plus reference tables in `raw_data/reference/` (FX, HICP, context taxonomy, region map).
    - Output: `/outputs/phase4_enrichment/` bundle (master dataset, long tables, and graph exports).
 
 The script prints a concise summary of the generated files at the end of the run so you can quickly locate the artefacts for downstream analysis.

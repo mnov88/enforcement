@@ -21,11 +21,13 @@ Prioritise items according to research deadlines and data availability.
    - Externalise `CONTEXT_PRIORITY` and other enumerations to a YAML/CSV reference so non-developers can adjust ordering and
      naming without code edits.
    - Add defensive handling for new context tokens to avoid silent drops when AI annotations introduce unseen labels.
+   - *Status: Completed — taxonomy now lives in `raw_data/reference/context_taxonomy.csv` with runtime loading and unmapped-token QA columns.*
 
 2. **Article parsing enhancements**
    - Extend `parse_articles` to capture paragraph/subparagraph information (e.g., Art. 5(1)(a)) as structured columns for finer
      network analysis.
    - Backfill graph exports with edge attributes indicating article paragraph when available.
+   - *Status: Completed — enrichment records `article_reference_detail`/`article_detail_tokens`, surfaces `flag_article_detail_truncated`, and propagates detail columns into graph edges.*
 
 ## Low Priority
 

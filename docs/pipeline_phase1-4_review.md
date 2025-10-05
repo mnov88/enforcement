@@ -68,13 +68,15 @@
    - Replace `str.isdigit()` checks with tolerant numeric parsers that still reject empty strings and flag negative placeholders explicitly.【F:scripts/2_validate_dataset.py†L188-L248】
    - Introduce length/character filters for free-text fields and configurable warning thresholds (e.g., future-dated decisions) to reduce silent schema drift.【F:scripts/2_validate_dataset.py†L18-L188】
 
-4. **Medium – Improve Enrichment Transparency**
+4. **Medium – Improve Enrichment Transparency** *(Completed)*
    - Emit explicit QA flags when FX lookup relies on fallback rates or when article parsing drops sub-article references, supporting contract-grade provenance.【F:scripts/4_enrich_prepare_outputs.py†L204-L360】
    - Externalize region/context taxonomies into reference CSVs under `raw_data/reference/` to ease updates and maintain schema compliance without code edits.【F:scripts/4_enrich_prepare_outputs.py†L24-L91】
+   - ✅ Implemented via `flag_fine_fx_fallback` / `flag_turnover_fx_fallback`, `flag_article_detail_truncated`, and new reference tables (`context_taxonomy.csv`, `region_map.csv`) loaded at runtime.
 
-5. **Medium – Operational Safeguards**
+5. **Medium – Operational Safeguards** *(Completed)*
    - Add CLI options and sanity checks to prevent reusing stale validation error files (e.g., compare timestamps, row counts).【F:scripts/3_repair_data_errors.py†L170-L233】
    - Wrap major IO operations in structured error handling with actionable messages to meet service-level expectations during pipeline execution.【F:scripts/run_all_pipeline.py†L1-L133】
+   - ✅ Implemented `--allow-stale-errors` guard rails with timestamp/row-count checks in Phase 3 and centralized error guards in the orchestration script.
 
 6. **Low – Analytical Enhancements**
    - Extend article parsing to retain paragraph/sub-item tokens for downstream legal analytics and reintroduce them in the graph exports.【F:scripts/4_enrich_prepare_outputs.py†L204-L360】

@@ -12,11 +12,12 @@ Output: /outputs/phase3_repair/repaired_dataset.csv
         /outputs/phase3_repair/repair_log.txt
 """
 
+import argparse
 import csv
 from pathlib import Path
 from datetime import datetime
 from collections import defaultdict
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Tuple
 
 # Define repair rules
 REPAIR_RULES = {
@@ -115,9 +116,39 @@ FLAG_PATTERNS = {
 }
 
 
-def load_validation_errors(error_file: str) -> dict:
+def _parse_optional_int(value: Any) -> Optional[int]:
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def ensure_fresh_validation_errors(
+    dataset_path: Path,
+    error_path: Path,
+    *,
+    allow_stale: bool,
+) -> None:
+    """Guard against reusing outdated validation error files."""
+
+    if allow_stale:
+        return
+    if not error_path.exists():
+        raise FileNotFoundError(error_path)
+    if not dataset_path.exists():
+        raise FileNotFoundError(dataset_path)
+
+    if error_path.stat().st_mtime < dataset_path.stat().st_mtime:
+        raise RuntimeError(
+            "Validation error file is older than the dataset. Re-run Phase 2 or pass "
+            "--allow-stale-errors if the reuse is intentional."
+        )
+
+
+def load_validation_errors(error_file: str) -> Tuple[dict, Optional[int]]:
     """Load validation errors and group by row_id and field."""
     errors_by_row = defaultdict(lambda: defaultdict(list))
+    expected_row_count: Optional[int] = None
 
     with open(error_file, 'r', encoding='utf-8') as f:
         reader = csv.DictReader(f)
@@ -126,8 +157,15 @@ def load_validation_errors(error_file: str) -> dict:
                 row_id = error['row_id']
                 field = error['field_name']
                 errors_by_row[row_id][field].append(error)
+            if expected_row_count is None:
+                for key in ('source_row_count', 'dataset_row_count', 'total_rows'):
+                    if key in error:
+                        parsed = _parse_optional_int(error.get(key))
+                        if parsed is not None:
+                            expected_row_count = parsed
+                            break
 
-    return errors_by_row
+    return errors_by_row, expected_row_count
 
 
 def apply_repairs(row: dict, row_id: str, errors_by_row: dict) -> dict:
@@ -191,12 +229,19 @@ def apply_repairs(row: dict, row_id: str, errors_by_row: dict) -> dict:
     return repaired, actions
 
 
-def repair_dataset(input_file: str, error_file: str, output_file: str, log_file: str):
+def repair_dataset(
+    input_file: str,
+    error_file: str,
+    output_file: str,
+    log_file: str,
+    *,
+    strict_validation: bool = True,
+):
     """Repair dataset and generate log."""
 
     # Load validation errors
     print("Loading validation errors...")
-    errors_by_row = load_validation_errors(error_file)
+    errors_by_row, expected_row_count = load_validation_errors(error_file)
     print(f"✓ Loaded errors for {len(errors_by_row)} rows")
 
     # Load and repair dataset
@@ -205,6 +250,25 @@ def repair_dataset(input_file: str, error_file: str, output_file: str, log_file:
         reader = csv.DictReader(f)
         fieldnames = reader.fieldnames
         rows = list(reader)
+
+    dataset_row_count = len(rows)
+    dataset_ids = {row.get('id') for row in rows if row.get('id')}
+
+    if strict_validation:
+        stale_ids = sorted(set(errors_by_row.keys()) - dataset_ids)
+        if stale_ids:
+            sample = ", ".join(stale_ids[:5])
+            raise RuntimeError(
+                "Validation errors reference IDs absent from the dataset (e.g., "
+                f"{sample}). Re-run Phase 2 validation or pass --allow-stale-errors to override."
+            )
+
+        if expected_row_count is not None and expected_row_count != dataset_row_count:
+            raise RuntimeError(
+                "Validation error ledger row count does not match the dataset "
+                f"({expected_row_count} vs {dataset_row_count}). Re-run Phase 2 or "
+                "pass --allow-stale-errors to continue."
+            )
 
     repaired_rows = []
     repairs_by_pattern = defaultdict(int)
@@ -326,6 +390,7 @@ def run_phase3(
     log_file: Optional[Path] = None,
     *,
     verbose: bool = True,
+    allow_stale_errors: bool = False,
 ) -> Dict[str, Any]:
     """Execute phase 3 repairs with configurable paths."""
 
@@ -349,8 +414,14 @@ def run_phase3(
         print(f"Log:    {log_file}")
         print()
 
+    ensure_fresh_validation_errors(input_file, error_file, allow_stale=allow_stale_errors)
+
     rows_repaired, total_actions = repair_dataset(
-        str(input_file), str(error_file), str(output_file), str(log_file)
+        str(input_file),
+        str(error_file),
+        str(output_file),
+        str(log_file),
+        strict_validation=not allow_stale_errors,
     )
 
     if verbose:
@@ -374,12 +445,63 @@ def run_phase3(
     }
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Phase 3: repair validation errors using deterministic rules.",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+    parser.add_argument(
+        "--input",
+        type=Path,
+        default=Path("outputs/phase1_extraction/main_dataset.csv"),
+        help="CSV produced by Phase 1 or 2 containing the decision rows to repair.",
+    )
+    parser.add_argument(
+        "--errors",
+        type=Path,
+        default=Path("outputs/phase2_validation/validation_errors.csv"),
+        help="Phase 2 validation error ledger to use as the repair blueprint.",
+    )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=Path("outputs/phase3_repair/repaired_dataset.csv"),
+        help="Destination for the repaired dataset CSV.",
+    )
+    parser.add_argument(
+        "--log",
+        type=Path,
+        help="Optional override for the repair log file location.",
+    )
+    parser.add_argument(
+        "--allow-stale-errors",
+        action="store_true",
+        help="Bypass timestamp/row-count checks when intentionally reusing an older validation error file.",
+    )
+    return parser.parse_args()
+
+
 def main():
+    args = parse_args()
     script_dir = Path(__file__).parent
     project_root = script_dir.parent
-    input_file = project_root / 'outputs' / 'phase1_extraction' / 'main_dataset.csv'
-    error_file = project_root / 'outputs' / 'phase2_validation' / 'validation_errors.csv'
-    run_phase3(input_file, error_file, verbose=True)
+
+    def resolve(path: Path) -> Path:
+        return path if path.is_absolute() else (project_root / path)
+
+    input_file = resolve(args.input)
+    error_file = resolve(args.errors)
+    output_file = resolve(args.output)
+    log_file = resolve(args.log) if args.log else None
+
+    run_phase3(
+        input_file,
+        error_file,
+        output_file=output_file,
+        log_file=log_file,
+        verbose=True,
+        allow_stale_errors=args.allow_stale_errors,
+    )
 
 
 if __name__ == '__main__':

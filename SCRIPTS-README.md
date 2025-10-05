@@ -290,9 +290,19 @@ python3 scripts/2_analyze_enum_values.py --input outputs/phase3_repair/repaired_
 - Does NOT delete or add rows
 - Does NOT change field names or structure
 
+**Operational Safeguards:**
+- Compares dataset and validation-ledger timestamps; aborts when the ledger is older unless `--allow-stale-errors` is supplied.
+- Verifies the error ledger references only IDs present in the dataset and matches declared row counts before applying repairs.
+
 **Usage:**
 ```bash
-python3 scripts/3_repair_data_errors.py
+python3 scripts/3_repair_data_errors.py \
+  --input outputs/phase1_extraction/main_dataset.csv \
+  --errors outputs/phase2_validation/validation_errors.csv \
+  --output outputs/phase3_repair/repaired_dataset.csv
+
+# Override safeguards when intentionally reusing an older ledger
+python3 scripts/3_repair_data_errors.py --allow-stale-errors
 ```
 
 ---
@@ -389,6 +399,8 @@ During development, the following values were added to schema to reflect actual 
 - `/outputs/phase3_repair/repaired_dataset.csv`
 - FX lookups: `/raw_data/reference/fx_rates.csv`
 - HICP deflators: `/raw_data/reference/hicp_ea19.csv`
+- Context taxonomy: `/raw_data/reference/context_taxonomy.csv`
+- Region groupings: `/raw_data/reference/region_map.csv`
 
 **Outputs:**
 - `/outputs/phase4_enrichment/1_enriched_master.csv` – Adds temporal fields, FX/EUR normalization (nominal & real 2025 euros), sanction and Art. 83 scoring, contextual flags, OSS geography, QA signals, and keyword metadata.
@@ -404,16 +416,22 @@ For a step-by-step explanation of each enrichment helper and derived column fami
 **Key Transformations:**
 
 1. **Temporal normalization** – Derives `decision_year`, `decision_month`, inferred dates, quarter buckets, and granularity flags even when only the year is known.
-2. **Monetary harmonization** – Maps all fines/turnover to EUR using ECB-informed FX tables, adds deflated 2025 EUR values, log scaling, ratio metrics, and categorical buckets.
-3. **Rights & breaches** – Computes Art. 5 boolean flags, rights violation profiles, per-article presence flags, and priority breach families.
+2. **Monetary harmonization** – Maps all fines/turnover to EUR using ECB-informed FX tables, adds deflated 2025 EUR values, log scaling, ratio metrics, categorical buckets, and QA flags (`flag_fine_fx_fallback`, `flag_turnover_fx_fallback`) when conversions rely on fallback rates.
+3. **Rights & breaches** – Computes Art. 5 boolean flags, rights violation profiles, per-article presence flags, priority breach families, and highlights sub-article detail via `flag_article_detail_truncated` plus detail columns in long tables and graph edges.
 4. **Sanctions & Article 83 scoring** – Produces sanction profiles, measure counts, warning/fine convenience booleans, and numerical Art. 83 factor scores with coverage counts.
-5. **Contextual cross-features** – Expands processing contexts into binary indicators, builds `sector_x_context_key`, and surfaces `context_profile` strings.
+5. **Contextual cross-features** – Loads `context_taxonomy.csv` to expand processing contexts into binary indicators, builds `sector_x_context_key`, surfaces `context_profile`, and records unmapped tokens via `flag_context_token_unmapped`/`context_unknown_tokens`.
 6. **Quality and QA flags** – Highlights sector detail gaps, currency omissions, Article 33 inconsistencies, and systematic-factor mismatches.
 7. **Graph exports** – Emits node/edge CSVs aligning with the schema described in the analyst brief for direct Neo4j bulk import or further network analysis.
 
 **Usage:**
 ```bash
-python scripts/4_enrich_prepare_outputs.py
+python scripts/4_enrich_prepare_outputs.py \
+  --input outputs/phase3_repair/repaired_dataset.csv \
+  --output outputs/phase4_enrichment \
+  --fx-table raw_data/reference/fx_rates.csv \
+  --hicp-table raw_data/reference/hicp_ea19.csv \
+  --context-taxonomy raw_data/reference/context_taxonomy.csv \
+  --region-map raw_data/reference/region_map.csv
 ```
 
 ---
