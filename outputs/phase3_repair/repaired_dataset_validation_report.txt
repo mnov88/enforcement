@@ -2,24 +2,25 @@
 Phase 2: Dataset Validation Report
 ======================================================================
 
-Generated: 2025-10-04T19:42:39.901058
+Generated: 2025-10-05T14:09:11.667705
 Dataset: 1473 rows, 77 fields each
 
 VALIDATION SUMMARY
 ----------------------------------------------------------------------
-Valid rows (passed all checks):     1250
-Rows with errors:                   223
-Total validation errors:            1663
-  - ERRORS (schema violations):     1141
-  - WARNINGS (suspicious values):   522
+Valid rows (passed all checks):     941
+Rows with errors:                   532
+Total validation errors:            2026
+  - ERRORS (schema violations):     1642
+  - WARNINGS (suspicious values):   384
 
 TOP 20 FIELDS WITH ERRORS
 ----------------------------------------------------------------------
+a77_articles_breached                     335 errors
+a54_fine_amount                           160 errors
 a10_gov_level                             152 errors
-a54_fine_amount                           143 errors
-a55_fine_currency                         140 errors
+a55_fine_currency                         151 errors
+a8_defendant_class                        140 errors
 a73_oss_role                              136 errors
-a8_defendant_class                        122 errors
 a4_decision_year                          112 errors
 a1_country_code                            98 errors
 a11_defendant_role                         93 errors
@@ -32,7 +33,6 @@ a19_art33_breached                         69 errors
 a57_turnover_amount                        44 errors
 a58_turnover_currency                      44 errors
 a14_processing_contexts                    19 errors
-a77_articles_breached                      18 errors
 a56_turnover_discussed                      9 errors
 a29_vulnerable_groups                       7 errors
 

@@ -2,19 +2,20 @@
 Phase 2: Dataset Validation Report
 ======================================================================
 
-Generated: 2025-10-04T19:42:39.714192
+Generated: 2025-10-05T14:09:11.485751
 Dataset: 1473 rows, 77 fields each
 
 VALIDATION SUMMARY
 ----------------------------------------------------------------------
-Valid rows (passed all checks):     945
-Rows with errors:                   528
-Total validation errors:            2474
-  - ERRORS (schema violations):     2175
+Valid rows (passed all checks):     742
+Rows with errors:                   731
+Total validation errors:            2800
+  - ERRORS (schema violations):     2501
   - WARNINGS (suspicious values):   299
 
 TOP 20 FIELDS WITH ERRORS
 ----------------------------------------------------------------------
+a77_articles_breached                     316 errors
 a56_turnover_discussed                    303 errors
 a10_gov_level                             152 errors
 a8_defendant_class                        140 errors
@@ -27,14 +28,13 @@ a11_defendant_role                         93 errors
 a12_sector                                 93 errors
 a9_enterprise_size                         93 errors
 a6_num_defendants                          91 errors
+a54_fine_amount                            91 errors
+a55_fine_currency                          82 errors
 a53_fine_imposed                           78 errors
 a70_systematic_art83_discussion            77 errors
 a18_art33_discussed                        76 errors
-a54_fine_amount                            74 errors
 a13_sector_other                           73 errors
 a5_decision_month                          72 errors
-a55_fine_currency                          71 errors
-a57_turnover_amount                        36 errors
 
 ======================================================================
 Detailed errors written to: /Users/milos/Desktop/enforcement/outputs/phase2_validation/validation_errors.csv
