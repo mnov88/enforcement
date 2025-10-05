@@ -20,6 +20,8 @@ This reference explains every CSV emitted by the GDPR enforcement data pipeline 
 - `repaired_dataset_validation_report.txt`: Summary stats for the post-repair validation pass (mirrors the Phase 2 report format).
 
 ## Phase 4 – Enrichment (`outputs/phase4_enrichment/`)
+- `0_fx_conversion_metadata.csv`: Diagnostics table showing the FX lookup path (monthly, annual, fallback) for every fine and turnover entry along with source year/month and converted amounts.
+- `0_fx_missing_review.csv`: Manual-review helper listing rows where a nominal amount existed but no FX rate was available.
 - `1_enriched_master.csv`: Feature-complete master table (one row per decision) with temporal granularity, inferred dates, FX-normalized fines/turnover, 2025 EUR deflators, sanction profiles, Art. 5/83 indicators, context flags, OSS geography, QA signals, and keyword metadata.
 - `2_processing_contexts.csv`: Long table of processing contexts with decision IDs and positional order.
 - `3_vulnerable_groups.csv`: Long table of vulnerable group mentions per decision.

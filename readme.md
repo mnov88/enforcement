@@ -143,6 +143,8 @@ python3 scripts/3_repair_data_errors.py
 - Inflation reference: `/raw_data/reference/hicp_ea19.csv`
 
 **Outputs (`/outputs/phase4_enrichment/`):**
+- `0_fx_conversion_metadata.csv` – FX lookup diagnostics (method, source year/month, fallback flags) alongside nominal and converted amounts for fines and turnover.
+- `0_fx_missing_review.csv` – Manual-review queue for cases where an FX conversion was requested but no rate was resolved.
 - `1_enriched_master.csv` – 200+ engineered fields spanning temporal structure, monetary normalization (nominal & 2025 EUR), Art. 5 & 83 scoring, sanction profiles, OSS geography, QA flags, and text metadata.
 - `2_processing_contexts.csv` – Long form processing contexts with ordering metadata.
 - `3_vulnerable_groups.csv` – Exploded list of vulnerable data subjects per decision.
