@@ -128,7 +128,13 @@ def _authority_factor_summary(df: pd.DataFrame) -> pd.DataFrame:
         coverage_std = float(group["factor_coverage"].std(ddof=0)) if len(group) > 1 else 0.0
         direction_mean = float(group["direction_ratio"].mean())
         balance_mean = float(group["art83_balance_score"].mean())
-        systematic_share = float(group["art83_systematic_bool"].mean())
+        systematic_series = pd.to_numeric(
+            group["art83_systematic_bool"], errors="coerce"
+        )
+        if systematic_series.notna().any():
+            systematic_share = float(systematic_series.mean())
+        else:
+            systematic_share = float("nan")
         coherence = _spearman_coherence(group)
         fine_std = float(group.loc[group["fine_amount_log"].notna(), "fine_amount_log"].std(ddof=0))
         measure_std = float(group["measure_count"].astype(float).std(ddof=0))
