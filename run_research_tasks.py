@@ -5,7 +5,7 @@ import argparse
 from pathlib import Path
 from typing import Callable, Dict, Iterable
 
-from research_tasks import task0, task1, task2
+from research_tasks import task0, task1, task2, task3
 
 TaskRunner = Callable[..., Path]
 
@@ -13,6 +13,7 @@ TASK_SEQUENCE: Dict[str, TaskRunner] = {
     "task0": task0.run,
     "task1": task1.run,
     "task2": task2.run,
+    "task3": task3.run,
 }
 
 
