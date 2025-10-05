@@ -9,927 +9,964 @@ a10_gov_level
 Schema allows: JUDICIAL, MUNICIPAL, NOT_APPLICABLE, STATE, UNKNOWN
 
 Valid values:
-  ✓ NOT_APPLICABLE                   507
-  ✓ STATE                            105
-  ✓ MUNICIPAL                         79
-  ✓ JUDICIAL                           4
-  ✓ UNKNOWN                            2
+  ✓ NOT_APPLICABLE                   995
+  ✓ STATE                            196
+  ✓ MUNICIPAL                        185
+  ✓ UNKNOWN                           15
+  ✓ JUDICIAL                           5
 
 Invalid values (NOT IN SCHEMA):
-  ✗ NOT_DISCUSSED                     60  ← FIX NEEDED
+  ✗ NOT_DISCUSSED                     74  ← FIX NEEDED
+  ✗ REGIONAL                           3  ← FIX NEEDED
 
-Summary: 60/757 (7.9%) values are invalid
+Summary: 77/1473 (5.2%) values are invalid
 
 --------------------------------------------------------------------------------
 a11_defendant_role
 Schema allows: CONTROLLER, JOINT_CONTROLLER, NOT_MENTIONED, PROCESSOR
 
 Valid values:
-  ✓ CONTROLLER                       625
-  ✓ NOT_MENTIONED                     36
-  ✓ PROCESSOR                          9
-  ✓ JOINT_CONTROLLER                   9
+  ✓ CONTROLLER                      1288
+  ✓ NOT_MENTIONED                     46
+  ✓ PROCESSOR                         31
+  ✓ JOINT_CONTROLLER                  15
 
 Invalid values (NOT IN SCHEMA):
-  ✗ NOT_DISCUSSED                     72  ← FIX NEEDED
+  ✗ NOT_DISCUSSED                     87  ← FIX NEEDED
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 78/757 (10.3%) values are invalid
+Summary: 93/1473 (6.3%) values are invalid
 
 --------------------------------------------------------------------------------
 a12_sector
 Schema allows: CONSULTING, DIGITAL_SERVICES, EDUCATION, FINANCIAL, FITNESS_WELLNESS, HEALTH, HOUSING_TOURISM, MANUFACTURING, MEDIA, MEMBERSHIP_ORGS, OTHER, OTHER_PUBLIC_ADMIN, RELIGIOUS_ORGS, RETAIL, TAX, TELECOM, UTILITIES
 
 Valid values:
-  ✓ OTHER                            127
-  ✓ OTHER_PUBLIC_ADMIN               111
-  ✓ DIGITAL_SERVICES                  80
-  ✓ FINANCIAL                         76
-  ✓ HEALTH                            67
-  ✓ EDUCATION                         52
-  ✓ TELECOM                           48
-  ✓ RETAIL                            40
-  ✓ HOUSING_TOURISM                   24
-  ✓ UTILITIES                         20
-  ✓ MEDIA                             17
-  ✓ CONSULTING                         5
-  ✓ MANUFACTURING                      5
-  ✓ MEMBERSHIP_ORGS                    3
-  ✓ FITNESS_WELLNESS                   3
-  ✓ RELIGIOUS_ORGS                     2
-  ✓ TAX                                1
+  ✓ OTHER                            240
+  ✓ OTHER_PUBLIC_ADMIN               228
+  ✓ DIGITAL_SERVICES                 167
+  ✓ HEALTH                           162
+  ✓ FINANCIAL                        134
+  ✓ EDUCATION                         90
+  ✓ RETAIL                            82
+  ✓ TELECOM                           73
+  ✓ MEDIA                             65
+  ✓ HOUSING_TOURISM                   44
+  ✓ UTILITIES                         31
+  ✓ CONSULTING                        18
+  ✓ MANUFACTURING                     13
+  ✓ FITNESS_WELLNESS                  11
+  ✓ MEMBERSHIP_ORGS                   10
+  ✓ TAX                                9
+  ✓ RELIGIOUS_ORGS                     3
 
 Invalid values (NOT IN SCHEMA):
-  ✗ NOT_DISCUSSED                     70  ← FIX NEEDED
+  ✗ NOT_DISCUSSED                     84  ← FIX NEEDED
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
+  ✗ POLITICAL_PARTY                    3  ← FIX NEEDED
 
-Summary: 76/757 (10.0%) values are invalid
+Summary: 93/1473 (6.3%) values are invalid
 
 --------------------------------------------------------------------------------
 a15_data_subject_complaint
 Schema allows: NO, NOT_DISCUSSED, YES
 
 Valid values:
-  ✓ YES                              504
-  ✓ NOT_DISCUSSED                    136
-  ✓ NO                               111
+  ✓ YES                             1012
+  ✓ NO                               267
+  ✓ NOT_DISCUSSED                    188
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a16_media_attention
 Schema allows: NO, NOT_DISCUSSED, YES
 
 Valid values:
-  ✓ NOT_DISCUSSED                    722
-  ✓ YES                               29
+  ✓ NOT_DISCUSSED                   1405
+  ✓ YES                               61
+  ✓ NO                                 1
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a17_official_audit
 Schema allows: NO, NOT_DISCUSSED, YES
 
 Valid values:
-  ✓ NOT_DISCUSSED                    352
-  ✓ YES                              218
-  ✓ NO                               181
+  ✓ NOT_DISCUSSED                    580
+  ✓ NO                               452
+  ✓ YES                              435
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a18_art33_discussed
 Schema allows: NO, YES
 
 Valid values:
-  ✓ NO                               612
-  ✓ YES                               82
+  ✓ NO                              1182
+  ✓ YES                              215
 
 Invalid values (NOT IN SCHEMA):
-  ✗ NOT_DISCUSSED                     57  ← FIX NEEDED
+  ✗ NOT_DISCUSSED                     70  ← FIX NEEDED
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 63/757 (8.3%) values are invalid
+Summary: 76/1473 (5.2%) values are invalid
 
 --------------------------------------------------------------------------------
 a19_art33_breached
 Schema allows: NO, NOT_APPLICABLE, NOT_DISCUSSED, YES
 
 Valid values:
-  ✓ NOT_APPLICABLE                   627
-  ✓ NOT_DISCUSSED                    103
-  ✓ YES                               24
-  ✓ NO                                 2
+  ✓ NOT_APPLICABLE                  1214
+  ✓ NOT_DISCUSSED                    208
+  ✓ YES                               45
+  ✓ NO                                 3
 
 Invalid values (NOT IN SCHEMA):
-  ✗ NOT_BREACHED                       1  ← FIX NEEDED
+  ✗ NOT_BREACHED                       3  ← FIX NEEDED
 
-Summary: 1/757 (0.1%) values are invalid
+Summary: 3/1473 (0.2%) values are invalid
 
 --------------------------------------------------------------------------------
 a1_country_code
 Schema allows: AT, BE, BG, CY, CZ, DE, DK, EE, EL, ES, FI, FR, GB, GR, HR, HU, IE, IS, IT, LI, LT, LU, LV, MT, NL, NO, PL, PT, RO, SE, SI, SK
 
 Valid values:
-  ✓ ES                               195
+  ✓ IT                               235
+  ✓ ES                               196
+  ✓ BE                               175
+  ✓ DK                               144
   ✓ IS                                96
   ✓ GR                                89
+  ✓ FI                                84
   ✓ SI                                72
   ✓ FR                                55
   ✓ HU                                46
-  ✓ DE                                41
-  ✓ FI                                37
-  ✓ IE                                21
+  ✓ DE                                42
+  ✓ HR                                38
+  ✓ IE                                22
+  ✓ EE                                18
+  ✓ CY                                17
+  ✓ BG                                11
+  ✓ LV                                10
   ✓ RO                                 8
-  ✓ IT                                 7
-  ✓ NO                                 4
+  ✓ NO                                 5
   ✓ EL                                 4
+  ✓ CZ                                 4
   ✓ SK                                 1
   ✓ SE                                 1
   ✓ PL                                 1
+  ✓ GB                                 1
 
 Invalid values (NOT IN SCHEMA):
-  ✗ NOT_DISCUSSED                     73  ← FIX NEEDED
+  ✗ NOT_DISCUSSED                     89  ← FIX NEEDED
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
+  ✗ EU                                 3  ← FIX NEEDED
 
-Summary: 79/757 (10.4%) values are invalid
+Summary: 98/1473 (6.7%) values are invalid
 
 --------------------------------------------------------------------------------
 a20_breach_notification_effect
 Schema allows: AGGRAVATING, MITIGATING, NEUTRAL, NOT_DISCUSSED
 
 Valid values:
-  ✓ NOT_DISCUSSED                    729
-  ✓ AGGRAVATING                       17
-  ✓ NEUTRAL                            3
-  ✓ MITIGATING                         2
+  ✓ NOT_DISCUSSED                   1422
+  ✓ AGGRAVATING                       27
+  ✓ MITIGATING                        11
+  ✓ NEUTRAL                            7
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a21_art5_lawfulness_fairness
 Schema allows: BREACHED, NOT_BREACHED, NOT_DISCUSSED
 
 Valid values:
-  ✓ NOT_DISCUSSED                    456
-  ✓ BREACHED                         263
-  ✓ NOT_BREACHED                      32
+  ✓ NOT_DISCUSSED                    825
+  ✓ BREACHED                         586
+  ✓ NOT_BREACHED                      56
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a22_art5_purpose_limitation
 Schema allows: BREACHED, NOT_BREACHED, NOT_DISCUSSED
 
 Valid values:
-  ✓ NOT_DISCUSSED                    657
-  ✓ BREACHED                          65
-  ✓ NOT_BREACHED                      29
+  ✓ NOT_DISCUSSED                   1265
+  ✓ BREACHED                         157
+  ✓ NOT_BREACHED                      45
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a23_art5_data_minimization
 Schema allows: BREACHED, NOT_BREACHED, NOT_DISCUSSED
 
 Valid values:
-  ✓ NOT_DISCUSSED                    638
-  ✓ BREACHED                          85
-  ✓ NOT_BREACHED                      28
+  ✓ NOT_DISCUSSED                   1206
+  ✓ BREACHED                         217
+  ✓ NOT_BREACHED                      44
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a24_art5_accuracy
 Schema allows: BREACHED, NOT_BREACHED, NOT_DISCUSSED
 
 Valid values:
-  ✓ NOT_DISCUSSED                    722
-  ✓ BREACHED                          18
-  ✓ NOT_BREACHED                      11
+  ✓ NOT_DISCUSSED                   1397
+  ✓ BREACHED                          53
+  ✓ NOT_BREACHED                      17
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a25_art5_storage_limitation
 Schema allows: BREACHED, NOT_BREACHED, NOT_DISCUSSED
 
 Valid values:
-  ✓ NOT_DISCUSSED                    703
-  ✓ BREACHED                          36
-  ✓ NOT_BREACHED                      12
+  ✓ NOT_DISCUSSED                   1350
+  ✓ BREACHED                          97
+  ✓ NOT_BREACHED                      20
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a26_art5_integrity_confidentiality
 Schema allows: BREACHED, NOT_BREACHED, NOT_DISCUSSED
 
 Valid values:
-  ✓ NOT_DISCUSSED                    607
-  ✓ BREACHED                         136
-  ✓ NOT_BREACHED                       8
+  ✓ NOT_DISCUSSED                   1146
+  ✓ BREACHED                         305
+  ✓ NOT_BREACHED                      16
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a27_art5_accountability
 Schema allows: BREACHED, NOT_BREACHED, NOT_DISCUSSED
 
 Valid values:
-  ✓ NOT_DISCUSSED                    678
-  ✓ BREACHED                          68
-  ✓ NOT_BREACHED                       5
+  ✓ NOT_DISCUSSED                   1276
+  ✓ BREACHED                         176
+  ✓ NOT_BREACHED                      15
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a28_art9_discussed
 Schema allows: NO, YES
 
 Valid values:
-  ✓ NO                               524
-  ✓ YES                              143
+  ✓ NO                              1008
+  ✓ YES                              333
 
 Invalid values (NOT IN SCHEMA):
-  ✗ NOT_DISCUSSED                     84  ← FIX NEEDED
+  ✗ NOT_DISCUSSED                    126  ← FIX NEEDED
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 90/757 (11.9%) values are invalid
+Summary: 132/1473 (9.0%) values are invalid
 
 --------------------------------------------------------------------------------
 a30_art6_consent
 Schema allows: INVALID, NOT_DISCUSSED, VALID
 
 Valid values:
-  ✓ NOT_DISCUSSED                    668
-  ✓ INVALID                           74
-  ✓ VALID                              9
+  ✓ NOT_DISCUSSED                   1287
+  ✓ INVALID                          157
+  ✓ VALID                             23
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a31_art6_contract
 Schema allows: INVALID, NOT_DISCUSSED, VALID
 
 Valid values:
-  ✓ NOT_DISCUSSED                    727
-  ✓ VALID                             13
-  ✓ INVALID                           11
+  ✓ NOT_DISCUSSED                   1406
+  ✓ INVALID                           31
+  ✓ VALID                             30
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a32_art6_legal_obligation
 Schema allows: INVALID, NOT_DISCUSSED, VALID
 
 Valid values:
-  ✓ NOT_DISCUSSED                    722
-  ✓ VALID                             28
-  ✓ INVALID                            1
+  ✓ NOT_DISCUSSED                   1412
+  ✓ VALID                             44
+  ✓ INVALID                           11
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a33_art6_vital_interests
 Schema allows: INVALID, NOT_DISCUSSED, VALID
 
 Valid values:
-  ✓ NOT_DISCUSSED                    751
+  ✓ NOT_DISCUSSED                   1465
+  ✓ INVALID                            1
+  ✓ VALID                              1
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a34_art6_public_task
 Schema allows: INVALID, NOT_DISCUSSED, VALID
 
 Valid values:
-  ✓ NOT_DISCUSSED                    715
-  ✓ VALID                             35
-  ✓ INVALID                            1
+  ✓ NOT_DISCUSSED                   1381
+  ✓ VALID                             72
+  ✓ INVALID                           14
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a35_art6_legitimate_interest
 Schema allows: INVALID, NOT_DISCUSSED, VALID
 
 Valid values:
-  ✓ NOT_DISCUSSED                    668
-  ✓ INVALID                           59
-  ✓ VALID                             24
+  ✓ NOT_DISCUSSED                   1279
+  ✓ INVALID                          136
+  ✓ VALID                             52
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a37_right_access_violated
 Schema allows: NO, NOT_DISCUSSED, YES
 
 Valid values:
-  ✓ NOT_DISCUSSED                    648
-  ✓ YES                               86
-  ✓ NO                                17
+  ✓ NOT_DISCUSSED                   1263
+  ✓ YES                              174
+  ✓ NO                                30
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a38_right_rectification_violated
 Schema allows: NO, NOT_DISCUSSED, YES
 
 Valid values:
-  ✓ NOT_DISCUSSED                    747
-  ✓ YES                                3
-  ✓ NO                                 1
+  ✓ NOT_DISCUSSED                   1457
+  ✓ YES                                8
+  ✓ NO                                 2
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a39_right_erasure_violated
 Schema allows: NO, NOT_DISCUSSED, YES
 
 Valid values:
-  ✓ NOT_DISCUSSED                    706
-  ✓ YES                               38
-  ✓ NO                                 6
+  ✓ NOT_DISCUSSED                   1376
+  ✓ YES                               73
+  ✓ NO                                16
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
-  ✗ BREACHED                           1  ← FIX NEEDED
+  ✗ BREACHED                           2  ← FIX NEEDED
 
-Summary: 7/757 (0.9%) values are invalid
+Summary: 8/1473 (0.5%) values are invalid
 
 --------------------------------------------------------------------------------
 a3_appellate_decision
 Schema allows: NO, NOT_DISCUSSED, YES
 
 Valid values:
-  ✓ NO                               668
-  ✓ NOT_DISCUSSED                     75
-  ✓ YES                                8
+  ✓ NO                              1362
+  ✓ NOT_DISCUSSED                     92
+  ✓ YES                               13
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a40_right_restriction_violated
 Schema allows: NO, NOT_DISCUSSED, YES
 
 Valid values:
-  ✓ NOT_DISCUSSED                    750
-  ✓ YES                                1
+  ✓ NOT_DISCUSSED                   1463
+  ✓ YES                                3
+  ✓ NO                                 1
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a41_right_portability_violated
 Schema allows: NO, NOT_DISCUSSED, YES
 
 Valid values:
-  ✓ NOT_DISCUSSED                    751
+  ✓ NOT_DISCUSSED                   1465
+  ✓ NO                                 1
+  ✓ YES                                1
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a42_right_object_violated
 Schema allows: NO, NOT_DISCUSSED, YES
 
 Valid values:
-  ✓ NOT_DISCUSSED                    727
-  ✓ YES                               23
+  ✓ NOT_DISCUSSED                   1426
+  ✓ YES                               38
+  ✓ NO                                 2
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
   ✗ BREACHED                           1  ← FIX NEEDED
 
-Summary: 7/757 (0.9%) values are invalid
+Summary: 7/1473 (0.5%) values are invalid
 
 --------------------------------------------------------------------------------
 a43_transparency_violated
 Schema allows: NO, NOT_DISCUSSED, YES
 
 Valid values:
-  ✓ NOT_DISCUSSED                    564
-  ✓ YES                              136
-  ✓ NO                                 3
+  ✓ NOT_DISCUSSED                   1041
+  ✓ YES                              327
+  ✓ NO                                 5
 
 Invalid values (NOT IN SCHEMA):
-  ✗ BREACHED                          47  ← FIX NEEDED
+  ✗ BREACHED                          87  ← FIX NEEDED
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
-  ✗ NOT_BREACHED                       1  ← FIX NEEDED
+  ✗ NOT_BREACHED                       6  ← FIX NEEDED
+  ✗ NOT_Discussed                      1  ← FIX NEEDED
 
-Summary: 54/757 (7.1%) values are invalid
+Summary: 100/1473 (6.8%) values are invalid
 
 --------------------------------------------------------------------------------
 a44_automated_decisions_violated
 Schema allows: NO, NOT_DISCUSSED, YES
 
 Valid values:
-  ✓ NOT_DISCUSSED                    749
-  ✓ YES                                1
+  ✓ NOT_DISCUSSED                   1462
+  ✓ YES                                2
+  ✓ NO                                 1
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
   ✗ BREACHED                           1  ← FIX NEEDED
+  ✗ NOT_Discussed                      1  ← FIX NEEDED
 
-Summary: 7/757 (0.9%) values are invalid
+Summary: 8/1473 (0.5%) values are invalid
 
 --------------------------------------------------------------------------------
 a45_warning_issued
 Schema allows: NO, NOT_DISCUSSED, YES
 
 Valid values:
-  ✓ NO                               521
-  ✓ NOT_DISCUSSED                    178
-  ✓ YES                               52
+  ✓ NO                              1109
+  ✓ NOT_DISCUSSED                    247
+  ✓ YES                              111
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a46_reprimand_issued
 Schema allows: NO, NOT_DISCUSSED, YES
 
 Valid values:
-  ✓ NO                               438
-  ✓ NOT_DISCUSSED                    212
-  ✓ YES                              101
+  ✓ NO                               852
+  ✓ NOT_DISCUSSED                    312
+  ✓ YES                              303
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a47_comply_data_subject_order
 Schema allows: NO, NOT_DISCUSSED, YES
 
 Valid values:
-  ✓ NO                               424
-  ✓ NOT_DISCUSSED                    261
-  ✓ YES                               66
+  ✓ NO                               935
+  ✓ NOT_DISCUSSED                    388
+  ✓ YES                              144
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a48_compliance_order
 Schema allows: NO, NOT_DISCUSSED, YES
 
 Valid values:
-  ✓ NO                               317
-  ✓ YES                              225
-  ✓ NOT_DISCUSSED                    209
+  ✓ NO                               724
+  ✓ YES                              424
+  ✓ NOT_DISCUSSED                    319
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a49_breach_communication_order
 Schema allows: NO, NOT_DISCUSSED, YES
 
 Valid values:
-  ✓ NO                               463
-  ✓ NOT_DISCUSSED                    286
-  ✓ YES                                2
+  ✓ NO                              1022
+  ✓ NOT_DISCUSSED                    436
+  ✓ YES                                8
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
+  ✗ NOT_Discussed                      1  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 7/1473 (0.5%) values are invalid
 
 --------------------------------------------------------------------------------
 a50_erasure_restriction_order
 Schema allows: NO, NOT_DISCUSSED, YES
 
 Valid values:
-  ✓ NO                               428
-  ✓ NOT_DISCUSSED                    266
-  ✓ YES                               57
+  ✓ NO                               922
+  ✓ NOT_DISCUSSED                    402
+  ✓ YES                              142
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
+  ✗ NOT_Discussed                      1  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 7/1473 (0.5%) values are invalid
 
 --------------------------------------------------------------------------------
 a51_certification_withdrawal
 Schema allows: NO, NOT_DISCUSSED, YES
 
 Valid values:
-  ✓ NO                               463
-  ✓ NOT_DISCUSSED                    288
+  ✓ NO                              1028
+  ✓ NOT_DISCUSSED                    438
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
+  ✗ NOT_Discussed                      1  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 7/1473 (0.5%) values are invalid
 
 --------------------------------------------------------------------------------
 a52_data_flow_suspension
 Schema allows: NO, NOT_DISCUSSED, YES
 
 Valid values:
-  ✓ NO                               463
-  ✓ NOT_DISCUSSED                    287
-  ✓ YES                                1
+  ✓ NO                              1024
+  ✓ NOT_DISCUSSED                    436
+  ✓ YES                                6
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
+  ✗ NOT_Discussed                      1  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 7/1473 (0.5%) values are invalid
 
 --------------------------------------------------------------------------------
 a53_fine_imposed
 Schema allows: NO, YES
 
 Valid values:
-  ✓ NO                               397
-  ✓ YES                              295
+  ✓ NO                               834
+  ✓ YES                              561
 
 Invalid values (NOT IN SCHEMA):
-  ✗ NOT_DISCUSSED                     59  ← FIX NEEDED
+  ✗ NOT_DISCUSSED                     72  ← FIX NEEDED
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 65/757 (8.6%) values are invalid
+Summary: 78/1473 (5.3%) values are invalid
 
 --------------------------------------------------------------------------------
 a55_fine_currency
 Schema allows: BGN, CZK, DKK, EUR, GBP, HRK, HUF, ISK, NOK, NOT_APPLICABLE, PLN, RON, SEK
 
 Valid values:
-  ✓ NOT_APPLICABLE                   408
-  ✓ EUR                              244
+  ✓ NOT_APPLICABLE                   852
+  ✓ EUR                              475
   ✓ HUF                               30
+  ✓ DKK                               15
   ✓ RON                                8
   ✓ ISK                                8
+  ✓ BGN                                6
+  ✓ CZK                                4
+  ✓ HRK                                3
+  ✓ GBP                                1
 
 Invalid values (NOT IN SCHEMA):
-  ✗ NOT_DISCUSSED                     59  ← FIX NEEDED
+  ✗ NOT_DISCUSSED                     71  ← FIX NEEDED
 
-Summary: 59/757 (7.8%) values are invalid
+Summary: 71/1473 (4.8%) values are invalid
 
 --------------------------------------------------------------------------------
 a56_turnover_discussed
 Schema allows: NO, YES
 
 Valid values:
-  ✓ NO                               441
-  ✓ YES                              104
+  ✓ NO                               937
+  ✓ YES                              233
 
 Invalid values (NOT IN SCHEMA):
-  ✗ NOT_DISCUSSED                    206  ← FIX NEEDED
-  ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
+  ✗ NOT_DISCUSSED                    294  ← FIX NEEDED
+  ✗ NOT_APPLICABLE                     9  ← FIX NEEDED
 
-Summary: 212/757 (28.0%) values are invalid
+Summary: 303/1473 (20.6%) values are invalid
 
 --------------------------------------------------------------------------------
 a58_turnover_currency
 Schema allows: BGN, CZK, DKK, EUR, GBP, HRK, HUF, ISK, NOK, NOT_APPLICABLE, NOT_DISCUSSED, PLN, RON, SEK
 
 Valid values:
-  ✓ NOT_DISCUSSED                    692
-  ✓ EUR                               31
+  ✓ NOT_DISCUSSED                   1330
+  ✓ EUR                               66
+  ✓ NOT_APPLICABLE                    54
   ✓ HUF                               17
-  ✓ NOT_APPLICABLE                    12
   ✓ RON                                1
   ✓ ISK                                1
   ✓ DKK                                1
+  ✓ BGN                                1
 
 Invalid values (NOT IN SCHEMA):
   ✗ USD                                2  ← FIX NEEDED
 
-Summary: 2/757 (0.3%) values are invalid
+Summary: 2/1473 (0.1%) values are invalid
 
 --------------------------------------------------------------------------------
 a59_nature_gravity_duration
 Schema allows: AGGRAVATING, MITIGATING, NEUTRAL, NOT_DISCUSSED
 
 Valid values:
-  ✓ NOT_DISCUSSED                    433
-  ✓ AGGRAVATING                      283
-  ✓ MITIGATING                        30
-  ✓ NEUTRAL                            5
+  ✓ NOT_DISCUSSED                    755
+  ✓ AGGRAVATING                      623
+  ✓ MITIGATING                        79
+  ✓ NEUTRAL                           10
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a60_intentional_negligent
 Schema allows: AGGRAVATING, MITIGATING, NEUTRAL, NOT_DISCUSSED
 
 Valid values:
-  ✓ NOT_DISCUSSED                    544
-  ✓ AGGRAVATING                      155
-  ✓ MITIGATING                        48
-  ✓ NEUTRAL                            3
+  ✓ NOT_DISCUSSED                   1033
+  ✓ AGGRAVATING                      265
+  ✓ MITIGATING                       158
+  ✓ NEUTRAL                           10
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
   ✗ INTENTIONAL                        1  ← FIX NEEDED
 
-Summary: 7/757 (0.9%) values are invalid
+Summary: 7/1473 (0.5%) values are invalid
 
 --------------------------------------------------------------------------------
 a61_mitigate_damage_actions
 Schema allows: AGGRAVATING, MITIGATING, NEUTRAL, NOT_DISCUSSED
 
 Valid values:
-  ✓ NOT_DISCUSSED                    554
-  ✓ MITIGATING                       181
-  ✓ NEUTRAL                            9
-  ✓ AGGRAVATING                        7
+  ✓ NOT_DISCUSSED                    943
+  ✓ MITIGATING                       488
+  ✓ AGGRAVATING                       20
+  ✓ NEUTRAL                           16
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a62_technical_org_measures
 Schema allows: AGGRAVATING, MITIGATING, NEUTRAL, NOT_DISCUSSED
 
 Valid values:
-  ✓ NOT_DISCUSSED                    591
-  ✓ AGGRAVATING                      141
-  ✓ MITIGATING                        14
-  ✓ NEUTRAL                            5
+  ✓ NOT_DISCUSSED                   1035
+  ✓ AGGRAVATING                      359
+  ✓ MITIGATING                        66
+  ✓ NEUTRAL                            7
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a63_previous_infringements
 Schema allows: AGGRAVATING, MITIGATING, NEUTRAL, NOT_DISCUSSED
 
 Valid values:
-  ✓ NOT_DISCUSSED                    650
-  ✓ MITIGATING                        65
-  ✓ AGGRAVATING                       25
-  ✓ NEUTRAL                           11
+  ✓ NOT_DISCUSSED                   1170
+  ✓ MITIGATING                       204
+  ✓ AGGRAVATING                       70
+  ✓ NEUTRAL                           23
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a64_cooperation_authority
 Schema allows: AGGRAVATING, MITIGATING, NEUTRAL, NOT_DISCUSSED
 
 Valid values:
-  ✓ NOT_DISCUSSED                    596
-  ✓ MITIGATING                        90
-  ✓ AGGRAVATING                       42
-  ✓ NEUTRAL                           23
+  ✓ NOT_DISCUSSED                   1053
+  ✓ MITIGATING                       292
+  ✓ AGGRAVATING                       87
+  ✓ NEUTRAL                           35
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a65_data_categories_affected
 Schema allows: AGGRAVATING, MITIGATING, NEUTRAL, NOT_DISCUSSED
 
 Valid values:
-  ✓ NOT_DISCUSSED                    566
-  ✓ AGGRAVATING                      154
-  ✓ NEUTRAL                           18
-  ✓ MITIGATING                        13
+  ✓ NOT_DISCUSSED                   1006
+  ✓ AGGRAVATING                      365
+  ✓ NEUTRAL                           59
+  ✓ MITIGATING                        37
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a66_infringement_became_known
 Schema allows: AGGRAVATING, MITIGATING, NEUTRAL, NOT_DISCUSSED
 
 Valid values:
-  ✓ NOT_DISCUSSED                    707
-  ✓ AGGRAVATING                       17
-  ✓ NEUTRAL                           16
-  ✓ MITIGATING                        11
+  ✓ NOT_DISCUSSED                   1326
+  ✓ NEUTRAL                           55
+  ✓ MITIGATING                        51
+  ✓ AGGRAVATING                       35
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a67_prior_orders_compliance
 Schema allows: AGGRAVATING, MITIGATING, NEUTRAL, NOT_DISCUSSED
 
 Valid values:
-  ✓ NOT_DISCUSSED                    738
-  ✓ AGGRAVATING                        6
-  ✓ NEUTRAL                            5
-  ✓ MITIGATING                         2
+  ✓ NOT_DISCUSSED                   1433
+  ✓ AGGRAVATING                       17
+  ✓ NEUTRAL                           10
+  ✓ MITIGATING                         7
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a68_codes_certification
 Schema allows: AGGRAVATING, MITIGATING, NEUTRAL, NOT_DISCUSSED
 
 Valid values:
-  ✓ NOT_DISCUSSED                    746
-  ✓ NEUTRAL                            4
-  ✓ MITIGATING                         1
+  ✓ NOT_DISCUSSED                   1451
+  ✓ NEUTRAL                            9
+  ✓ MITIGATING                         4
+  ✓ AGGRAVATING                        3
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a69_other_factors
 Schema allows: AGGRAVATING, MITIGATING, NEUTRAL, NOT_DISCUSSED
 
 Valid values:
-  ✓ NOT_DISCUSSED                    565
-  ✓ MITIGATING                       124
-  ✓ AGGRAVATING                       60
-  ✓ NEUTRAL                            2
+  ✓ NOT_DISCUSSED                   1030
+  ✓ MITIGATING                       324
+  ✓ AGGRAVATING                      106
+  ✓ NEUTRAL                            7
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a70_systematic_art83_discussion
 Schema allows: NO, YES
 
 Valid values:
-  ✓ NO                               622
-  ✓ YES                               71
+  ✓ NO                              1178
+  ✓ YES                              218
 
 Invalid values (NOT IN SCHEMA):
-  ✗ NOT_DISCUSSED                     58  ← FIX NEEDED
+  ✗ NOT_DISCUSSED                     71  ← FIX NEEDED
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 64/757 (8.5%) values are invalid
+Summary: 77/1473 (5.2%) values are invalid
 
 --------------------------------------------------------------------------------
 a71_first_violation
 Schema allows: NOT_DISCUSSED, NO_REPEAT_OFFENDER, YES_FIRST_TIME
 
 Valid values:
-  ✓ NOT_DISCUSSED                    637
-  ✓ YES_FIRST_TIME                    89
-  ✓ NO_REPEAT_OFFENDER                25
+  ✓ NOT_DISCUSSED                   1143
+  ✓ YES_FIRST_TIME                   258
+  ✓ NO_REPEAT_OFFENDER                65
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
+  ✗ NOT_DISCISSED                      1  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 7/1473 (0.5%) values are invalid
 
 --------------------------------------------------------------------------------
 a72_cross_border_oss
 Schema allows: NO, NOT_DISCUSSED, YES
 
 Valid values:
-  ✓ NOT_DISCUSSED                    546
-  ✓ NO                               165
-  ✓ YES                               40
+  ✓ NOT_DISCUSSED                    963
+  ✓ NO                               424
+  ✓ YES                               80
 
 Invalid values (NOT IN SCHEMA):
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
 
-Summary: 6/757 (0.8%) values are invalid
+Summary: 6/1473 (0.4%) values are invalid
 
 --------------------------------------------------------------------------------
 a73_oss_role
 Schema allows: CONCERNED, LEAD, NOT_APPLICABLE
 
 Valid values:
-  ✓ NOT_APPLICABLE                   665
-  ✓ LEAD                              31
-  ✓ CONCERNED                          5
+  ✓ NOT_APPLICABLE                  1331
+  ✓ LEAD                              53
+  ✓ CONCERNED                         21
 
 Invalid values (NOT IN SCHEMA):
-  ✗ NOT_DISCUSSED                     56  ← FIX NEEDED
+  ✗ NOT_DISCUSSED                     68  ← FIX NEEDED
 
-Summary: 56/757 (7.4%) values are invalid
+Summary: 68/1473 (4.6%) values are invalid
 
 --------------------------------------------------------------------------------
 a8_defendant_class
 Schema allows: INDIVIDUAL, NGO_OR_NONPROFIT, OTHER, POLITICAL_PARTY, PRIVATE, PUBLIC, RELIGIOUS
 
 Valid values:
-  ✓ PRIVATE                          378
-  ✓ PUBLIC                           193
-  ✓ INDIVIDUAL                        46
-  ✓ OTHER                             16
-  ✓ NGO_OR_NONPROFIT                  15
-  ✓ POLITICAL_PARTY                    2
-  ✓ RELIGIOUS                          2
+  ✓ PRIVATE                          764
+  ✓ PUBLIC                           416
+  ✓ INDIVIDUAL                        77
+  ✓ OTHER                             32
+  ✓ NGO_OR_NONPROFIT                  31
+  ✓ POLITICAL_PARTY                   10
+  ✓ RELIGIOUS                          3
 
 Invalid values (NOT IN SCHEMA):
-  ✗ NOT_DISCUSSED                     93  ← FIX NEEDED
+  ✗ NOT_DISCUSSED                    111  ← FIX NEEDED
+  ✗ MEDIA                              8  ← FIX NEEDED
+  ✗ EDUCATION                          8  ← FIX NEEDED
   ✗ NOT_APPLICABLE                     6  ← FIX NEEDED
-  ✗ MEDIA                              2  ← FIX NEEDED
-  ✗ EDUCATION                          2  ← FIX NEEDED
+  ✗ FINANCIAL                          3  ← FIX NEEDED
   ✗ JUDICIAL                           1  ← FIX NEEDED
   ✗ TELECOM                            1  ← FIX NEEDED
+  ✗ MEMBERSHIP_ORGS                    1  ← FIX NEEDED
+  ✗ HEALTH                             1  ← FIX NEEDED
 
-Summary: 105/757 (13.9%) values are invalid
+Summary: 140/1473 (9.5%) values are invalid
 
 --------------------------------------------------------------------------------
 a9_enterprise_size
 Schema allows: LARGE, NOT_APPLICABLE, SME, UNKNOWN, VERY_LARGE
 
 Valid values:
-  ✓ NOT_APPLICABLE                   284
-  ✓ UNKNOWN                          204
-  ✓ LARGE                             98
-  ✓ VERY_LARGE                        49
-  ✓ SME                               45
+  ✓ NOT_APPLICABLE                   575
+  ✓ UNKNOWN                          459
+  ✓ LARGE                            161
+  ✓ SME                              104
+  ✓ VERY_LARGE                        81
 
 Invalid values (NOT IN SCHEMA):
-  ✗ NOT_DISCUSSED                     77  ← FIX NEEDED
+  ✗ NOT_DISCUSSED                     93  ← FIX NEEDED
 
-Summary: 77/757 (10.2%) values are invalid
+Summary: 93/1473 (6.3%) values are invalid
 
 ================================================================================
 END OF REPORT
