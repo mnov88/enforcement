@@ -5,7 +5,7 @@ import math
 import pickle
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Sequence
+from typing import Mapping, Sequence
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -46,6 +46,9 @@ BASE_TERMS: Sequence[str] = (
     "C(a72_cross_border_oss)",
     "C(decision_year)",
 )
+
+
+RARE_CATEGORY_THRESHOLD = 5
 
 
 def _clean_repeat_offender(value: str | float | None) -> bool:
@@ -101,10 +104,24 @@ def _prepare_modelling_dataframe(data: pd.DataFrame) -> pd.DataFrame:
     )
     df["repeat_offender"] = df["first_violation_status"].map(_clean_repeat_offender)
 
-    df["a12_sector"] = df["a12_sector"].fillna("NOT_DISCUSSED")
-    df["a8_defendant_class"] = df["a8_defendant_class"].fillna("NOT_DISCUSSED")
-    df["a72_cross_border_oss"] = df["a72_cross_border_oss"].fillna(
-        "NOT_DISCUSSED"
+    df["a12_sector"] = df["a12_sector"].fillna("NOT_DISCUSSED").astype(str)
+    sector_counts = df["a12_sector"].value_counts()
+    rare_sectors = sector_counts[sector_counts < RARE_CATEGORY_THRESHOLD].index
+    if len(rare_sectors) > 0:
+        df["a12_sector"] = df["a12_sector"].replace(
+            {cat: "RARE_SECTOR" for cat in rare_sectors}
+        )
+    df["a8_defendant_class"] = (
+        df["a8_defendant_class"].fillna("NOT_DISCUSSED").astype(str)
+    )
+    class_counts = df["a8_defendant_class"].value_counts()
+    rare_classes = class_counts[class_counts < RARE_CATEGORY_THRESHOLD].index
+    if len(rare_classes) > 0:
+        df["a8_defendant_class"] = df["a8_defendant_class"].replace(
+            {cat: "RARE_CLASS" for cat in rare_classes}
+        )
+    df["a72_cross_border_oss"] = (
+        df["a72_cross_border_oss"].fillna("NOT_DISCUSSED").astype(str)
     )
     df["decision_year"] = pd.to_numeric(
         df["decision_year"], errors="coerce"
@@ -117,6 +134,10 @@ def _prepare_modelling_dataframe(data: pd.DataFrame) -> pd.DataFrame:
         df["fine_amount_eur_real_2025"], errors="coerce"
     )
     df["log_fine_amount"] = np.log1p(df["fine_amount_eur_real_2025"])
+
+    # Statsmodels requires the dependent variable to be numeric; cast to int to
+    # avoid patsy treating the boolean column as categorical with two outputs.
+    df["fine_flag"] = df["fine_flag"].astype(int)
 
     return df
 
@@ -192,22 +213,42 @@ def _flatten_multinomial(
     result: sm.discrete.discrete_model.MultinomialResultsWrapper,
     *,
     model_name: str,
+    outcome_labels: Mapping[str, str] | None = None,
+    column_category_map: Mapping[int, str] | None = None,
 ) -> pd.DataFrame:
     frames: list[pd.DataFrame] = []
     conf = result.conf_int()
-    outcomes = result.params.index.get_level_values(0).unique()
+    conf_low_col, conf_high_col = conf.columns[:2]
+    outcomes = list(result.params.columns)
     for outcome in outcomes:
-        params = result.params.loc[outcome]
+        outcome_idx = int(outcome)
+        category_code = (
+            column_category_map.get(outcome_idx, str(outcome_idx))
+            if column_category_map
+            else str(outcome_idx)
+        )
+        label = (
+            outcome_labels.get(category_code, category_code)
+            if outcome_labels
+            else category_code
+        )
+        params = result.params[outcome]
+        std = result.bse[outcome].reindex(params.index)
+        z_values = result.tvalues[outcome].reindex(params.index)
+        p_values = result.pvalues[outcome].reindex(params.index)
+        conf_slice = conf.xs(category_code, level=0)
+        conf_low = conf_slice[conf_low_col].reindex(params.index)
+        conf_high = conf_slice[conf_high_col].reindex(params.index)
         rows = pd.DataFrame(
             {
                 "term": params.index,
                 "estimate": params.values,
-                "std_error": result.bse.loc[outcome].values,
-                "z_value": result.tvalues.loc[outcome].values,
-                "p_value": result.pvalues.loc[outcome].values,
-                "conf_low": conf.loc[outcome, 0].values,
-                "conf_high": conf.loc[outcome, 1].values,
-                "outcome": outcome,
+                "std_error": std.values,
+                "z_value": z_values.values,
+                "p_value": p_values.values,
+                "conf_low": conf_low.values,
+                "conf_high": conf_high.values,
+                "outcome": label,
                 "model": model_name,
             }
         )
@@ -456,6 +497,10 @@ def run(*, output_dir: Path | None = None, data_path: Path | None = None) -> Pat
     load_result = common.load_typed_enforcement_data(data_path=data_path)
     df = _prepare_modelling_dataframe(load_result.data)
 
+    bundle_categories = df["sanction_bundle"].cat.categories
+    bundle_label_map = {str(idx): str(label) for idx, label in enumerate(bundle_categories)}
+    df["sanction_bundle_code"] = df["sanction_bundle"].cat.codes
+
     out_dir = common.prepare_output_dir("task2", output_dir)
 
     # Logistic regression for fine incidence.
@@ -463,8 +508,10 @@ def run(*, output_dir: Path | None = None, data_path: Path | None = None) -> Pat
     logit_formula = f"fine_flag ~ {formula_terms}"
     logit_model = smf.logit(logit_formula, data=df)
     logit_result = logit_model.fit(disp=False)
-    logit_robust = logit_result.get_robustcov_results(
-        cov_type="cluster", groups=df["a2_authority_name"]
+    logit_robust = logit_model.fit(
+        disp=False,
+        cov_type="cluster",
+        cov_kwds={"groups": df["a2_authority_name"]},
     )
     logit_margeff = _marginal_effects_table(logit_robust)
     logit_table = _coefficient_table(
@@ -474,8 +521,11 @@ def run(*, output_dir: Path | None = None, data_path: Path | None = None) -> Pat
     ipw = _compute_ipw_weights(df)
     logit_ipw_model = smf.logit(logit_formula, data=df)
     logit_ipw_result = logit_ipw_model.fit(freq_weights=ipw, disp=False)
-    logit_ipw_robust = logit_ipw_result.get_robustcov_results(
-        cov_type="cluster", groups=df["a2_authority_name"]
+    logit_ipw_robust = logit_ipw_model.fit(
+        freq_weights=ipw,
+        disp=False,
+        cov_type="cluster",
+        cov_kwds={"groups": df["a2_authority_name"]},
     )
     logit_ipw_margeff = _marginal_effects_table(logit_ipw_robust)
     logit_ipw_table = _coefficient_table(
@@ -488,14 +538,24 @@ def run(*, output_dir: Path | None = None, data_path: Path | None = None) -> Pat
     incidence_table.to_csv(out_dir / "model_fine_incidence.csv", index=False)
 
     # Multinomial logit for sanction bundles.
-    multinomial_formula = f"sanction_bundle ~ {formula_terms}"
+    multinomial_formula = f"sanction_bundle_code ~ {formula_terms}"
     mn_model = smf.mnlogit(multinomial_formula, data=df)
-    mn_result = mn_model.fit(method="newton", maxiter=200, disp=False)
-    mn_robust = mn_result.get_robustcov_results(
-        cov_type="cluster", groups=df["a2_authority_name"]
+    mn_result = mn_model.fit(
+        method="newton",
+        maxiter=200,
+        disp=False,
+        cov_type="cluster",
+        cov_kwds={"groups": df["a2_authority_name"]},
     )
+    column_category_map = {
+        int(col): str(mn_model._ynames_map.get(int(col) + 1, col))
+        for col in mn_result.params.columns
+    }
     multinomial_table = _flatten_multinomial(
-        mn_robust, model_name="mnlogit_sanction_bundle"
+        mn_result,
+        model_name="mnlogit_sanction_bundle",
+        outcome_labels=bundle_label_map,
+        column_category_map=column_category_map,
     )
     multinomial_table.to_csv(out_dir / "model_bundle_multinomial.csv", index=False)
 
@@ -545,7 +605,7 @@ def run(*, output_dir: Path | None = None, data_path: Path | None = None) -> Pat
     models_payload = ModelOutputs(
         logit_main=logit_robust,
         logit_ipw=logit_ipw_robust,
-        multinomial=mn_robust,
+        multinomial=mn_result,
         ols=ols_result,
         quantiles=quantile_results,
         spec_curve=spec_curve,
