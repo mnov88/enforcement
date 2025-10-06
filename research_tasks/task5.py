@@ -252,6 +252,7 @@ def _authority_year_panel(df: pd.DataFrame) -> pd.DataFrame:
         )
         bundle_div = _bundle_entropy(group["sanction_bundle"])
         measure_std = float(group["measure_count"].astype(float).std(ddof=0))
+        measure_incidence = float(group["measure_share"].gt(0).mean())
 
         sector_counts = _value_counts_with_unknown(group["a12_sector"])
         class_counts = _value_counts_with_unknown(group["a8_defendant_class"])
@@ -269,6 +270,7 @@ def _authority_year_panel(df: pd.DataFrame) -> pd.DataFrame:
             "coherence": coherence,
             "fine_log_std": fine_std,
             "measure_count_std": measure_std,
+            "measure_incidence": measure_incidence,
             "bundle_entropy": bundle_div,
             "oss_share": float(group["oss_case_flag"].mean()),
             "severity_mean": float(group["severity_score"].mean()),
@@ -338,6 +340,16 @@ def _plot_index_sensitivity(
     output_path: Path,
     timestamp: str,
 ) -> None:
+    # Gracefully handle empty or missing columns to avoid KeyError
+    required_cols = {"coverage_weight", "direction_weight", "spearman_r"}
+    if grid.empty or not required_cols.issubset(set(grid.columns)):
+        md_content = (
+            f"# Figure: Index sensitivity\n\nGenerated {timestamp}.\n\n"
+            "Insufficient data to render sensitivity heatmap (missing correlation grid)."
+        )
+        output_path.with_suffix(".md").write_text(md_content, encoding="utf-8")
+        return
+
     pivot = grid.pivot_table(
         index="coverage_weight",
         columns="direction_weight",
@@ -518,9 +530,10 @@ def _fit_fixed_effects(
     frame: pd.DataFrame,
     *,
     outcome_column: str,
+    treatment_column: str = "systematicity_lag",
 ) -> sm.regression.linear_model.RegressionResultsWrapper:
     subset = frame.dropna(
-        subset=[outcome_column, "systematicity_lag", "authority_name", "decision_year"]
+        subset=[outcome_column, treatment_column, "authority_name", "decision_year"]
     )
     if subset.empty:
         raise ValueError(f"No observations available for outcome {outcome_column}.")
@@ -542,12 +555,12 @@ def _fit_fixed_effects(
         "z_class_entropy",
     ]
 
-    formula = (
-        f"{outcome_column} ~ systematicity_lag + "
+    rhs_formula = (
+        f"{treatment_column} + "
         + " + ".join(controls)
         + " + C(authority_name) + C(decision_year)"
     )
-    design = dmatrix(formula, subset, return_type="dataframe")
+    design = dmatrix(rhs_formula, subset, return_type="dataframe")
     target = subset[outcome_column]
     model = sm.OLS(target, design)
     result = model.fit(cov_type="cluster", cov_kwds={"groups": subset["authority_name"]})
@@ -739,9 +752,11 @@ def _placebo_check(frame: pd.DataFrame, outcome: str) -> pd.DataFrame:
     subset["systematicity_lead"] = subset.groupby("authority_name")[
         "systematicity_index"
     ].shift(-1)
+    renamed = subset.rename(columns={"systematicity_lag": "systematicity_lead"})
     regression = _fit_fixed_effects(
-        subset.rename(columns={"systematicity_lag": "systematicity_lead"}),
+        renamed,
         outcome_column=outcome,
+        treatment_column="systematicity_lead",
     )
     coeff = float(regression.params.get("systematicity_lead", np.nan))
     stderr = float(regression.bse.get("systematicity_lead", np.nan))
@@ -849,11 +864,11 @@ def _interaction_analysis(frame: pd.DataFrame) -> pd.DataFrame:
         subset["n_cases"]
     )
 
-    formula = (
-        "dispersion_index ~ systematicity_lag + coherence_x_coverage + "
+    rhs_formula = (
+        "systematicity_lag + coherence_x_coverage + "
         "direction_x_sector + coherence_x_caseload + C(authority_name) + C(decision_year)"
     )
-    design = dmatrix(formula, subset, return_type="dataframe")
+    design = dmatrix(rhs_formula, subset, return_type="dataframe")
     model = sm.OLS(subset["dispersion_index"], design)
     result = model.fit(cov_type="cluster", cov_kwds={"groups": subset["authority_name"]})
 
@@ -1296,7 +1311,7 @@ def _partial_effect_plot(
 
 
 def _ensure_acceptance(
-    baseline: pd.Series,
+    baseline_frame: pd.DataFrame,
     *,
     grid: pd.DataFrame,
     latent_summary: pd.DataFrame,
@@ -1309,12 +1324,19 @@ def _ensure_acceptance(
         tracker["best_grid_r"] = np.nan
 
     if not latent_summary.empty:
-        spearman = stats.spearmanr(
-            baseline.loc[latent_summary["authority_name"]],
-            latent_summary["posterior_mean"],
-            nan_policy="omit",
-        )
-        tracker["latent_r"] = float(spearman.statistic)
+        # Align by both authority and country to avoid duplicate-name inflation
+        left = baseline_frame[["authority_name", "country_code", "systematicity_index"]].copy()
+        right = latent_summary[["authority_name", "country_code", "posterior_mean"]].copy()
+        merged = pd.merge(left, right, on=["authority_name", "country_code"], how="inner")
+        if not merged.empty:
+            spearman = stats.spearmanr(
+                merged["systematicity_index"],
+                merged["posterior_mean"],
+                nan_policy="omit",
+            )
+            tracker["latent_r"] = float(spearman.statistic)
+        else:
+            tracker["latent_r"] = np.nan
     else:
         tracker["latent_r"] = np.nan
     return tracker
@@ -1514,7 +1536,7 @@ def run(
 
     # Acceptance checks
     acceptance = _ensure_acceptance(
-        baseline_index.set_index("authority_name")["systematicity_index"],
+        baseline_index,
         grid=weight_grid,
         latent_summary=latent_summary,
     )
