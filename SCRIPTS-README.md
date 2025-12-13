@@ -645,6 +645,63 @@ python scripts/7_factor_effect_models.py
 
 ---
 
+### Script: `scripts/8_cross_border_analysis.py`
+
+**Purpose:** Phase 4 of the paper analysis pipeline - cross-border matching and variance decomposition to test hypotheses H3 and H4.
+
+**Input:**
+- `/outputs/paper/data/analysis_sample.csv` (528 analytical decisions)
+- `/outputs/paper/data/cohort_membership.csv` (229 article cohorts)
+
+**Output:**
+- `/outputs/paper/tables/table6_cross_border_matching.csv` (Cohort-level matching results)
+- `/outputs/paper/tables/table7_variance_decomposition.csv` (Variance partition)
+- `/outputs/paper/figures/figure4_matched_pairs_distribution.png|pdf` (Fine gap distributions)
+- `/outputs/paper/figures/figure5_variance_partition.png|pdf` (Variance partition visualization)
+- `/outputs/paper/data/matched_pairs.csv` (236 matched case pairs)
+- `/outputs/paper/data/phase4_results_summary.txt` (Results summary)
+
+**Analyses Implemented:**
+
+1. **Nearest-Neighbor Matching (RQ3)**
+   - Groups cases by `article_set_key` (article cohort)
+   - For each case in country c, finds nearest neighbor in country c' ≠ c
+   - Uses Mahalanobis distance on: defendant_class, enterprise_size, sector, decision_year
+   - Computes fine gaps: Δ(log fine) and Δ(EUR)
+   - Results: 40 cohorts analyzed, 236 matched pairs created
+
+2. **Cross-Border Disparity Tests (H3)**
+   - One-sample t-test: E[Δ(log fine)] > 0
+   - Wilcoxon signed-rank test (non-parametric)
+   - Effect size: Cohen's d
+   - 95% confidence intervals for mean gap
+
+3. **Variance Decomposition (RQ4, H4)**
+   - Three-level mixed-effects model:
+     - Level 1: Cases within authorities
+     - Level 2: Authorities within countries
+     - Level 3: Countries
+   - Computes variance components: σ²_country, σ²_authority, σ²_residual
+   - Calculates intraclass correlations (ICC) at each level
+
+**Key Findings (Preliminary):**
+- Mean Δ(log fine) = 2.57*** (highly significant, p < 0.0001)
+- Cohen's d = 1.21 (large effect size)
+- **H3 SUPPORTED**: Similar violations receive significantly different penalties across jurisdictions
+- Variance decomposition:
+  - Country-level: 31.7% of variance
+  - Authority-level: 26.6% of variance
+  - Case-level: 41.7% of variance
+- Combined ICC = 0.58 (58% of variance due to country + authority)
+- **H4 SUPPORTED**: Substantial authority-level heterogeneity ("which DPA you get" matters)
+
+**Usage:**
+```bash
+python scripts/8_cross_border_analysis.py
+```
+
+---
+
 ## Important Notes
 
 1. **Phase 2 validation is non-destructive** - it only reads and reports, never modifies data
