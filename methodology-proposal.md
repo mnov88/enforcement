@@ -458,13 +458,30 @@ Estimate Model 1 excluding each country sequentially; assess coefficient stabili
 
 ## 8. Implementation Plan
 
-### 8.1 Phase 1: Data Preparation (Week 1-2)
+### 8.1 Phase 1: Data Preparation ✅ COMPLETE
 
-| Task | Input | Output |
-|------|-------|--------|
-| Construct analytical sample | `1_enriched_master.csv` | `analysis_sample.csv` |
-| Compute systematicity indices | Analytical sample | `authority_systematicity.csv` |
-| Generate article cohort keys | Analytical sample | `cohort_membership.csv` |
+**Script:** `scripts/6_paper_data_preparation.py`
+
+| Task | Input | Output | Status |
+|------|-------|--------|--------|
+| Construct analytical sample | `outputs/phase4_enrichment/1_enriched_master.csv` | `outputs/paper/data/analysis_sample.csv` | ✅ 528 rows |
+| Compute systematicity indices | Analytical sample | `outputs/paper/data/authority_systematicity.csv` | ✅ 22 authorities |
+| Generate article cohort keys | Analytical sample | `outputs/paper/data/cohort_membership.csv` | ✅ 229 cohorts |
+
+**Actual Results (2025-12-13):**
+```
+Sample Flow:
+  Raw Records:              1,473
+  Validated:                1,467
+  Fine Imposed:               561
+  Positive Fine:              528  ← Analytical Sample
+  Cross-Border Eligible:      316
+
+Systematicity Index:
+  Authorities indexed:         22 (with ≥10 decisions)
+  Index range:           [0.00, 0.25]
+  Top authority:         National Commission for Informatics and Freedoms (0.252)
+```
 
 ### 8.2 Phase 2: Descriptive Analysis (Week 2-3)
 
