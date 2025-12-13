@@ -539,6 +539,62 @@ All research-task artefacts live under `outputs/research_tasks/` and are git-ign
 
 ---
 
+## Phase 6: Paper Analysis (Methodology Implementation)
+
+This phase implements the methodology proposal for the research paper "Reasoning and Consistency in GDPR Enforcement: A Cross-Border Analysis of Penalty Factors and Fine Disparities".
+
+### Script: `scripts/6_paper_data_preparation.py`
+
+**Purpose:** Phase 1 of the paper analysis pipeline - data preparation, systematicity index computation, and cohort construction.
+
+**Input:**
+- `/outputs/phase4_enrichment/1_enriched_master.csv` (enriched master dataset)
+- `/raw_data/reference/region_map.csv` (country-to-region mapping)
+
+**Output:**
+- `/outputs/paper/data/analysis_sample.csv` (528 rows - fine-imposed decisions)
+- `/outputs/paper/data/authority_systematicity.csv` (22 authorities with ≥10 decisions)
+- `/outputs/paper/data/cohort_membership.csv` (229 unique article cohorts)
+- `/outputs/paper/data/sample_construction_log.txt` (sample flow documentation)
+
+**Data Transformations:**
+
+1. **Sample Construction:**
+   - Filters for `a53_fine_imposed = YES` AND `fine_amount_eur > 0`
+   - Validates country codes to exclude malformed records
+   - Adds cross-border eligibility flag (article cohort in ≥2 countries)
+   - Result: 528 analytical decisions (316 cross-border eligible)
+
+2. **Systematicity Index Computation:**
+   - For each authority with ≥10 decisions, computes:
+     - **Coverage:** `mean(art83_discussed_count) / 11` (factor completeness)
+     - **Consistency:** `1 - normalized_std(balance_score)` (directional stability)
+     - **Coherence:** `|cor(balance_score, log_fine)|` (outcome alignment)
+     - **Systematicity:** `Coverage × Consistency × Coherence`
+   - Range: [0, 1] where higher = more systematic reasoning
+   - Results: 22 authorities indexed (range: 0.00 - 0.25)
+
+3. **Article Cohort Generation:**
+   - Parses `a77_articles_breached` into sorted numeric sets
+   - Creates `article_set_key` (e.g., "5;6;15")
+   - Creates `article_family_key` for relaxed matching
+   - Computes cohort statistics (case count, country count, mean/median fines)
+
+**Key Variables Added:**
+- `article_set_key` - Exact article set identifier
+- `article_family_key` - Article family grouping for relaxed matching
+- `article_count` - Number of breached articles
+- `cross_border_eligible` - Boolean flag for cross-border analysis
+- `log_fine_2025` - Natural log of inflation-adjusted fine (EUR, 2025)
+- `region` - EU region grouping
+
+**Usage:**
+```bash
+python scripts/6_paper_data_preparation.py
+```
+
+---
+
 ## Important Notes
 
 1. **Phase 2 validation is non-destructive** - it only reads and reports, never modifies data
