@@ -595,6 +595,56 @@ python scripts/6_paper_data_preparation.py
 
 ---
 
+### Script: `scripts/7_factor_effect_models.py`
+
+**Purpose:** Phase 3 of the paper analysis pipeline - mixed-effects regression models for Article 83(2) factor effects.
+
+**Input:**
+- `/outputs/paper/data/analysis_sample.csv` (528 analytical decisions)
+- `/outputs/paper/data/authority_systematicity.csv` (22 authority indices)
+
+**Output:**
+- `/outputs/paper/tables/table3_aggregate_factors.csv` (Model 1 results)
+- `/outputs/paper/tables/table4_factor_decomposition.csv` (Model 2 results)
+- `/outputs/paper/tables/table5_authority_systematicity.csv` (Authority rankings)
+- `/outputs/paper/figures/figure3_systematicity_predictability.png|pdf` (Scatter plot)
+- `/outputs/paper/data/phase3_results_summary.txt` (Results summary)
+
+**Models Implemented:**
+
+1. **Model 1: Aggregate Factor Effects (Mixed-Effects)**
+   - Dependent: `log_fine_2025` (natural log of EUR fine, 2025 real)
+   - Key predictors: `art83_aggravating_count`, `art83_mitigating_count`, `art83_neutral_count`
+   - Controls: defendant characteristics, violation types, processing contexts, year effects
+   - Random effect: Authority-level intercept
+   - Outputs: Coefficients, variance decomposition, ICC
+
+2. **Model 2: Factor-by-Factor Decomposition**
+   - Estimates effect of each Article 83(2) factor (a59-a69) separately
+   - Individual factor scores: AGGRAVATING=+1, MITIGATING=-1, NEUTRAL=0
+   - Identifies which specific factors drive fine variation
+   - 11 factors analyzed with mixed-effects models
+
+3. **Model 3: Systematicity → Predictability**
+   - Authority-level OLS regression
+   - Tests whether systematic reasoning improves fine predictability
+   - Computes baseline R² for each authority
+   - Regresses R² on systematicity index
+
+**Key Findings (Preliminary):**
+- Aggravating factor count: β = 0.22*** (significant positive effect)
+- Mitigating factor count: β = -0.04 (negative but not significant)
+- ICC = 58.5% (substantial authority-level variance)
+- Strongest individual factors: Data Categories (β=0.55***), Previous Infringements (β=0.52***)
+- 6 of 11 factors significantly predict fines (p<0.05)
+
+**Usage:**
+```bash
+python scripts/7_factor_effect_models.py
+```
+
+---
+
 ## Important Notes
 
 1. **Phase 2 validation is non-destructive** - it only reads and reports, never modifies data

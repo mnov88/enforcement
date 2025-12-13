@@ -491,13 +491,52 @@ Systematicity Index:
 | Factor usage patterns | Crosstabs, heatmaps | Figure 2 |
 | Geographic distributions | Violin plots, maps | Figure 1 |
 
-### 8.3 Phase 3: Factor Effect Models (Week 3-5)
+### 8.3 Phase 3: Factor Effect Models ✅ COMPLETE
 
-| Task | Method | Output |
-|------|--------|--------|
-| Model 1: Aggregate factors | statsmodels MixedLM | Table 3 |
-| Model 2: Factor decomposition | statsmodels MixedLM | Table 4 |
-| Model 3: Systematicity analysis | OLS on authority-level | Figure 3, Table 5 |
+**Script:** `scripts/7_factor_effect_models.py`
+
+| Task | Method | Output | Status |
+|------|--------|--------|--------|
+| Model 1: Aggregate factors | statsmodels MixedLM | Table 3 | ✅ N=528 |
+| Model 2: Factor decomposition | statsmodels MixedLM | Table 4 | ✅ 11 factors |
+| Model 3: Systematicity analysis | OLS on authority-level | Figure 3, Table 5 | ✅ 9 authorities |
+
+**Actual Results (2025-12-13):**
+```
+Model 1 (Aggregate Factor Effects):
+  N = 528 observations
+  Aggravating count: β = 0.2211*** (p<0.0001)
+  Mitigating count:  β = -0.0356 (p=0.437, not significant)
+  Neutral count:     β = 0.1073 (p=0.135, not significant)
+
+  Variance Decomposition:
+    σ²_authority = 2.97, σ²_residual = 2.11
+    ICC = 58.5% (substantial authority-level heterogeneity)
+
+  R² (marginal): 0.60
+  R² (conditional): 0.67
+
+Model 2 (Factor-by-Factor Decomposition):
+  Significant factors (p<0.05):
+    - Data Categories:         β = +0.5477***
+    - Previous Infringements:  β = +0.5206***
+    - Mitigation Actions:      β = -0.3353* (mitigating, negative as expected)
+    - Tech/Org Measures:       β = +0.3161*
+    - Other Factors:           β = +0.2487*
+    - Intentional/Negligent:   β = +0.2401*
+  Non-significant: Cooperation, How Infringement Known, Prior Order Compliance, Codes/Certification
+
+Model 3 (Systematicity → Predictability):
+  N = 9 authorities (with ≥10 fine decisions)
+  β_systematicity = 0.354 (p=0.827, not significant)
+  Correlation = 0.085
+  Interpretation: No evidence that systematic reasoning improves fine predictability
+```
+
+**Key Insights:**
+- H1 (Factor Predictiveness) **PARTIALLY SUPPORTED**: Aggravating factors significantly predict higher fines; mitigating factors show expected negative direction but not significant
+- H2 (Reasoning Systematicity) **NOT SUPPORTED**: No relationship between authority systematicity and fine predictability
+- H4 (Authority Heterogeneity) **SUPPORTED**: ICC of 58.5% indicates "which DPA you get" matters substantially
 
 ### 8.4 Phase 4: Cross-Border Analysis (Week 5-7)
 

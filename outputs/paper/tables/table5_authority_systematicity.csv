@@ -1,0 +1,23 @@
+Rank,Authority,N Decisions,Coverage,Consistency,Coherence,Systematicity,R² (Predictability),RMSE
+1,National Commission for Informatics and Freedoms,11,0.380,0.851,0.778,0.2516,—,—
+2,Data Protection Commissioner,21,0.307,0.764,0.952,0.2235,—,—
+3,National Data Protection and Freedom of Infor...,28,0.445,0.802,0.378,0.1349,0.653,1.337
+4,National Commission for Information Technolog...,12,0.136,0.933,0.922,0.1173,—,—
+5,Personal Data Protection Authority,55,0.324,0.776,0.409,0.1027,0.312,1.466
+6,Danish Data Protection Agency,74,0.251,0.855,0.461,0.0987,—,—
+7,Danish Data Protection Authority,54,0.182,0.883,0.531,0.0852,—,—
+8,Spanish Agency for Data Protection,107,0.230,0.813,0.418,0.0783,0.534,1.007
+9,Garante per la protezione dei dati personali,147,0.505,0.721,0.182,0.0662,0.321,1.605
+10,Spanish Data Protection Agency,73,0.252,0.791,0.326,0.0649,0.566,1.292
+11,National Authority for Data Protection and Fr...,13,0.413,0.774,0.168,0.0536,—,—
+12,Data Protection Authority,220,0.131,0.861,0.402,0.0454,0.541,0.897
+13,Office of the Data Protection Commissioner,26,0.248,0.828,0.214,0.0439,—,—
+14,Guarantor for the Protection of Personal Data,60,0.568,0.773,0.061,0.0269,0.334,1.147
+15,Personal Data Protection Agency,29,0.157,0.874,0.149,0.0204,0.787,0.460
+16,Hellenic Data Protection Authority,34,0.078,0.911,0.126,0.0089,0.348,1.655
+17,Data Protection Commission,20,0.145,0.860,0.037,0.0047,—,—
+18,Data Inspectorate,10,0.073,0.902,0.000,0.0000,—,—
+19,Information Commissioner,71,0.027,0.914,0.000,0.0000,—,—
+20,Data Protection Inspectorate,14,0.097,0.873,0.000,0.0000,—,—
+21,Deputy Data Protection Commissioner,11,0.050,0.890,0.000,0.0000,—,—
+22,Personal Protection Agency,15,0.127,0.875,0.000,0.0000,—,—
