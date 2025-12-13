@@ -595,6 +595,70 @@ python scripts/6_paper_data_preparation.py
 
 ---
 
+### Script: `scripts/7_paper_descriptive_analysis.py`
+
+**Purpose:** Phase 2 of the paper analysis pipeline - descriptive statistics, factor usage patterns, and geographic distributions.
+
+**Input:**
+- `/outputs/paper/data/analysis_sample.csv` (Phase 1 analytical sample)
+- `/outputs/paper/data/authority_systematicity.csv` (authority indices)
+- `/raw_data/reference/region_map.csv` (country-to-region mapping)
+
+**Output:**
+- `/outputs/paper/tables/table1_country_characteristics.csv` (18 countries)
+- `/outputs/paper/tables/table1_country_characteristics.tex` (LaTeX format)
+- `/outputs/paper/tables/table2_factor_frequencies.csv` (11 Article 83(2) factors)
+- `/outputs/paper/tables/table2_factor_frequencies.tex` (LaTeX format)
+- `/outputs/paper/figures/figure1_fine_distribution_country.png|pdf` (violin plot)
+- `/outputs/paper/figures/figure2_factor_heatmap.png|pdf` (authority heatmap)
+- `/outputs/paper/data/descriptive_stats_summary.txt` (comprehensive summary)
+
+**Data Transformations:**
+
+1. **Table 1 Generation:**
+   - Groups by country code with region mapping
+   - Computes: N, mean/median/SD fine (EUR 2025), log fine stats
+   - Article 83(2) factor counts (aggravating, mitigating, discussed)
+   - Defendant characteristics (% private, % public, % SME, % large)
+   - Year range per country
+   - Output: 18 countries sorted by region then case count
+
+2. **Table 2 Generation:**
+   - For each of 11 Article 83(2) factors (a59-a69):
+     - N and % discussed (not NOT_DISCUSSED)
+     - N and % AGGRAVATING
+     - N and % MITIGATING
+     - N and % NEUTRAL
+     - Conditional percentages among discussed cases
+   - Output: Factors sorted by discussion rate
+
+3. **Figure 1 (Violin Plot):**
+   - Log fine distribution by country
+   - Countries with ≥5 cases included (15 countries)
+   - Colored by EU region
+   - Sample sizes displayed below each violin
+   - Ordered by region then median fine
+
+4. **Figure 2 (Heatmap):**
+   - Rows: Authorities with ≥10 decisions (9 authorities)
+   - Columns: 11 Article 83(2) factors
+   - Values: % of cases where factor was discussed
+   - Authorities ordered by systematicity index
+
+**Key Statistics Generated:**
+- Fine distribution (mean €2.67M, median €20,982)
+- Factor coverage (mean 5.2 of 11 factors discussed)
+- Geographic concentration (Italy 31.6%, Southern Europe 70.8%)
+- Most discussed factor: Nature/gravity/duration (91.1%)
+- Least discussed factor: Codes/certification (1.9%)
+
+**Usage:**
+```bash
+python scripts/7_paper_descriptive_analysis.py
+```
+
+---
+
 ## Important Notes
 
 1. **Phase 2 validation is non-destructive** - it only reads and reports, never modifies data
