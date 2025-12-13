@@ -37,6 +37,13 @@ This repository implements a data pipeline for analyzing GDPR enforcement decisi
 2. **Script:** `scripts/5_analysis_similarity.py`
 3. **Output:** `/outputs/phase5_analysis/` cohort comparisons, cross-country matches, and mixed-effects models
 
+**Phase 6: Paper Analysis (Research Methodology)**
+1. **Phase 6.1 - Data Preparation:** `scripts/6_paper_data_preparation.py`
+   - Output: `outputs/paper/data/` (analysis_sample.csv, authority_systematicity.csv, cohort_membership.csv)
+2. **Phase 6.3 - Factor Effect Models:** `scripts/7_factor_effect_models.py`
+   - Output: `outputs/paper/tables/` (Tables 3-5), `outputs/paper/figures/` (Figure 3)
+   - Models: Mixed-effects regression, factor decomposition, systematicity analysis
+
 **Phase 2 Utility:** `scripts/2_analyze_enum_values.py` - Enum frequency analysis for identifying repair patterns
 
 ### Schema-Driven Development
@@ -71,6 +78,7 @@ Scripts and outputs follow a phase structure:
 3. **Phase 3 (Repair):** Auto-fix common errors using pattern-based rules
 4. **Phase 4 (Enrichment):** Build enriched master dataset, long tables, and graph exports
 5. **Phase 5 (Analysis):** Generate similarity cohorts and modelling artefacts from the enriched data
+6. **Phase 6 (Paper Analysis):** Research paper methodology - data preparation, factor effect models, cross-border analysis
 
 See `SCRIPTS-README.md` for comprehensive documentation of all data transformations.
 
