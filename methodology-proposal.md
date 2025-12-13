@@ -483,13 +483,49 @@ Systematicity Index:
   Top authority:         National Commission for Informatics and Freedoms (0.252)
 ```
 
-### 8.2 Phase 2: Descriptive Analysis (Week 2-3)
+### 8.2 Phase 2: Descriptive Analysis ✅ COMPLETE
 
-| Task | Method | Output |
-|------|--------|--------|
-| Summary statistics | pandas describe + groupby | Table 1, Table 2 |
-| Factor usage patterns | Crosstabs, heatmaps | Figure 2 |
-| Geographic distributions | Violin plots, maps | Figure 1 |
+**Script:** `scripts/7_paper_descriptive_analysis.py`
+
+| Task | Method | Output | Status |
+|------|--------|--------|--------|
+| Summary statistics | pandas describe + groupby | Table 1, Table 2 | ✅ 18 countries, 11 factors |
+| Factor usage patterns | Crosstabs, heatmaps | Figure 2 | ✅ 9 authorities × 11 factors |
+| Geographic distributions | Violin plots | Figure 1 | ✅ 15 countries visualized |
+
+**Actual Results (2025-12-13):**
+```
+Sample Characteristics:
+  Countries:              18 (15 with ≥5 cases for visualization)
+  Authorities:            67 (9 with ≥10 decisions for heatmap)
+  Year Range:             2018-2025
+
+Fine Statistics (EUR 2025 Real):
+  Mean:                   €2,668,131
+  Median:                 €20,982
+  Min:                    €36
+  Max:                    €530,000,000 (Meta Ireland)
+  IQR:                    €5,245 - €84,195
+
+Article 83(2) Factor Usage:
+  Mean factors discussed: 5.2 of 11 (47% coverage)
+  Most discussed:         Nature/gravity/duration (91.1%)
+  Least discussed:        Codes/certification (1.9%)
+  Mean aggravating:       2.70
+  Mean mitigating:        2.09
+  Mean balance score:     +0.61 (slight aggravating bias)
+
+Geographic Concentration:
+  Southern Europe:        70.8% of sample
+  Italy alone:            31.6%
+  Top 3 countries:        IT (167), ES (112), GR (47) = 61.7%
+```
+
+**Key Preliminary Findings:**
+1. Fine distributions are highly right-skewed (log transformation essential)
+2. Factor discussion rates vary dramatically (1.9% to 91.1%)
+3. Southern European DPAs dominate the sample
+4. Systematicity index reveals wide variation in reasoning practices (0.00-0.25)
 
 ### 8.3 Phase 3: Factor Effect Models (Week 3-5)
 
