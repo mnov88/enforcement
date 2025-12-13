@@ -5,12 +5,13 @@ This repository organizes raw and AI-annotated GDPR enforcement decisions, provi
 ## Data Processing Workflow
 
 ### Overview
-The pipeline processes GDPR enforcement decisions through a five-phase system:
+The pipeline processes GDPR enforcement decisions through a six-phase system:
 1. **Phase 1 (Extraction)**: Parse AI-annotated responses into structured CSV
 2. **Phase 2 (Validation)**: Validate all 77 fields against schema rules
 3. **Phase 3 (Repair)**: Auto-fix common validation errors using pattern-based rules
 4. **Phase 4 (Enrichment)**: Generate analyst-ready features, long tables, and graph exports
 5. **Phase 5 (Analysis)**: Build similarity cohorts, compare layered factors, and estimate mixed-effects models
+6. **Phase 6 (Paper Analysis)**: Construct analytical samples and compute research indices for publication
 
 **See `SCRIPTS-README.md` for process details and `data-sources-readme.md` for per-file data descriptions.**
 
@@ -187,6 +188,42 @@ python scripts/5_analysis_similarity.py
 
 > ℹ️ The mixed-effects models emit warnings about singular covariance matrices; this reflects sparse article cohorts rather than runtime failure. Coefficients are retained for transparency.
 
+### Phase 6: Paper Analysis (Data Preparation)
+
+**Script:** `scripts/6_paper_data_preparation.py`
+
+**Purpose:** Implements Phase 1 of the methodology proposal for the research paper "Reasoning and Consistency in GDPR Enforcement". Constructs analytical samples, computes authority systematicity indices, and generates article cohort memberships.
+
+**Inputs:**
+- `/outputs/phase4_enrichment/1_enriched_master.csv` (1,473 rows × 212 columns)
+- `/raw_data/reference/region_map.csv` (country-to-region mapping)
+
+**Outputs (`/outputs/paper/data/`):**
+- `analysis_sample.csv` – 528 fine-imposed decisions with article cohort keys, cross-border eligibility flags, and log-transformed fines (EUR 2025)
+- `authority_systematicity.csv` – 22 authorities (≥10 decisions) with Coverage × Consistency × Coherence indices
+- `cohort_membership.csv` – 229 unique article cohorts with case counts, country coverage, and fine statistics
+- `sample_construction_log.txt` – Sample flow documentation with exclusion breakdown
+
+**Sample Construction:**
+```
+Raw AI Responses:          n = 1,473
+Validated Records:         n = 1,467
+Fine Imposed (a53=YES):    n = 561
+Positive Fine Amount:      n = 528  ← Analytical Sample
+Cross-Border Eligible:     n = 316
+```
+
+**Systematicity Index Components:**
+- **Coverage:** `mean(art83_discussed_count) / 11` – Factor completeness
+- **Consistency:** `1 - normalized_std(balance_score)` – Directional stability
+- **Coherence:** `|cor(balance_score, log_fine)|` – Outcome alignment
+- **Systematicity:** `Coverage × Consistency × Coherence` (range: 0.00 – 0.25)
+
+**Command:**
+```bash
+python scripts/6_paper_data_preparation.py
+```
+
 ### Running the Complete Pipeline
 
 ```bash
@@ -205,6 +242,15 @@ python3 scripts/3_repair_data_errors.py
 # Re-validate repaired data (final: 941/1,473 valid = 63.9%)
 python3 scripts/2_validate_dataset.py --input outputs/phase3_repair/repaired_dataset.csv
 # Produces: repaired_dataset_validated.csv, repaired_dataset_validation_errors.csv, repaired_dataset_validation_report.txt
+
+# Phase 4: Enrich with derived features and normalization
+python3 scripts/4_enrich_prepare_outputs.py
+
+# Phase 5: Cohort analysis and mixed-effects modelling
+python3 scripts/5_analysis_similarity.py
+
+# Phase 6: Paper data preparation (analytical sample + systematicity indices)
+python3 scripts/6_paper_data_preparation.py
 ```
 
 ## Data Quality Summary
