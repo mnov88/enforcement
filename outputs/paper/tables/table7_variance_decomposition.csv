@@ -1,0 +1,7 @@
+Component,Variance,% of Total,ICC,Interpretation
+Between-Country,3.0233,35.7%,0.3568,National policy/legal tradition differences
+Between-Authority (within-country),2.1050,24.8%,-,"""Which DPA you get"" effect"
+Within-Authority (case-level),3.3441,39.5%,-,"Case-specific factors, measurement error"
+---,---,---,---,---
+Total,8.4724,100.0%,0.6053,"N=528, 18 countries, 66 authorities"
+Model Note,,,,Two-model approximation for nested random effects
