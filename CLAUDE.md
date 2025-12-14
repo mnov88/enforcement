@@ -37,12 +37,22 @@ This repository implements a data pipeline for analyzing GDPR enforcement decisi
 2. **Script:** `scripts/5_analysis_similarity.py`
 3. **Output:** `/outputs/phase5_analysis/` cohort comparisons, cross-country matches, and mixed-effects models
 
-**Phase 6: Paper Analysis (Research Methodology)**
+**Phase 6: Paper Analysis (Research Methodology) ✅ ALL COMPLETE**
 1. **Phase 6.1 - Data Preparation:** `scripts/6_paper_data_preparation.py`
    - Output: `outputs/paper/data/` (analysis_sample.csv, authority_systematicity.csv, cohort_membership.csv)
-2. **Phase 6.3 - Factor Effect Models:** `scripts/7_factor_effect_models.py`
+2. **Phase 6.2 - Descriptive Analysis:** `scripts/9_descriptive_analysis.py`
+   - Output: `outputs/paper/tables/` (Tables 1-2), `outputs/paper/figures/` (Figures 1-2, 6)
+3. **Phase 6.3 - Factor Effect Models:** `scripts/7_factor_effect_models.py`
    - Output: `outputs/paper/tables/` (Tables 3-5), `outputs/paper/figures/` (Figure 3)
    - Models: Mixed-effects regression, factor decomposition, systematicity analysis
+4. **Phase 6.4 - Cross-Border Analysis:** `scripts/8_cross_border_analysis.py`
+   - Output: `outputs/paper/tables/` (Tables 6-7), `outputs/paper/figures/` (Figures 4-5)
+   - Models: Nearest-neighbor matching, variance decomposition
+5. **Phase 6.5 - Robustness & Finalization:** `scripts/10_robustness_analysis.py`
+   - Output: `outputs/paper/tables/` (Table 8), `outputs/paper/figures/` (Figure 7), `outputs/paper/supplementary/` (Tables S1-S4)
+   - Analyses: Specification curve, bootstrap CIs, leave-one-country-out, placebo tests
+
+**See:** `outputs/paper/FINDINGS_SUMMARY.md` for comprehensive research findings
 
 **Phase 2 Utility:** `scripts/2_analyze_enum_values.py` - Enum frequency analysis for identifying repair patterns
 
@@ -78,13 +88,15 @@ Scripts and outputs follow a phase structure:
 3. **Phase 3 (Repair):** Auto-fix common errors using pattern-based rules
 4. **Phase 4 (Enrichment):** Build enriched master dataset, long tables, and graph exports
 5. **Phase 5 (Analysis):** Generate similarity cohorts and modelling artefacts from the enriched data
-6. **Phase 6 (Paper Analysis):** Research paper methodology with sub-phases:
+6. **Phase 6 (Paper Analysis):** Research paper methodology with sub-phases ✅ ALL COMPLETE:
    - **6.1 Data Preparation:** `scripts/6_paper_data_preparation.py` → analysis_sample.csv, systematicity indices
    - **6.2 Descriptive Analysis:** `scripts/9_descriptive_analysis.py` → Tables 1-2, Figures 1-2, 6
    - **6.3 Factor Effect Models:** `scripts/7_factor_effect_models.py` → Tables 3-5, Figure 3
    - **6.4 Cross-Border Analysis:** `scripts/8_cross_border_analysis.py` → Tables 6-7, Figures 4-5
+   - **6.5 Robustness & Finalization:** `scripts/10_robustness_analysis.py` → Table 8, Figure 7, Tables S1-S4
 
 See `SCRIPTS-README.md` for comprehensive documentation of all data transformations.
+See `outputs/paper/FINDINGS_SUMMARY.md` for key research findings.
 
 ## Development Commands
 

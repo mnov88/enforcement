@@ -1,0 +1,20 @@
+Excluded Country,N Excluded,N Remaining,β (Aggravating),SE,% Change,Interpretation
+IE,10,518,0.2710***,0.0478,+23.4%,Notable influence
+GR,47,481,0.2701***,0.0503,+23.0%,Notable influence
+FI,13,515,0.2695***,0.0480,+22.7%,Notable influence
+DK,15,513,0.2679***,0.0486,+22.0%,Notable influence
+BE,28,500,0.2676***,0.0497,+21.8%,Notable influence
+DE,20,508,0.2645***,0.0479,+20.5%,Notable influence
+CY,7,521,0.2643***,0.0479,+20.3%,Notable influence
+EL,3,525,0.2629***,0.0477,+19.7%,Stable
+FR,38,490,0.2601***,0.0482,+18.4%,Stable
+IS,8,520,0.2594***,0.0480,+18.1%,Stable
+LV,6,522,0.2591***,0.0479,+18.0%,Stable
+HR,14,514,0.2567***,0.0491,+16.9%,Stable
+SI,2,526,0.2553***,0.0477,+16.3%,Stable
+EE,1,527,0.2548***,0.0475,+16.0%,Stable
+RO,8,520,0.2523***,0.0482,+14.9%,Stable
+HU,29,499,0.2361***,0.0477,+7.5%,Stable
+ES,112,416,0.2301***,0.0569,+4.8%,Stable
+IT,167,361,0.2292***,0.0572,+4.4%,Stable
+--- SUMMARY ---,,,Mean: 0.2573,SD: 0.0126,"Range: [0.2292, 0.2710]",Full sample β = 0.2196

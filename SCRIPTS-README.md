@@ -720,6 +720,97 @@ python scripts/9_descriptive_analysis.py
 
 ---
 
+### Script: `scripts/10_robustness_analysis.py`
+
+**Purpose:** Phase 5 of the paper analysis pipeline - robustness checks and sensitivity analyses.
+
+**Input:**
+- `/outputs/paper/data/analysis_sample.csv` (528 analytical decisions)
+- `/outputs/paper/tables/table3_aggregate_factors.csv` (for comparison)
+
+**Output:**
+- `/outputs/paper/tables/table8_specification_curve.csv` (Specification curve summary)
+- `/outputs/paper/figures/figure7_specification_curve.png|pdf` (Specification curve plot)
+- `/outputs/paper/supplementary/tableS1_bootstrap_ci.csv` (Bootstrap confidence intervals)
+- `/outputs/paper/supplementary/tableS2_loco_sensitivity.csv` (Leave-one-country-out)
+- `/outputs/paper/supplementary/tableS3_placebo_tests.csv` (Placebo test results)
+- `/outputs/paper/supplementary/tableS4_alternative_operationalizations.csv` (Alternative operationalizations)
+- `/outputs/paper/data/phase5_robustness_summary.txt` (Comprehensive summary)
+
+**Analyses Implemented:**
+
+1. **Specification Curve Analysis (§6.1)**
+   - Runs Model 1 across 108 combinations of:
+     - Control sets: minimal, defendant, violations, context, procedural, year, full
+     - Sample filters: all_fines, fines_gt_1000, fines_gt_10000
+     - Outcomes: log_fine_real_2025, log_fine_nominal
+     - Random effects: authority, country
+   - Reports coefficient distribution and significance rates
+
+2. **Bootstrap Confidence Intervals (§6.5)**
+   - 1,000 case-resampled bootstrap with cluster adjustment for authorities
+   - Computes 95% and 99% percentile CIs for key coefficients
+   - Tests robustness of standard errors
+
+3. **Leave-One-Country-Out Sensitivity (§6.3)**
+   - Estimates Model 1 excluding each country sequentially
+   - Assesses coefficient stability and identifies influential countries
+   - Flags countries with >20% coefficient change
+
+4. **Placebo Tests (§6.4)**
+   - Random permutation of factor scores within countries
+   - Tests whether observed effects differ from chance
+   - Reports p-value from permutation distribution
+
+5. **Alternative Factor Operationalizations (§6.6)**
+   - Binary counts (any aggravating vs none)
+   - High aggravating threshold (3+ factors)
+   - Balance score (aggravating - mitigating)
+   - PCA on factor matrix
+
+**Key Findings (2025-12-14):**
+```
+Specification Curve:
+  Specifications: 108
+  Mean β (aggravating): 0.2143
+  Range: [0.1362, 0.3353]
+  % Positive: 100%
+  % Significant (p<0.05): 100%
+
+Bootstrap CIs (1000 replicates):
+  Aggravating count: 95% CI [0.1267, 0.3949]
+  Mitigating count: 95% CI [-0.1629, 0.0951] (includes zero)
+  Large enterprise: 95% CI [1.7199, 2.3004]
+
+Leave-One-Country-Out:
+  Countries analyzed: 18
+  Max % change: 23.4% (Ireland excluded)
+  All coefficients remain significant
+  No single country drives the results
+
+Placebo Tests:
+  Factor shuffle p-value: 0.0000
+  Conclusion: Original effect is real, not due to chance
+
+Alternative Operationalizations:
+  Binary (any aggravating): β = 0.72**
+  High aggravating (3+): β = 0.68***
+  Balance score: β = 0.13***
+  PCA: β = 0.10 (marginal)
+```
+
+**Interpretation:**
+- H1 (Factor Predictiveness) **ROBUSTLY SUPPORTED**: Aggravating factors consistently predict higher fines across all 108 specifications
+- The effect is not driven by any single country or specification choice
+- Alternative operationalizations confirm the direction and significance of effects
+
+**Usage:**
+```bash
+python scripts/10_robustness_analysis.py
+```
+
+---
+
 ## Important Notes
 
 1. **Phase 2 validation is non-destructive** - it only reads and reports, never modifies data

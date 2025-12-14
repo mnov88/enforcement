@@ -1,0 +1,5 @@
+Operationalization,β,SE,p-value,R² (marginal),N,Notes
+Binary (Any Aggravating vs None),0.7221**,0.2727,0.0081,0.532,528,Tests if having any aggravating factor matters
+High Aggravating (3+ factors),0.6752***,0.1485,0.0000,0.545,528,Tests if having many aggravating factors matters more
+Balance Score (Agg - Mit),0.1324***,0.0314,0.0000,0.542,528,Net effect of aggravating minus mitigating
+PCA (First Principal Component),0.1029,0.0554,0.0635,0.529,528,PC1 explains 20.2% of factor variance
