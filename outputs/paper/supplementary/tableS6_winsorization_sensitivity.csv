@@ -1,0 +1,6 @@
+Winsorization,N,N Capped,β (Aggravating),SE,p-value,β (Mitigating),ICC,Cap
+No Winsorization,528,0,0.2584***,0.0476,<0.0001,-0.0227,0.571,No cap
+99th Percentile,528,6,0.2582***,0.0473,<0.0001,-0.0184,0.539,"Cap at EUR 46,475,734"
+97.5th Percentile,528,14,0.2494***,0.0465,<0.0001,-0.0140,0.504,"Cap at EUR 12,663,049"
+95th Percentile,528,27,0.2255***,0.0437,<0.0001,0.0004,0.453,"Cap at EUR 1,467,547"
+90th Percentile,528,53,0.2137***,0.0419,<0.0001,0.0032,0.407,"Cap at EUR 553,290"
