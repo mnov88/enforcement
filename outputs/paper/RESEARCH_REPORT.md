@@ -179,16 +179,15 @@ Regression of fine predictability (R²) on systematicity:
 
 **Result: SUPPORTED**
 
-| Metric | Value |
-|--------|-------|
-| Cohorts analyzed | 40 |
-| Matched pairs | 238 |
-| Mean Δ log fine | 2.566*** |
-| t-statistic | 18.908 |
-| p-value (one-sided) | < 0.0001 |
-| Cohen's d | 1.226 |
+| Metric | Full Sample | Excl. Mega-Fines (>€10M) |
+|--------|-------------|---------------------------|
+| Matched pairs | 238 | 220 |
+| Mean Δ log fine | 2.566*** | 2.168*** |
+| t-statistic | 18.908 | 17.6 |
+| Cohen's d | 1.226 | 1.392 |
+| **Implied ratio** | **13.0x** | **8.7x** |
 
-**Interpretation:** The mean log difference of 2.57 translates to approximately 13x average fine difference (exp(2.566) = 13.0) for cases with identical article violations matched on defendant characteristics.
+**Interpretation:** The mean log difference translates to approximately 13x average fine difference (exp(2.566) = 13.0) for cases with identical article violations matched on defendant characteristics. When excluding mega-fine pairs (>€10M), the disparity remains highly significant but drops to approximately 8.7x (−33%). The core finding of substantial cross-border inconsistency is robust, though the magnitude should be interpreted with awareness of outlier influence.
 
 **Example Cohort Disparities:**
 
@@ -206,14 +205,16 @@ Regression of fine predictability (R²) on systematicity:
 
 **Variance Decomposition:**
 
-| Component | Variance | % of Total | ICC |
-|-----------|----------|------------|-----|
-| Between-Country | 3.023 | 35.7% | 0.357 |
-| Between-Authority (within-country) | 2.105 | 24.8% | — |
-| Within-Authority (case-level) | 3.344 | 39.5% | — |
-| **Total** | **8.472** | **100%** | **0.605** |
+| Component | Full Sample | Excl. >€10M Fines |
+|-----------|-------------|-------------------|
+| Between-Country | 35.7% | 34.6% |
+| Between-Authority (within-country) | 24.8% | **12.7%** |
+| Within-Authority (case-level) | 39.5% | 52.7% |
+| **ICC (combined)** | **0.605** | **0.428** |
 
-**Interpretation:** Combined country and authority effects explain 60.5% of fine variance. The "which DPA you get" effect (24.8%) is nearly as large as national policy differences (35.7%), indicating substantial within-country enforcement heterogeneity.
+**Interpretation:** Combined country and authority effects explain 60.5% of fine variance (full sample). The "which DPA you get" effect (24.8%) is nearly as large as national policy differences (35.7%), indicating substantial within-country enforcement heterogeneity.
+
+**Outlier Sensitivity:** When excluding mega-fines (>€10M), authority variance drops substantially from 24.8% to 12.7% (−12 percentage points), while country variance remains stable. This indicates that extreme fines (like the €530M Meta penalty) contribute disproportionately to authority heterogeneity. The ICC drops from 0.605 to 0.428 (−29%), though it remains substantial.
 
 ---
 
@@ -221,18 +222,18 @@ Regression of fine predictability (R²) on systematicity:
 
 ### 5.1 Specification Curve
 
-Analysis across 108 model specifications varying:
-- Control sets (minimal, standard, full)
-- Sample restrictions (all fines, >€1K, >€10K)
-- Outcome transformations (log, real, ordinal)
-- Random effect structures
+Analysis across 270 model specifications varying:
+- Control sets (minimal, defendant-only, violations-only, context-only, standard, full)
+- Sample restrictions (all fines, >€1K, >€10K, <€1M, <€10M)
+- Outcome transformations (log real, log nominal, log winsorized)
+- Random effect structures (authority, country)
 
 **Results:**
 - Mean β (aggravating): 0.214
 - Range: [0.136, 0.335]
 - 100% specifications show positive effect
 - 100% significant at p < 0.05
-- 77% significant at p < 0.01
+- 86% significant at p < 0.01
 
 ### 5.2 Bootstrap Confidence Intervals
 
@@ -269,6 +270,33 @@ Factor shuffle within countries:
 | High aggravating (3+ factors) | 0.675*** | < 0.001 |
 | Balance score (agg − mit) | 0.132*** | < 0.001 |
 | PCA (1st principal component) | 0.103 | 0.064 |
+
+### 5.6 Mega-Fine Sensitivity (Outlier Exclusion)
+
+The fine distribution is highly skewed: 15 fines (2.8% of sample) exceeding €10M account for 93% of total fine value. To test whether extreme values drive results:
+
+| Sample | N | N Excluded | β (Aggravating) | p-value | % Change |
+|--------|---|------------|-----------------|---------|----------|
+| Full Sample | 528 | 0 | 0.258*** | < 0.0001 | — |
+| Exclude >€10M | 513 | 15 | 0.237*** | < 0.0001 | -8.2% |
+| Exclude >€1M | 495 | 33 | 0.211*** | < 0.0001 | -18.5% |
+| Exclude >€100K | 415 | 113 | 0.231*** | < 0.0001 | -10.7% |
+
+**Interpretation:** Results are robust to mega-fine exclusion. The aggravating factor coefficient remains highly significant (p < 0.0001) across all sample restrictions, with changes of less than 20%. Core findings are not driven by a handful of extreme penalties.
+
+### 5.7 Winsorization Sensitivity
+
+To address outlier influence via capping rather than exclusion:
+
+| Winsorization Level | N Capped | β (Aggravating) | p-value | ICC |
+|---------------------|----------|-----------------|---------|-----|
+| No winsorization | 0 | 0.258*** | < 0.0001 | 0.571 |
+| 99th percentile (€46.5M cap) | 6 | 0.258*** | < 0.0001 | 0.539 |
+| 97.5th percentile (€12.7M cap) | 14 | 0.249*** | < 0.0001 | 0.504 |
+| 95th percentile (€1.5M cap) | 27 | 0.226*** | < 0.0001 | 0.453 |
+| 90th percentile (€553K cap) | 53 | 0.214*** | < 0.0001 | 0.407 |
+
+**Interpretation:** The main effect is stable across winsorization levels. Coefficients range from 0.214 to 0.258, all highly significant. Notably, winsorization reduces authority-level ICC from 0.57 to 0.41, indicating that mega-fines contribute disproportionately to authority heterogeneity.
 
 ---
 
@@ -311,6 +339,7 @@ Factor shuffle within countries:
 3. **Temporal Scope:** 2018-2024 period may not generalize to evolving enforcement
 4. **Causal Claims:** Observational design limits causal inference despite rich controls
 5. **Nested Structure:** Two-model approximation for variance decomposition may introduce estimation error
+6. **Outlier Sensitivity:** While robustness tests confirm coefficient stability (§5.6-5.7), the highly skewed fine distribution (93% of total fines from 2.8% of cases) means cross-border disparity magnitudes should be interpreted cautiously. The 13x average disparity applies to the full sample; excluding mega-fine pairs reduces this to approximately 9x, still a substantial effect.
 
 ---
 
@@ -322,7 +351,7 @@ This analysis provides systematic evidence on GDPR enforcement patterns across 5
 
 2. **Substantial enforcement heterogeneity:** Country and authority effects jointly explain 60% of fine variance, with "which DPA you get" accounting for nearly as much variance as national policy differences.
 
-3. **Pronounced cross-border disparities:** Matched cases with identical violations show 13x average fine differences across jurisdictions, undermining GDPR's harmonization objectives.
+3. **Pronounced cross-border disparities:** Matched cases with identical violations show 13x average fine differences across jurisdictions (8.7x when excluding mega-fines), undermining GDPR's harmonization objectives.
 
 4. **No systematicity benefit:** More systematic factor articulation does not improve fine predictability, suggesting reasoning may function as post-hoc justification.
 
@@ -398,5 +427,5 @@ Coherence_a = |cor(balance_score_i, log_fine_i)|
 ---
 
 *Report generated: December 2025*
-*Analysis pipeline: Phases 1-5 complete*
+*Analysis pipeline: Phases 1-5 complete (including outlier robustness checks)*
 *Repository: /home/user/enforcement*

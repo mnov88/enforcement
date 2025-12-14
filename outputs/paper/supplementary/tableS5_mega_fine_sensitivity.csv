@@ -1,0 +1,5 @@
+Sample,N,N Excluded,β (Aggravating),SE,p-value,% Change from Full,β (Mitigating),Notes
+Full Sample,528,0,0.2584***,0.0476,<0.0001,—,-0.0227,All fines included
+Exclude >EUR 10M,513,15,0.2371***,0.0461,<0.0001,-8.2%,0.0106,Mega-fines excluded
+Exclude >EUR 1M,495,33,0.2107***,0.0434,<0.0001,-18.5%,0.0110,Large fines excluded
+Exclude >EUR 100K,415,113,0.2307***,0.0415,<0.0001,-10.7%,0.0235,Medium+ fines excluded

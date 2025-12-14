@@ -417,6 +417,31 @@ Estimate Model 1 excluding each country sequentially; assess coefficient stabili
 | Weighted scores | Weight factors by estimated importance (from factor-specific model) |
 | PCA factors | First principal component of factor matrix |
 
+### 6.7 Mega-Fine Sensitivity (Outlier Exclusion)
+
+The fine distribution exhibits extreme right-skew: 15 fines (2.8% of sample) exceeding €10M account for 93% of total fine value. To test whether extreme values drive results:
+
+**Sample Restrictions:**
+- Exclude fines >€10M (mega-fines)
+- Exclude fines >€1M (large fines)
+- Exclude fines >€100K (medium+ fines)
+
+**Diagnostic:** If coefficient signs, magnitudes, and significance persist across restrictions, results are robust to outlier influence.
+
+### 6.8 Winsorization Sensitivity
+
+Complementary to exclusion, cap extreme values at various percentiles to reduce outlier influence while retaining all observations:
+
+| Level | Percentile | Effect |
+|-------|------------|--------|
+| None | 100th | No capping (baseline) |
+| Mild | 99th | Cap at ~€46M |
+| Moderate | 97.5th | Cap at ~€13M |
+| Aggressive | 95th | Cap at ~€1.5M |
+| Severe | 90th | Cap at ~€553K |
+
+**Diagnostic:** Coefficient stability across winsorization levels indicates robustness; declining ICC suggests mega-fines drive authority heterogeneity.
+
 ---
 
 ## 7. Expected Outputs
@@ -448,6 +473,17 @@ Estimate Model 1 excluding each country sequentially; assess coefficient stabili
 
 ### 7.3 Supplementary Materials
 
+| Table | Content |
+|-------|---------|
+| Table S1 | Bootstrap confidence intervals (1000 replicates) |
+| Table S2 | Leave-one-country-out coefficient stability |
+| Table S3 | Placebo test results |
+| Table S4 | Alternative factor operationalizations |
+| Table S5 | Mega-fine sensitivity (outlier exclusion) |
+| Table S6 | Winsorization sensitivity analysis |
+| Table S7 | Cross-border mega-fine sensitivity |
+
+**Additional:**
 - Full regression output for all model variants
 - Matching diagnostics: covariate balance tables
 - Authority-level systematicity scores (all authorities with n≥10)
@@ -601,8 +637,21 @@ Model 5 (Variance Decomposition):
 ```
 
 **Key Insights:**
-- H3 (Cross-Border Disparities) **SUPPORTED**: Matched cases with identical article violations show highly significant fine variation across jurisdictions (mean gap = 2.57 log points, ~13x difference)
-- H4 (Authority Heterogeneity) **SUPPORTED**: Authority-level random effects account for 24.8% of variance beyond country-level effects, with combined ICC of 0.61
+- H3 (Cross-Border Disparities) **SUPPORTED**: Matched cases with identical article violations show highly significant fine variation across jurisdictions (mean gap = 2.57 log points, ~13x difference; ~8.7x when excluding mega-fine pairs)
+- H4 (Authority Heterogeneity) **SUPPORTED**: Authority-level random effects account for 24.8% of variance beyond country-level effects (12.7% excluding mega-fines), with combined ICC of 0.61 (0.43 excluding mega-fines)
+
+**Mega-Fine Sensitivity (NEW - Phase 4):**
+```
+Cross-Border Disparity (excluding mega-fine pairs):
+  Exclude >€10M: 13.0x → 8.7x (-32.8%)
+  Exclude >€1M:  13.0x → 7.4x (-43.3%)
+
+Variance Decomposition (excluding mega-fines):
+  Authority %: 24.8% → 12.7% (-12 pp)
+  ICC:         0.605 → 0.428 (-29%)
+
+INTERPRETATION: Core findings robust but magnitudes sensitive to mega-fines
+```
 
 ### 8.5 Phase 5: Robustness & Finalization ✅ COMPLETE
 
@@ -610,21 +659,23 @@ Model 5 (Variance Decomposition):
 
 | Task | Method | Output | Status |
 |------|--------|--------|--------|
-| Specification curve | Loop over 108 specs | Figure 7, Table 8 | ✅ Complete |
+| Specification curve | Loop over 270 specs | Figure 7, Table 8 | ✅ Complete |
 | Bootstrap CIs | 1000-replicate bootstrap | Table S1 | ✅ Complete |
 | Leave-one-country-out | Sequential exclusion | Table S2 | ✅ Complete |
 | Placebo tests | Permutation tests | Table S3 | ✅ Complete |
 | Alternative operationalizations | Binary, PCA, balance | Table S4 | ✅ Complete |
+| **Mega-fine sensitivity** | Outlier exclusion | Table S5 | ✅ Complete |
+| **Winsorization sensitivity** | Percentile capping | Table S6 | ✅ Complete |
 
-**Actual Results (2025-12-14):**
+**Actual Results (2025-12-14, Updated):**
 ```
 1. Specification Curve Analysis:
-   Specifications tested: 108
-   Mean β (aggravating): 0.2143
+   Specifications tested: 270 (expanded from 108)
+   Mean β (aggravating): 0.2142
    Range: [0.1362, 0.3353]
    % Positive: 100%
    % Significant (p<0.05): 100%
-   % Significant (p<0.01): 76.9%
+   % Significant (p<0.01): 85.9%
 
    INTERPRETATION: H1 ROBUSTLY SUPPORTED across all specifications
 
@@ -656,13 +707,35 @@ Model 5 (Variance Decomposition):
    PCA (1st component): β = 0.10 (p=0.064, marginal)
 
    INTERPRETATION: Results robust to alternative operationalizations
+
+6. Mega-Fine Sensitivity (NEW):
+   Full sample:         β = 0.258*** (N=528)
+   Exclude >€10M:       β = 0.237*** (N=513, -8.2% change)
+   Exclude >€1M:        β = 0.211*** (N=495, -18.5% change)
+   Exclude >€100K:      β = 0.231*** (N=415, -10.7% change)
+
+   INTERPRETATION: Results robust to mega-fine exclusion; coefficient
+   remains highly significant (p<0.0001) across all sample restrictions
+
+7. Winsorization Sensitivity (NEW):
+   No winsorization:    β = 0.258*** (ICC=0.571)
+   99th percentile:     β = 0.258*** (ICC=0.539)
+   97.5th percentile:   β = 0.249*** (ICC=0.504)
+   95th percentile:     β = 0.226*** (ICC=0.453)
+   90th percentile:     β = 0.214*** (ICC=0.407)
+
+   INTERPRETATION: Main effect stable across winsorization levels.
+   Declining ICC indicates mega-fines contribute disproportionately
+   to authority heterogeneity.
 ```
 
 **Key Insights:**
-- H1 (Factor Predictiveness) **ROBUSTLY SUPPORTED**: Aggravating factor effect is positive and significant across all 108 specifications, with narrow coefficient range [0.14, 0.34]
+- H1 (Factor Predictiveness) **ROBUSTLY SUPPORTED**: Aggravating factor effect is positive and significant across all 270 specifications, with narrow coefficient range [0.14, 0.34]
 - The effect is not driven by any single country, specification choice, or operationalization
 - Bootstrap CIs confirm standard errors are appropriately estimated
 - Placebo tests confirm the effect is genuine, not a statistical artifact
+- **Outlier Robustness CONFIRMED**: Results survive mega-fine exclusion and winsorization at all levels tested
+- Mega-fines contribute disproportionately to authority-level ICC (drops from 0.57 to 0.41 with aggressive winsorization)
 
 ---
 
@@ -748,7 +821,7 @@ seaborn >= 0.12
 
 ---
 
-*Document Version: 1.1*
-*Prepared: 2025-12-13 | Updated: 2025-12-14*
+*Document Version: 1.3*
+*Prepared: 2025-12-13 | Updated: 2025-12-14 (outlier robustness + cross-border sensitivity)*
 *Repository: /home/user/enforcement*
-*Status: All 5 phases implemented and validated*
+*Status: All 5 phases implemented and validated (including comprehensive outlier sensitivity)*

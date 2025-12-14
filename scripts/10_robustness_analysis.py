@@ -99,12 +99,18 @@ SAMPLE_FILTERS = {
     "all_fines": lambda df: df,  # All positive fines
     "fines_gt_1000": lambda df: df[df["fine_amount_eur"] > 1000],
     "fines_gt_10000": lambda df: df[df["fine_amount_eur"] > 10000],
+    "fines_lt_10M": lambda df: df[df["fine_amount_eur"] < 10_000_000],  # Exclude mega-fines
+    "fines_lt_1M": lambda df: df[df["fine_amount_eur"] < 1_000_000],  # Exclude large fines
 }
+
+# Mega-fine threshold for sensitivity analysis
+MEGA_FINE_THRESHOLD = 10_000_000  # EUR 10 million
 
 # Outcome variable options
 OUTCOME_OPTIONS = {
     "log_fine_real_2025": "log_fine_2025",
     "log_fine_nominal": "log_fine_nominal",
+    "log_fine_winsorized": "log_fine_winsorized",  # Winsorized at 99th percentile
 }
 
 # Random effects options
@@ -168,6 +174,17 @@ def prepare_robustness_data(df: pd.DataFrame) -> pd.DataFrame:
         data["log_fine_nominal"] = np.log1p(data["fine_amount_eur"].clip(lower=0).fillna(0))
     else:
         data["log_fine_nominal"] = data["log_fine_2025"]
+
+    # Create winsorized log fine (cap at 99th percentile)
+    fine_col = "fine_amount_eur_real_2025" if "fine_amount_eur_real_2025" in data.columns else "fine_amount_eur"
+    if fine_col in data.columns:
+        fine_99 = data[fine_col].quantile(0.99)
+        fine_winsorized = data[fine_col].clip(upper=fine_99)
+        data["log_fine_winsorized"] = np.log1p(fine_winsorized.clip(lower=0).fillna(0))
+        data["fine_winsorized_cap"] = fine_99  # Store for reporting
+        logger.info(f"Winsorized fines at 99th percentile: EUR {fine_99:,.0f}")
+    else:
+        data["log_fine_winsorized"] = data["log_fine_2025"]
 
     # Ensure authority and country identifiers
     if "authority_name_norm" not in data.columns:
@@ -1063,6 +1080,246 @@ def format_alternative_operationalization_table(results: List[AlternativeOperati
 
 
 # -----------------------------------------------------------------------------
+# 6. Mega-Fine Sensitivity Analysis (NEW)
+# -----------------------------------------------------------------------------
+
+@dataclass
+class MegaFineSensitivity:
+    """Results from mega-fine exclusion sensitivity analysis."""
+    analysis_type: str
+    sample_description: str
+    n_obs: int
+    n_excluded: int
+    beta_aggravating: float
+    se_aggravating: float
+    p_value: float
+    beta_mitigating: float
+    pct_change_from_full: float
+    notes: str
+
+
+def run_mega_fine_sensitivity(df: pd.DataFrame) -> List[MegaFineSensitivity]:
+    """
+    Run sensitivity analysis excluding mega-fines.
+
+    Tests whether large fines (>EUR 10M) drive the main results.
+    """
+    if not HAS_STATSMODELS:
+        return []
+
+    results: List[MegaFineSensitivity] = []
+
+    # Model specification
+    factor_vars = ["art83_aggravating_count", "art83_mitigating_count", "art83_neutral_count"]
+    control_vars = ["is_private", "is_large_enterprise", "breach_has_art5", "breach_has_art6",
+                    "complaint_origin", "audit_origin", "oss_case"]
+    available_controls = [c for c in control_vars if c in df.columns and df[c].var() > 0]
+    formula = "log_fine_2025 ~ " + " + ".join(factor_vars + available_controls)
+
+    # Prepare base data
+    keep_cols = ["log_fine_2025", "authority_name_norm", "fine_amount_eur"] + factor_vars + available_controls
+    keep_cols = [c for c in keep_cols if c in df.columns]
+    base_df = df[keep_cols].dropna()
+
+    # Define sample cuts
+    sample_cuts = [
+        ("Full Sample", base_df, "All fines included"),
+        ("Exclude >EUR 10M", base_df[base_df["fine_amount_eur"] < 10_000_000], "Mega-fines excluded"),
+        ("Exclude >EUR 1M", base_df[base_df["fine_amount_eur"] < 1_000_000], "Large fines excluded"),
+        ("Exclude >EUR 100K", base_df[base_df["fine_amount_eur"] < 100_000], "Medium+ fines excluded"),
+    ]
+
+    full_beta = None
+
+    for name, sample_df, notes in sample_cuts:
+        if len(sample_df) < 30:
+            continue
+
+        try:
+            model = smf.mixedlm(
+                formula,
+                data=sample_df,
+                groups=sample_df["authority_name_norm"],
+                re_formula="~1"
+            )
+            fit = model.fit(method="powell", maxiter=300)
+
+            beta_agg = fit.fe_params.get("art83_aggravating_count", np.nan)
+
+            if full_beta is None:
+                full_beta = beta_agg
+
+            pct_change = 100 * (beta_agg - full_beta) / abs(full_beta) if full_beta else 0
+
+            results.append(MegaFineSensitivity(
+                analysis_type="Sample Exclusion",
+                sample_description=name,
+                n_obs=len(sample_df),
+                n_excluded=len(base_df) - len(sample_df),
+                beta_aggravating=beta_agg,
+                se_aggravating=fit.bse_fe.get("art83_aggravating_count", np.nan),
+                p_value=fit.pvalues.get("art83_aggravating_count", np.nan),
+                beta_mitigating=fit.fe_params.get("art83_mitigating_count", np.nan),
+                pct_change_from_full=pct_change,
+                notes=notes,
+            ))
+
+        except Exception as e:
+            logger.debug(f"Mega-fine sensitivity failed for {name}: {e}")
+            continue
+
+    return results
+
+
+def format_mega_fine_sensitivity_table(results: List[MegaFineSensitivity]) -> pd.DataFrame:
+    """Format mega-fine sensitivity results as Table S5."""
+    rows = []
+
+    for r in results:
+        sig = "***" if r.p_value < 0.001 else "**" if r.p_value < 0.01 else "*" if r.p_value < 0.05 else ""
+        rows.append({
+            "Sample": r.sample_description,
+            "N": r.n_obs,
+            "N Excluded": r.n_excluded,
+            "β (Aggravating)": f"{r.beta_aggravating:.4f}{sig}",
+            "SE": f"{r.se_aggravating:.4f}",
+            "p-value": f"{r.p_value:.4f}" if r.p_value >= 0.0001 else "<0.0001",
+            "% Change from Full": f"{r.pct_change_from_full:+.1f}%" if r.pct_change_from_full != 0 else "—",
+            "β (Mitigating)": f"{r.beta_mitigating:.4f}",
+            "Notes": r.notes,
+        })
+
+    return pd.DataFrame(rows)
+
+
+# -----------------------------------------------------------------------------
+# 7. Winsorization Sensitivity Analysis (NEW)
+# -----------------------------------------------------------------------------
+
+@dataclass
+class WinsorSensitivity:
+    """Results from winsorization sensitivity analysis."""
+    outcome_type: str
+    winsor_level: str
+    n_obs: int
+    n_affected: int
+    beta_aggravating: float
+    se_aggravating: float
+    p_value: float
+    beta_mitigating: float
+    icc: float
+    notes: str
+
+
+def run_winsorization_sensitivity(df: pd.DataFrame) -> List[WinsorSensitivity]:
+    """
+    Run sensitivity analysis with different winsorization levels.
+
+    Tests whether extreme values drive results by capping at different percentiles.
+    """
+    if not HAS_STATSMODELS:
+        return []
+
+    results: List[WinsorSensitivity] = []
+
+    # Model specification
+    factor_vars = ["art83_aggravating_count", "art83_mitigating_count", "art83_neutral_count"]
+    control_vars = ["is_private", "is_large_enterprise", "breach_has_art5", "breach_has_art6",
+                    "complaint_origin", "audit_origin", "oss_case"]
+    available_controls = [c for c in control_vars if c in df.columns and df[c].var() > 0]
+
+    # Get fine column
+    fine_col = "fine_amount_eur_real_2025" if "fine_amount_eur_real_2025" in df.columns else "fine_amount_eur"
+
+    # Prepare base data
+    keep_cols = ["authority_name_norm", fine_col] + factor_vars + available_controls
+    keep_cols = [c for c in keep_cols if c in df.columns]
+    base_df = df[keep_cols].dropna()
+
+    if len(base_df) < 50:
+        return []
+
+    # Winsorization levels to test
+    winsor_levels = [
+        ("No Winsorization", 1.0),
+        ("99th Percentile", 0.99),
+        ("97.5th Percentile", 0.975),
+        ("95th Percentile", 0.95),
+        ("90th Percentile", 0.90),
+    ]
+
+    for name, percentile in winsor_levels:
+        try:
+            model_df = base_df.copy()
+
+            if percentile < 1.0:
+                cap = model_df[fine_col].quantile(percentile)
+                n_affected = (model_df[fine_col] > cap).sum()
+                model_df["fine_winsor"] = model_df[fine_col].clip(upper=cap)
+            else:
+                cap = model_df[fine_col].max()
+                n_affected = 0
+                model_df["fine_winsor"] = model_df[fine_col]
+
+            model_df["log_fine_winsor"] = np.log1p(model_df["fine_winsor"].clip(lower=0))
+
+            formula = "log_fine_winsor ~ " + " + ".join(factor_vars + available_controls)
+
+            model = smf.mixedlm(
+                formula,
+                data=model_df,
+                groups=model_df["authority_name_norm"],
+                re_formula="~1"
+            )
+            fit = model.fit(method="powell", maxiter=300)
+
+            # Calculate ICC
+            var_re = float(fit.cov_re.iloc[0, 0]) if hasattr(fit.cov_re, 'iloc') else float(fit.cov_re)
+            var_resid = fit.scale
+            icc = var_re / (var_re + var_resid) if (var_re + var_resid) > 0 else 0
+
+            results.append(WinsorSensitivity(
+                outcome_type="Log Fine (Real 2025 EUR)",
+                winsor_level=name,
+                n_obs=len(model_df),
+                n_affected=n_affected,
+                beta_aggravating=fit.fe_params.get("art83_aggravating_count", np.nan),
+                se_aggravating=fit.bse_fe.get("art83_aggravating_count", np.nan),
+                p_value=fit.pvalues.get("art83_aggravating_count", np.nan),
+                beta_mitigating=fit.fe_params.get("art83_mitigating_count", np.nan),
+                icc=icc,
+                notes=f"Cap at EUR {cap:,.0f}" if percentile < 1.0 else "No cap",
+            ))
+
+        except Exception as e:
+            logger.debug(f"Winsorization sensitivity failed for {name}: {e}")
+            continue
+
+    return results
+
+
+def format_winsorization_table(results: List[WinsorSensitivity]) -> pd.DataFrame:
+    """Format winsorization sensitivity results as Table S6."""
+    rows = []
+
+    for r in results:
+        sig = "***" if r.p_value < 0.001 else "**" if r.p_value < 0.01 else "*" if r.p_value < 0.05 else ""
+        rows.append({
+            "Winsorization": r.winsor_level,
+            "N": r.n_obs,
+            "N Capped": r.n_affected,
+            "β (Aggravating)": f"{r.beta_aggravating:.4f}{sig}",
+            "SE": f"{r.se_aggravating:.4f}",
+            "p-value": f"{r.p_value:.4f}" if r.p_value >= 0.0001 else "<0.0001",
+            "β (Mitigating)": f"{r.beta_mitigating:.4f}",
+            "ICC": f"{r.icc:.3f}",
+            "Cap": r.notes,
+        })
+
+    return pd.DataFrame(rows)
+
+
+# -----------------------------------------------------------------------------
 # Output and Main
 # -----------------------------------------------------------------------------
 
@@ -1079,7 +1336,9 @@ def save_phase5_summary(
     bootstrap_results: List[BootstrapResults],
     loco_results: List[LOCOResult],
     placebo_results: List[PlaceboResults],
-    alt_results: List[AlternativeOperationalization]
+    alt_results: List[AlternativeOperationalization],
+    mega_fine_results: Optional[List[MegaFineSensitivity]] = None,
+    winsor_results: Optional[List[WinsorSensitivity]] = None
 ) -> None:
     """Save comprehensive Phase 5 summary."""
     summary_path = DATA_DIR / "phase5_robustness_summary.txt"
@@ -1164,6 +1423,38 @@ def save_phase5_summary(
         else:
             f.write("No results available.\n")
 
+        f.write("\n")
+
+        # Mega-fine sensitivity (NEW)
+        f.write("6. MEGA-FINE SENSITIVITY ANALYSIS (Outlier Robustness)\n")
+        f.write("-" * 40 + "\n")
+        if mega_fine_results:
+            f.write("Tests whether excluding large fines affects results:\n\n")
+            for r in mega_fine_results:
+                sig = "***" if r.p_value < 0.001 else "**" if r.p_value < 0.01 else "*" if r.p_value < 0.05 else ""
+                f.write(f"  {r.sample_description}: β={r.beta_aggravating:.4f}{sig} "
+                        f"(N={r.n_obs}, change={r.pct_change_from_full:+.1f}%)\n")
+            f.write("\nInterpretation: Results are robust to excluding mega-fines if coefficient "
+                    "remains significant and similar magnitude.\n")
+        else:
+            f.write("No results available.\n")
+
+        f.write("\n")
+
+        # Winsorization sensitivity (NEW)
+        f.write("7. WINSORIZATION SENSITIVITY ANALYSIS (Outlier Robustness)\n")
+        f.write("-" * 40 + "\n")
+        if winsor_results:
+            f.write("Tests whether capping extreme values affects results:\n\n")
+            for r in winsor_results:
+                sig = "***" if r.p_value < 0.001 else "**" if r.p_value < 0.01 else "*" if r.p_value < 0.05 else ""
+                f.write(f"  {r.winsor_level}: β={r.beta_aggravating:.4f}{sig} "
+                        f"(N capped={r.n_affected}, ICC={r.icc:.3f})\n")
+            f.write("\nInterpretation: Results are robust to winsorization if coefficient "
+                    "remains stable across percentile caps.\n")
+        else:
+            f.write("No results available.\n")
+
         f.write("\n" + "=" * 70 + "\n")
         f.write("Generated by 10_robustness_analysis.py (Phase 5)\n")
 
@@ -1180,12 +1471,12 @@ def main() -> None:
     ensure_output_dirs()
 
     # Load and prepare data
-    logger.info("\n[1/8] Loading analysis sample...")
+    logger.info("\n[1/10] Loading analysis sample...")
     df = load_analysis_sample()
     df = prepare_robustness_data(df)
 
     # 1. Specification Curve Analysis
-    logger.info("\n[2/8] Running specification curve analysis...")
+    logger.info("\n[2/10] Running specification curve analysis...")
     spec_results = run_specification_curve(df)
 
     if spec_results:
@@ -1199,7 +1490,7 @@ def main() -> None:
         print(table8.to_string(index=False))
 
         # Figure 7
-        logger.info("\n[3/8] Creating Figure 7: Specification curve...")
+        logger.info("\n[3/10] Creating Figure 7: Specification curve...")
         fig7 = create_figure7_specification_curve(spec_results)
         if fig7:
             fig7_path = FIGURES_DIR / "figure7_specification_curve.png"
@@ -1211,7 +1502,7 @@ def main() -> None:
         logger.warning("Specification curve analysis produced no results")
 
     # 2. Bootstrap CIs
-    logger.info("\n[4/8] Running bootstrap confidence intervals...")
+    logger.info("\n[4/10] Running bootstrap confidence intervals...")
     bootstrap_results = run_bootstrap_model(df, n_bootstrap=N_BOOTSTRAP)
 
     if bootstrap_results:
@@ -1225,7 +1516,7 @@ def main() -> None:
         print(bootstrap_table.to_string(index=False))
 
     # 3. Leave-One-Country-Out
-    logger.info("\n[5/8] Running leave-one-country-out sensitivity...")
+    logger.info("\n[5/10] Running leave-one-country-out sensitivity...")
 
     # Get full-sample beta for comparison
     full_beta = 0.22  # Default from Phase 3 results
@@ -1247,7 +1538,7 @@ def main() -> None:
         print(loco_table.head(15).to_string(index=False))
 
     # 4. Placebo Tests
-    logger.info("\n[6/8] Running placebo tests...")
+    logger.info("\n[6/10] Running placebo tests...")
     placebo_results: List[PlaceboResults] = []
 
     placebo_shuffle = run_placebo_article_shuffle(df, n_permutations=N_PLACEBO)
@@ -1265,7 +1556,7 @@ def main() -> None:
         print(placebo_table.to_string(index=False))
 
     # 5. Alternative Operationalizations
-    logger.info("\n[7/8] Running alternative operationalizations...")
+    logger.info("\n[7/10] Running alternative operationalizations...")
     alt_results = run_alternative_operationalizations(df)
 
     if alt_results:
@@ -1278,9 +1569,38 @@ def main() -> None:
         print("=" * 50)
         print(alt_table.to_string(index=False))
 
+    # 6. Mega-Fine Sensitivity Analysis (NEW)
+    logger.info("\n[8/10] Running mega-fine sensitivity analysis...")
+    mega_fine_results = run_mega_fine_sensitivity(df)
+
+    if mega_fine_results:
+        mega_table = format_mega_fine_sensitivity_table(mega_fine_results)
+        mega_path = SUPPLEMENTARY_DIR / "tableS5_mega_fine_sensitivity.csv"
+        mega_table.to_csv(mega_path, index=False)
+        logger.info(f"  Saved mega-fine sensitivity to {mega_path}")
+        print("\n" + "=" * 50)
+        print("TABLE S5: Mega-Fine Sensitivity Analysis")
+        print("=" * 50)
+        print(mega_table.to_string(index=False))
+
+    # 7. Winsorization Sensitivity Analysis (NEW)
+    logger.info("\n[9/10] Running winsorization sensitivity analysis...")
+    winsor_results = run_winsorization_sensitivity(df)
+
+    if winsor_results:
+        winsor_table = format_winsorization_table(winsor_results)
+        winsor_path = SUPPLEMENTARY_DIR / "tableS6_winsorization_sensitivity.csv"
+        winsor_table.to_csv(winsor_path, index=False)
+        logger.info(f"  Saved winsorization sensitivity to {winsor_path}")
+        print("\n" + "=" * 50)
+        print("TABLE S6: Winsorization Sensitivity Analysis")
+        print("=" * 50)
+        print(winsor_table.to_string(index=False))
+
     # Save comprehensive summary
-    logger.info("\n[8/8] Saving Phase 5 summary...")
-    save_phase5_summary(spec_results, bootstrap_results, loco_results, placebo_results, alt_results)
+    logger.info("\n[10/10] Saving Phase 5 summary...")
+    save_phase5_summary(spec_results, bootstrap_results, loco_results, placebo_results,
+                        alt_results, mega_fine_results, winsor_results)
 
     # Print final summary
     logger.info("\n" + "=" * 70)
@@ -1321,6 +1641,18 @@ def main() -> None:
         for r in alt_results:
             sig = "***" if r.p_value < 0.001 else "**" if r.p_value < 0.01 else "*" if r.p_value < 0.05 else ""
             print(f"   {r.operationalization}: β={r.beta_main:.4f}{sig}")
+
+    if mega_fine_results:
+        print(f"\n6. Mega-Fine Sensitivity (Outlier Robustness):")
+        for r in mega_fine_results:
+            sig = "***" if r.p_value < 0.001 else "**" if r.p_value < 0.01 else "*" if r.p_value < 0.05 else ""
+            print(f"   {r.sample_description}: β={r.beta_aggravating:.4f}{sig} (N={r.n_obs})")
+
+    if winsor_results:
+        print(f"\n7. Winsorization Sensitivity (Outlier Robustness):")
+        for r in winsor_results:
+            sig = "***" if r.p_value < 0.001 else "**" if r.p_value < 0.01 else "*" if r.p_value < 0.05 else ""
+            print(f"   {r.winsor_level}: β={r.beta_aggravating:.4f}{sig} (N capped={r.n_affected})")
 
     print("\n" + "=" * 50)
     print(f"Outputs saved to:")
