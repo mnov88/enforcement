@@ -538,13 +538,57 @@ Model 3 (Systematicity → Predictability):
 - H2 (Reasoning Systematicity) **NOT SUPPORTED**: No relationship between authority systematicity and fine predictability
 - H4 (Authority Heterogeneity) **SUPPORTED**: ICC of 58.5% indicates "which DPA you get" matters substantially
 
-### 8.4 Phase 4: Cross-Border Analysis (Week 5-7)
+### 8.4 Phase 4: Cross-Border Analysis ✅ COMPLETE
 
-| Task | Method | Output |
-|------|--------|--------|
-| Nearest-neighbor matching | scipy cdist + custom matcher | Matched pairs dataset |
-| Gap computation | Paired differences | Table 6, Figure 4 |
-| Model 5: Variance decomposition | statsmodels MixedLM (nested) | Table 7, Figure 5 |
+**Script:** `scripts/8_cross_border_analysis.py`
+
+| Task | Method | Output | Status |
+|------|--------|--------|--------|
+| Nearest-neighbor matching | scipy cdist + Mahalanobis distance | Matched pairs dataset | ✅ 236 pairs |
+| Gap computation | Paired differences | Table 6, Figure 4 | ✅ Complete |
+| Model 5: Variance decomposition | statsmodels MixedLM (nested) | Table 7, Figure 5 | ✅ Complete |
+
+**Actual Results (2025-12-13):**
+```
+Cross-Border Matching (RQ3):
+  Cohorts analyzed:         40
+  Total matched pairs:      236
+  Mean Δ(log fine):        2.571
+  Std Δ(log fine):         2.124
+  Median Δ(log fine):      2.234
+
+Disparity Test (H3):
+  t-statistic:             18.557
+  p-value (one-sided):     <0.0001 ***
+  Cohen's d:               1.208 (large effect)
+  95% CI:                  [2.298, 2.844]
+
+  Interpretation: H3 SUPPORTED
+  → Similar violations receive significantly different penalties across jurisdictions
+
+Variance Decomposition (RQ4):
+  Observations:            506
+  Countries:               17
+  Authorities:             44
+
+  Variance Components:
+    σ²_country:            2.533 (31.7%)
+    σ²_authority:          2.129 (26.6%)
+    σ²_residual:           3.329 (41.7%)
+
+  Intraclass Correlations:
+    ICC (country):         0.317
+    ICC (authority):       0.267
+    ICC (combined):        0.584
+
+  Interpretation: H4 SUPPORTED
+  → 26.6% of fine variance attributable to "which DPA you get"
+  → 58.4% of variance due to jurisdiction (country + authority)
+```
+
+**Key Insights:**
+- H3 (Cross-Border Disparities) **SUPPORTED**: Matched cases with identical article violations show significant fine variation across jurisdictions (mean log gap = 2.57, Cohen's d = 1.21)
+- H4 (Authority Heterogeneity) **SUPPORTED**: Authority-level random effects account for 26.6% of fine variance, confirming enforcement depends substantially on "which DPA you get"
 
 ### 8.5 Phase 5: Robustness & Finalization (Week 7-9)
 

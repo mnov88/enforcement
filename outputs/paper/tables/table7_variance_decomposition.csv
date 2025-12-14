@@ -1,0 +1,9 @@
+Component,Variance (σ²),% of Total,ICC,Interpretation
+Country-Level,2.5332,31.7%,0.3170,Between-country heterogeneity
+Authority-Level (within country),2.1292,26.6%,0.2665,"Within-country, between-authority variation"
+Case-Level (residual),3.3285,41.7%,—,"Within-authority, case-to-case variation"
+Total,7.9908,100%,0.5835,Combined country + authority ICC
+---,---,---,---,---
+N (observations),506,,,
+N (countries),17,,,
+N (authorities),44,,,

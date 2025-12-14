@@ -43,6 +43,9 @@ This repository implements a data pipeline for analyzing GDPR enforcement decisi
 2. **Phase 6.3 - Factor Effect Models:** `scripts/7_factor_effect_models.py`
    - Output: `outputs/paper/tables/` (Tables 3-5), `outputs/paper/figures/` (Figure 3)
    - Models: Mixed-effects regression, factor decomposition, systematicity analysis
+3. **Phase 6.4 - Cross-Border Analysis:** `scripts/8_cross_border_analysis.py`
+   - Output: `outputs/paper/tables/` (Tables 6-7), `outputs/paper/figures/` (Figures 4-5), `outputs/paper/data/matched_pairs.csv`
+   - Analyses: Nearest-neighbor matching within article cohorts, variance decomposition (country vs authority vs case)
 
 **Phase 2 Utility:** `scripts/2_analyze_enum_values.py` - Enum frequency analysis for identifying repair patterns
 
