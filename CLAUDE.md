@@ -78,7 +78,11 @@ Scripts and outputs follow a phase structure:
 3. **Phase 3 (Repair):** Auto-fix common errors using pattern-based rules
 4. **Phase 4 (Enrichment):** Build enriched master dataset, long tables, and graph exports
 5. **Phase 5 (Analysis):** Generate similarity cohorts and modelling artefacts from the enriched data
-6. **Phase 6 (Paper Analysis):** Research paper methodology - data preparation, factor effect models, cross-border analysis
+6. **Phase 6 (Paper Analysis):** Research paper methodology with sub-phases:
+   - **6.1 Data Preparation:** `scripts/6_paper_data_preparation.py` → analysis_sample.csv, systematicity indices
+   - **6.2 Descriptive Analysis:** `scripts/9_descriptive_analysis.py` → Tables 1-2, Figures 1-2, 6
+   - **6.3 Factor Effect Models:** `scripts/7_factor_effect_models.py` → Tables 3-5, Figure 3
+   - **6.4 Cross-Border Analysis:** `scripts/8_cross_border_analysis.py` → Tables 6-7, Figures 4-5
 
 See `SCRIPTS-README.md` for comprehensive documentation of all data transformations.
 

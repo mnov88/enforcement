@@ -645,6 +645,81 @@ python scripts/7_factor_effect_models.py
 
 ---
 
+### Script: `scripts/8_cross_border_analysis.py`
+
+**Purpose:** Phase 4 of the paper analysis pipeline - cross-border matching and variance decomposition.
+
+**Input:**
+- `/outputs/paper/data/analysis_sample.csv` (528 analytical decisions)
+
+**Output:**
+- `/outputs/paper/tables/table6_cross_border_gaps.csv` (Matched pairs by cohort)
+- `/outputs/paper/tables/table7_variance_decomposition.csv` (Variance components)
+- `/outputs/paper/figures/figure4_cross_border_gaps.png|pdf` (Gap distributions)
+- `/outputs/paper/figures/figure5_variance_partition.png|pdf` (Variance pie chart)
+- `/outputs/paper/data/matched_pairs.csv` (238 matched pairs)
+- `/outputs/paper/data/phase4_results_summary.txt` (Results summary)
+
+**Models Implemented:**
+
+1. **Model 4: Cross-Border Nearest-Neighbor Matching**
+   - Matches cases with identical `article_set_key` across different countries
+   - Uses normalized Euclidean distance on: defendant class, enterprise size, sector, year
+   - Greedy matching to avoid many-to-one pairs
+   - Tests H3: E[Δ log fine] > 0 (cross-border disparity)
+
+2. **Model 5: Three-Level Variance Decomposition**
+   - Partitions log fine variance into: country, authority, case-level
+   - Uses mixed-effects model with nested random intercepts
+   - Computes ICCs for country and authority levels
+   - Tests H4: Substantial authority-level heterogeneity
+
+**Key Findings (2025-12-14):**
+- 238 matched pairs across 40 article cohorts
+- Mean Δ log fine = 2.57*** (t=18.9, p<0.0001)
+- Cohen's d = 1.23 (large effect size)
+- Variance partition: Country 35.7%, Authority 24.8%, Case 39.5%
+- ICC (country + authority) = 0.61
+- H3 SUPPORTED: Significant cross-border disparity
+- H4 SUPPORTED: Substantial authority-level heterogeneity
+
+**Usage:**
+```bash
+python scripts/8_cross_border_analysis.py
+```
+
+---
+
+### Script: `scripts/9_descriptive_analysis.py`
+
+**Purpose:** Phase 2 of the paper analysis pipeline - descriptive statistics and visualizations.
+
+**Input:**
+- `/outputs/paper/data/analysis_sample.csv` (528 analytical decisions)
+- `/outputs/paper/tables/table4_factor_decomposition.csv` (for Figure 6)
+
+**Output:**
+- `/outputs/paper/tables/table1_country_statistics.csv` (Country-level descriptives)
+- `/outputs/paper/tables/table2_factor_frequencies.csv` (Factor usage rates)
+- `/outputs/paper/figures/figure1_fine_distribution.png|pdf` (Violin plots)
+- `/outputs/paper/figures/figure2_factor_heatmap.png|pdf` (Factor usage heatmap)
+- `/outputs/paper/figures/figure6_coefficient_plot.png|pdf` (Factor effect CIs)
+
+**Key Statistics (2025-12-14):**
+- 528 decisions across 18 countries
+- Mean fine: EUR 2.67M, Median: EUR 20,982
+- Max fine: EUR 530M (Ireland)
+- Mean factors discussed: 5.2 of 11
+- Most discussed factor: Nature/Gravity/Duration (91.1%)
+- Least discussed factor: Codes/Certification (1.9%)
+
+**Usage:**
+```bash
+python scripts/9_descriptive_analysis.py
+```
+
+---
+
 ## Important Notes
 
 1. **Phase 2 validation is non-destructive** - it only reads and reports, never modifies data

@@ -483,13 +483,36 @@ Systematicity Index:
   Top authority:         National Commission for Informatics and Freedoms (0.252)
 ```
 
-### 8.2 Phase 2: Descriptive Analysis (Week 2-3)
+### 8.2 Phase 2: Descriptive Analysis ✅ COMPLETE
 
-| Task | Method | Output |
-|------|--------|--------|
-| Summary statistics | pandas describe + groupby | Table 1, Table 2 |
-| Factor usage patterns | Crosstabs, heatmaps | Figure 2 |
-| Geographic distributions | Violin plots, maps | Figure 1 |
+**Script:** `scripts/9_descriptive_analysis.py`
+
+| Task | Method | Output | Status |
+|------|--------|--------|--------|
+| Summary statistics | pandas describe + groupby | Table 1, Table 2 | ✅ 18 countries |
+| Factor usage patterns | Crosstabs, heatmaps | Figure 2 | ✅ 20 authorities |
+| Geographic distributions | Violin plots | Figure 1 | ✅ Complete |
+| Coefficient visualization | Error bar plot | Figure 6 | ✅ 11 factors |
+
+**Actual Results (2025-12-14):**
+```
+Sample Statistics:
+  N = 528 decisions across 18 countries
+  Mean fine: EUR 2,668,131
+  Median fine: EUR 20,982
+  Max fine: EUR 530,000,000 (Ireland)
+
+Factor Discussion Rates:
+  Most discussed: Nature/Gravity/Duration (91.1%)
+  Least discussed: Codes/Certification (1.9%)
+  Mean factors discussed per decision: 5.2 of 11
+
+Country Distribution:
+  Italy: 167 decisions (highest)
+  Spain: 112 decisions
+  Greece (GR): 47 decisions
+  France: 38 decisions
+```
 
 ### 8.3 Phase 3: Factor Effect Models ✅ COMPLETE
 
@@ -538,13 +561,48 @@ Model 3 (Systematicity → Predictability):
 - H2 (Reasoning Systematicity) **NOT SUPPORTED**: No relationship between authority systematicity and fine predictability
 - H4 (Authority Heterogeneity) **SUPPORTED**: ICC of 58.5% indicates "which DPA you get" matters substantially
 
-### 8.4 Phase 4: Cross-Border Analysis (Week 5-7)
+### 8.4 Phase 4: Cross-Border Analysis ✅ COMPLETE
 
-| Task | Method | Output |
-|------|--------|--------|
-| Nearest-neighbor matching | scipy cdist + custom matcher | Matched pairs dataset |
-| Gap computation | Paired differences | Table 6, Figure 4 |
-| Model 5: Variance decomposition | statsmodels MixedLM (nested) | Table 7, Figure 5 |
+**Script:** `scripts/8_cross_border_analysis.py`
+
+| Task | Method | Output | Status |
+|------|--------|--------|--------|
+| Nearest-neighbor matching | scipy cdist + greedy matcher | Matched pairs dataset | ✅ 238 pairs |
+| Gap computation | Paired differences + t-test | Table 6, Figure 4 | ✅ 40 cohorts |
+| Model 5: Variance decomposition | statsmodels MixedLM (nested) | Table 7, Figure 5 | ✅ Complete |
+
+**Actual Results (2025-12-14):**
+```
+Model 4 (Cross-Border Matching):
+  Cohorts analyzed: 40
+  Total matched pairs: 238
+
+  Disparity Test (H0: E[Δ log fine] = 0):
+    Mean Δ log fine: 2.57
+    t-statistic: 18.908
+    p-value (one-sided): <0.0001***
+    Cohen's d: 1.23 (large effect)
+
+  INTERPRETATION: H3 SUPPORTED - Significant cross-border disparity
+
+Model 5 (Variance Decomposition):
+  N = 528 observations, 18 countries, 66 authorities
+
+  Variance Components:
+    σ²_country:   3.02 (35.7%)
+    σ²_authority: 2.11 (24.8%)
+    σ²_residual:  3.34 (39.5%)
+
+  Intraclass Correlations:
+    ICC (country): 0.357
+    ICC (country + authority): 0.605
+
+  INTERPRETATION: H4 SUPPORTED - "Which DPA you get" accounts for 24.8% of variance
+```
+
+**Key Insights:**
+- H3 (Cross-Border Disparities) **SUPPORTED**: Matched cases with identical article violations show highly significant fine variation across jurisdictions (mean gap = 2.57 log points, ~13x difference)
+- H4 (Authority Heterogeneity) **SUPPORTED**: Authority-level random effects account for 24.8% of variance beyond country-level effects, with combined ICC of 0.61
 
 ### 8.5 Phase 5: Robustness & Finalization (Week 7-9)
 
