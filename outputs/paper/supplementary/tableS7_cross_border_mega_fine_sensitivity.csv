@@ -1,0 +1,9 @@
+Analysis,Sample,Metric,Full Sample,Restricted,% Change,N (Full),N (Restr.),Notes
+Cross-Border Disparity,Exclude >€10M pairs,Mean Δ log fine,2.566,2.168,-15.5%,238,220,Pairs excluded: 18
+Cross-Border Disparity,Exclude >€1M pairs,Mean Δ log fine,2.566,1.998,-22.1%,238,205,Pairs excluded: 33
+Cross-Border Disparity,Exclude >€10M pairs,Cohen's d,1.226,1.392,+13.6%,238,220,Effect size
+Cross-Border Disparity,Exclude >€10M pairs,Implied fine ratio (exp),13.009,8.744,-32.8%,238,220,~13.0x vs ~8.7x average gap
+Cross-Border Disparity,Exclude >€1M pairs,Implied fine ratio (exp),13.009,7.371,-43.3%,238,205,~13.0x vs ~7.4x average gap
+Variance Decomposition,Exclude >€10M fines,Authority variance %,24.846,12.736,-12.1%,528,513,Percentage point change
+Variance Decomposition,Exclude >€10M fines,ICC (authority),0.605,0.428,-29.4%,528,513,Combined country + authority ICC
+Variance Decomposition,Exclude >€1M fines,Authority variance %,24.846,7.566,-17.3%,528,492,Percentage point change

@@ -76,6 +76,12 @@ RANDOM_SEED = 42
 MIN_COHORT_SIZE = 2
 MIN_COUNTRIES_FOR_MATCHING = 2
 
+# Mega-fine threshold for sensitivity analysis
+MEGA_FINE_THRESHOLD = 10_000_000  # EUR 10 million
+
+# Output directory for supplementary tables
+SUPPLEMENTARY_DIR = Path("outputs/paper/supplementary")
+
 # Matching variables and their types
 MATCHING_VARS = {
     "defendant_class_encoded": "categorical",
@@ -661,6 +667,216 @@ def format_table7_variance_decomposition(vc: VarianceComponents) -> pd.DataFrame
 
 
 # -----------------------------------------------------------------------------
+# Mega-Fine Sensitivity Analysis (NEW)
+# -----------------------------------------------------------------------------
+
+@dataclass
+class MegaFineSensitivityResult:
+    """Container for mega-fine sensitivity comparison."""
+    analysis_type: str
+    sample_description: str
+    metric_name: str
+    full_sample_value: float
+    restricted_value: float
+    pct_change: float
+    full_n: int
+    restricted_n: int
+    notes: str
+
+
+def run_cross_border_mega_fine_sensitivity(
+    cohort_results: List[CohortMatchResults],
+    disparity_test_full: Dict[str, Any],
+    df: pd.DataFrame
+) -> List[MegaFineSensitivityResult]:
+    """
+    Run sensitivity analysis excluding mega-fine pairs from cross-border analysis.
+
+    Tests whether extreme fines (>EUR 10M) drive the cross-border disparity findings.
+    """
+    results: List[MegaFineSensitivityResult] = []
+
+    # Get all pairs
+    all_pairs = [p for r in cohort_results for p in r.pairs]
+
+    if len(all_pairs) < 10:
+        return results
+
+    # Filter pairs: exclude if either case has mega-fine
+    non_mega_pairs = [
+        p for p in all_pairs
+        if p.fine_eur_i < MEGA_FINE_THRESHOLD and p.fine_eur_j < MEGA_FINE_THRESHOLD
+    ]
+
+    # Also test with €1M threshold
+    under_1m_pairs = [
+        p for p in all_pairs
+        if p.fine_eur_i < 1_000_000 and p.fine_eur_j < 1_000_000
+    ]
+
+    # Run disparity test on filtered samples
+    def calc_disparity_stats(pairs):
+        if len(pairs) < 5:
+            return {"mean_delta_log": np.nan, "t_stat": np.nan, "p_value": np.nan, "cohens_d": np.nan}
+        delta_logs = np.array([p.delta_log_fine for p in pairs])
+        mean_d = np.mean(delta_logs)
+        std_d = np.std(delta_logs, ddof=1)
+        t_stat, p_two = stats.ttest_1samp(delta_logs, 0)
+        p_one = p_two / 2 if t_stat > 0 else 1 - p_two / 2
+        cohens_d = mean_d / std_d if std_d > 0 else 0
+        return {"mean_delta_log": mean_d, "t_stat": t_stat, "p_value": p_one, "cohens_d": cohens_d}
+
+    full_stats = disparity_test_full
+    non_mega_stats = calc_disparity_stats(non_mega_pairs)
+    under_1m_stats = calc_disparity_stats(under_1m_pairs)
+
+    # Compare mean delta log fine
+    full_mean = full_stats.get('mean_delta_log', 0)
+    non_mega_mean = non_mega_stats['mean_delta_log']
+    under_1m_mean = under_1m_stats['mean_delta_log']
+
+    results.append(MegaFineSensitivityResult(
+        analysis_type="Cross-Border Disparity",
+        sample_description="Exclude >€10M pairs",
+        metric_name="Mean Δ log fine",
+        full_sample_value=full_mean,
+        restricted_value=non_mega_mean,
+        pct_change=100 * (non_mega_mean - full_mean) / abs(full_mean) if full_mean else 0,
+        full_n=len(all_pairs),
+        restricted_n=len(non_mega_pairs),
+        notes=f"Pairs excluded: {len(all_pairs) - len(non_mega_pairs)}"
+    ))
+
+    results.append(MegaFineSensitivityResult(
+        analysis_type="Cross-Border Disparity",
+        sample_description="Exclude >€1M pairs",
+        metric_name="Mean Δ log fine",
+        full_sample_value=full_mean,
+        restricted_value=under_1m_mean,
+        pct_change=100 * (under_1m_mean - full_mean) / abs(full_mean) if full_mean else 0,
+        full_n=len(all_pairs),
+        restricted_n=len(under_1m_pairs),
+        notes=f"Pairs excluded: {len(all_pairs) - len(under_1m_pairs)}"
+    ))
+
+    # Compare Cohen's d
+    full_d = full_stats.get('cohens_d', 0)
+    non_mega_d = non_mega_stats['cohens_d']
+    under_1m_d = under_1m_stats['cohens_d']
+
+    results.append(MegaFineSensitivityResult(
+        analysis_type="Cross-Border Disparity",
+        sample_description="Exclude >€10M pairs",
+        metric_name="Cohen's d",
+        full_sample_value=full_d,
+        restricted_value=non_mega_d,
+        pct_change=100 * (non_mega_d - full_d) / abs(full_d) if full_d else 0,
+        full_n=len(all_pairs),
+        restricted_n=len(non_mega_pairs),
+        notes="Effect size"
+    ))
+
+    # Implied fine ratio (exp of mean delta log)
+    full_ratio = np.exp(full_mean)
+    non_mega_ratio = np.exp(non_mega_mean) if not np.isnan(non_mega_mean) else np.nan
+    under_1m_ratio = np.exp(under_1m_mean) if not np.isnan(under_1m_mean) else np.nan
+
+    results.append(MegaFineSensitivityResult(
+        analysis_type="Cross-Border Disparity",
+        sample_description="Exclude >€10M pairs",
+        metric_name="Implied fine ratio (exp)",
+        full_sample_value=full_ratio,
+        restricted_value=non_mega_ratio,
+        pct_change=100 * (non_mega_ratio - full_ratio) / full_ratio if full_ratio and not np.isnan(non_mega_ratio) else 0,
+        full_n=len(all_pairs),
+        restricted_n=len(non_mega_pairs),
+        notes=f"~{full_ratio:.1f}x vs ~{non_mega_ratio:.1f}x average gap"
+    ))
+
+    results.append(MegaFineSensitivityResult(
+        analysis_type="Cross-Border Disparity",
+        sample_description="Exclude >€1M pairs",
+        metric_name="Implied fine ratio (exp)",
+        full_sample_value=full_ratio,
+        restricted_value=under_1m_ratio,
+        pct_change=100 * (under_1m_ratio - full_ratio) / full_ratio if full_ratio and not np.isnan(under_1m_ratio) else 0,
+        full_n=len(all_pairs),
+        restricted_n=len(under_1m_pairs),
+        notes=f"~{full_ratio:.1f}x vs ~{under_1m_ratio:.1f}x average gap"
+    ))
+
+    # Variance decomposition sensitivity
+    if HAS_STATSMODELS:
+        # Run variance decomposition excluding mega-fines
+        non_mega_df = df[df["fine_eur"] < MEGA_FINE_THRESHOLD].copy()
+        under_1m_df = df[df["fine_eur"] < 1_000_000].copy()
+
+        vc_full = run_variance_decomposition(df)
+        vc_non_mega = run_variance_decomposition(non_mega_df) if len(non_mega_df) >= 50 else None
+        vc_under_1m = run_variance_decomposition(under_1m_df) if len(under_1m_df) >= 50 else None
+
+        if vc_full and vc_non_mega:
+            results.append(MegaFineSensitivityResult(
+                analysis_type="Variance Decomposition",
+                sample_description="Exclude >€10M fines",
+                metric_name="Authority variance %",
+                full_sample_value=vc_full.pct_authority,
+                restricted_value=vc_non_mega.pct_authority,
+                pct_change=vc_non_mega.pct_authority - vc_full.pct_authority,
+                full_n=vc_full.n_obs,
+                restricted_n=vc_non_mega.n_obs,
+                notes="Percentage point change"
+            ))
+
+            results.append(MegaFineSensitivityResult(
+                analysis_type="Variance Decomposition",
+                sample_description="Exclude >€10M fines",
+                metric_name="ICC (authority)",
+                full_sample_value=vc_full.icc_authority,
+                restricted_value=vc_non_mega.icc_authority,
+                pct_change=100 * (vc_non_mega.icc_authority - vc_full.icc_authority) / vc_full.icc_authority if vc_full.icc_authority else 0,
+                full_n=vc_full.n_obs,
+                restricted_n=vc_non_mega.n_obs,
+                notes="Combined country + authority ICC"
+            ))
+
+        if vc_full and vc_under_1m:
+            results.append(MegaFineSensitivityResult(
+                analysis_type="Variance Decomposition",
+                sample_description="Exclude >€1M fines",
+                metric_name="Authority variance %",
+                full_sample_value=vc_full.pct_authority,
+                restricted_value=vc_under_1m.pct_authority,
+                pct_change=vc_under_1m.pct_authority - vc_full.pct_authority,
+                full_n=vc_full.n_obs,
+                restricted_n=vc_under_1m.n_obs,
+                notes="Percentage point change"
+            ))
+
+    return results
+
+
+def format_table_mega_fine_sensitivity(results: List[MegaFineSensitivityResult]) -> pd.DataFrame:
+    """Format mega-fine sensitivity results as Table S7."""
+    rows = []
+
+    for r in results:
+        rows.append({
+            "Analysis": r.analysis_type,
+            "Sample": r.sample_description,
+            "Metric": r.metric_name,
+            "Full Sample": f"{r.full_sample_value:.3f}" if not np.isnan(r.full_sample_value) else "—",
+            "Restricted": f"{r.restricted_value:.3f}" if not np.isnan(r.restricted_value) else "—",
+            "% Change": f"{r.pct_change:+.1f}%" if not np.isnan(r.pct_change) else "—",
+            "N (Full)": r.full_n,
+            "N (Restr.)": r.restricted_n,
+            "Notes": r.notes,
+        })
+
+    return pd.DataFrame(rows)
+
+
+# -----------------------------------------------------------------------------
 # Visualization Functions
 # -----------------------------------------------------------------------------
 
@@ -797,6 +1013,7 @@ def ensure_output_dirs() -> None:
     TABLES_DIR.mkdir(parents=True, exist_ok=True)
     FIGURES_DIR.mkdir(parents=True, exist_ok=True)
     DATA_DIR.mkdir(parents=True, exist_ok=True)
+    SUPPLEMENTARY_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def save_phase4_summary(
@@ -873,12 +1090,12 @@ def main() -> None:
     ensure_output_dirs()
 
     # Load and prepare data
-    logger.info("\n[1/6] Loading analysis sample...")
+    logger.info("\n[1/7] Loading analysis sample...")
     df = load_analysis_sample()
     df = prepare_matching_data(df)
 
     # Cross-border matching
-    logger.info("\n[2/6] Running cross-border matching (Model 4)...")
+    logger.info("\n[2/7] Running cross-border matching (Model 4)...")
     cohort_results = run_cross_border_matching(df)
 
     # Disparity test
@@ -898,7 +1115,7 @@ def main() -> None:
     print(table6.head(15).to_string(index=False))
 
     # Variance decomposition
-    logger.info("\n[3/6] Running variance decomposition (Model 5)...")
+    logger.info("\n[3/7] Running variance decomposition (Model 5)...")
     variance_components = run_variance_decomposition(df)
 
     if variance_components:
@@ -912,7 +1129,7 @@ def main() -> None:
         print(table7.to_string(index=False))
 
     # Figure 4
-    logger.info("\n[4/6] Creating Figure 4: Matched-pair distributions...")
+    logger.info("\n[4/7] Creating Figure 4: Matched-pair distributions...")
     fig4 = create_figure4_matched_pairs(cohort_results, disparity_test)
     if fig4:
         fig4_path = FIGURES_DIR / "figure4_cross_border_gaps.png"
@@ -922,7 +1139,7 @@ def main() -> None:
         logger.info(f"  Saved Figure 4 to {fig4_path}")
 
     # Figure 5
-    logger.info("\n[5/6] Creating Figure 5: Variance partition...")
+    logger.info("\n[5/7] Creating Figure 5: Variance partition...")
     if variance_components:
         fig5 = create_figure5_variance_partition(variance_components)
         if fig5:
@@ -932,8 +1149,24 @@ def main() -> None:
             plt.close(fig5)
             logger.info(f"  Saved Figure 5 to {fig5_path}")
 
+    # Mega-fine sensitivity analysis (NEW)
+    logger.info("\n[6/7] Running mega-fine sensitivity analysis...")
+    mega_sensitivity_results = run_cross_border_mega_fine_sensitivity(
+        cohort_results, disparity_test, df
+    )
+
+    if mega_sensitivity_results:
+        mega_table = format_table_mega_fine_sensitivity(mega_sensitivity_results)
+        mega_path = SUPPLEMENTARY_DIR / "tableS7_cross_border_mega_fine_sensitivity.csv"
+        mega_table.to_csv(mega_path, index=False)
+        logger.info(f"  Saved Table S7 to {mega_path}")
+        print("\n" + "=" * 50)
+        print("TABLE S7: Cross-Border Mega-Fine Sensitivity")
+        print("=" * 50)
+        print(mega_table.to_string(index=False))
+
     # Save matched pairs data
-    logger.info("\n[6/6] Saving matched pairs dataset...")
+    logger.info("\n[7/7] Saving matched pairs dataset...")
     pairs_records = [
         {
             "case_i_id": p.case_i_id,
@@ -989,10 +1222,17 @@ def main() -> None:
         print(f"  Case-level variance: {variance_components.pct_residual:.1f}%")
         print(f"  ICC (authority level): {variance_components.icc_authority:.3f}")
 
+    if mega_sensitivity_results:
+        print(f"\nMega-Fine Sensitivity (Outlier Robustness):")
+        disparity_rows = [r for r in mega_sensitivity_results if r.metric_name == "Implied fine ratio (exp)"]
+        for r in disparity_rows:
+            print(f"  {r.sample_description}: {r.full_sample_value:.1f}x → {r.restricted_value:.1f}x ({r.pct_change:+.1f}%)")
+
     print("\n" + "=" * 50)
     print(f"Outputs saved to:")
     print(f"  Tables: {TABLES_DIR}")
     print(f"  Figures: {FIGURES_DIR}")
+    print(f"  Supplementary: {SUPPLEMENTARY_DIR}")
     print(f"  Data: {DATA_DIR}")
     print("=" * 50)
 

@@ -481,6 +481,7 @@ Complementary to exclusion, cap extreme values at various percentiles to reduce 
 | Table S4 | Alternative factor operationalizations |
 | Table S5 | Mega-fine sensitivity (outlier exclusion) |
 | Table S6 | Winsorization sensitivity analysis |
+| Table S7 | Cross-border mega-fine sensitivity |
 
 **Additional:**
 - Full regression output for all model variants
@@ -636,8 +637,21 @@ Model 5 (Variance Decomposition):
 ```
 
 **Key Insights:**
-- H3 (Cross-Border Disparities) **SUPPORTED**: Matched cases with identical article violations show highly significant fine variation across jurisdictions (mean gap = 2.57 log points, ~13x difference)
-- H4 (Authority Heterogeneity) **SUPPORTED**: Authority-level random effects account for 24.8% of variance beyond country-level effects, with combined ICC of 0.61
+- H3 (Cross-Border Disparities) **SUPPORTED**: Matched cases with identical article violations show highly significant fine variation across jurisdictions (mean gap = 2.57 log points, ~13x difference; ~8.7x when excluding mega-fine pairs)
+- H4 (Authority Heterogeneity) **SUPPORTED**: Authority-level random effects account for 24.8% of variance beyond country-level effects (12.7% excluding mega-fines), with combined ICC of 0.61 (0.43 excluding mega-fines)
+
+**Mega-Fine Sensitivity (NEW - Phase 4):**
+```
+Cross-Border Disparity (excluding mega-fine pairs):
+  Exclude >€10M: 13.0x → 8.7x (-32.8%)
+  Exclude >€1M:  13.0x → 7.4x (-43.3%)
+
+Variance Decomposition (excluding mega-fines):
+  Authority %: 24.8% → 12.7% (-12 pp)
+  ICC:         0.605 → 0.428 (-29%)
+
+INTERPRETATION: Core findings robust but magnitudes sensitive to mega-fines
+```
 
 ### 8.5 Phase 5: Robustness & Finalization ✅ COMPLETE
 
@@ -807,7 +821,7 @@ seaborn >= 0.12
 
 ---
 
-*Document Version: 1.2*
-*Prepared: 2025-12-13 | Updated: 2025-12-14 (outlier robustness added)*
+*Document Version: 1.3*
+*Prepared: 2025-12-13 | Updated: 2025-12-14 (outlier robustness + cross-border sensitivity)*
 *Repository: /home/user/enforcement*
-*Status: All 5 phases implemented and validated (including outlier sensitivity tests)*
+*Status: All 5 phases implemented and validated (including comprehensive outlier sensitivity)*
