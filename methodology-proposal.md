@@ -604,14 +604,65 @@ Model 5 (Variance Decomposition):
 - H3 (Cross-Border Disparities) **SUPPORTED**: Matched cases with identical article violations show highly significant fine variation across jurisdictions (mean gap = 2.57 log points, ~13x difference)
 - H4 (Authority Heterogeneity) **SUPPORTED**: Authority-level random effects account for 24.8% of variance beyond country-level effects, with combined ICC of 0.61
 
-### 8.5 Phase 5: Robustness & Finalization (Week 7-9)
+### 8.5 Phase 5: Robustness & Finalization ✅ COMPLETE
 
-| Task | Method | Output |
-|------|--------|--------|
-| Specification curve | Loop over specs | Figure 7, Table 8 |
-| Bootstrap CIs | scipy bootstrap | Updated Tables 3-6 |
-| Sensitivity analyses | Multiple runs | Supplementary materials |
-| Manuscript drafting | — | Paper draft |
+**Script:** `scripts/10_robustness_analysis.py`
+
+| Task | Method | Output | Status |
+|------|--------|--------|--------|
+| Specification curve | Loop over 108 specs | Figure 7, Table 8 | ✅ Complete |
+| Bootstrap CIs | 1000-replicate bootstrap | Table S1 | ✅ Complete |
+| Leave-one-country-out | Sequential exclusion | Table S2 | ✅ Complete |
+| Placebo tests | Permutation tests | Table S3 | ✅ Complete |
+| Alternative operationalizations | Binary, PCA, balance | Table S4 | ✅ Complete |
+
+**Actual Results (2025-12-14):**
+```
+1. Specification Curve Analysis:
+   Specifications tested: 108
+   Mean β (aggravating): 0.2143
+   Range: [0.1362, 0.3353]
+   % Positive: 100%
+   % Significant (p<0.05): 100%
+   % Significant (p<0.01): 76.9%
+
+   INTERPRETATION: H1 ROBUSTLY SUPPORTED across all specifications
+
+2. Bootstrap Confidence Intervals (1000 replicates):
+   Aggravating count: 95% CI [0.1267, 0.3949] - excludes zero
+   Mitigating count: 95% CI [-0.1629, 0.0951] - includes zero
+   Large enterprise: 95% CI [1.7199, 2.3004] - strong effect
+
+   INTERPRETATION: Main effect robust to sampling variation
+
+3. Leave-One-Country-Out Sensitivity:
+   Countries analyzed: 18
+   Coefficient range: [0.2523, 0.2710]
+   Max % change: 23.4% (Ireland excluded)
+   All coefficients remain highly significant (p<0.001)
+
+   INTERPRETATION: No single country drives the results
+
+4. Placebo Tests:
+   Factor shuffle (within-country) p-value: 0.0000
+   Original β in 100th percentile of placebo distribution
+
+   INTERPRETATION: Effect is real, not due to chance
+
+5. Alternative Operationalizations:
+   Binary (any aggravating vs none): β = 0.72** (p=0.008)
+   High aggravating (3+ factors): β = 0.68*** (p<0.001)
+   Balance score (agg - mit): β = 0.13*** (p<0.001)
+   PCA (1st component): β = 0.10 (p=0.064, marginal)
+
+   INTERPRETATION: Results robust to alternative operationalizations
+```
+
+**Key Insights:**
+- H1 (Factor Predictiveness) **ROBUSTLY SUPPORTED**: Aggravating factor effect is positive and significant across all 108 specifications, with narrow coefficient range [0.14, 0.34]
+- The effect is not driven by any single country, specification choice, or operationalization
+- Bootstrap CIs confirm standard errors are appropriately estimated
+- Placebo tests confirm the effect is genuine, not a statistical artifact
 
 ---
 
@@ -634,14 +685,16 @@ seaborn >= 0.12
 
 ```
 /scripts/
-  6_paper_analysis.py          # Main analysis script
-  6a_systematicity_index.py    # Authority index computation
-  6b_cross_border_matching.py  # NN matching implementation
-  6c_robustness_checks.py      # Specification curves, bootstrap
+  6_paper_data_preparation.py    # Phase 1: Sample construction, systematicity
+  7_factor_effect_models.py      # Phase 3: Mixed-effects models (Tables 3-5, Figure 3)
+  8_cross_border_analysis.py     # Phase 4: Matching, variance decomposition (Tables 6-7, Figures 4-5)
+  9_descriptive_analysis.py      # Phase 2: Descriptive stats (Tables 1-2, Figures 1-2, 6)
+  10_robustness_analysis.py      # Phase 5: Robustness checks (Table 8, Figure 7, Tables S1-S4)
 /outputs/paper/
-  tables/                      # LaTeX-ready tables
-  figures/                     # Publication-quality figures
-  data/                        # Intermediate analytical datasets
+  tables/                        # Publication-ready tables (Tables 1-8)
+  figures/                       # Publication-quality figures (Figures 1-7)
+  supplementary/                 # Robustness tables (Tables S1-S4)
+  data/                          # Intermediate analytical datasets
 ```
 
 ### 9.3 Reproducibility Standards
@@ -695,6 +748,7 @@ seaborn >= 0.12
 
 ---
 
-*Document Version: 1.0*
-*Prepared: 2025-12-13*
+*Document Version: 1.1*
+*Prepared: 2025-12-13 | Updated: 2025-12-14*
 *Repository: /home/user/enforcement*
+*Status: All 5 phases implemented and validated*

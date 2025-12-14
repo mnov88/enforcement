@@ -1,0 +1,2 @@
+Test,N Permutations,Original β,Placebo Mean,Placebo SD,Percentile Rank,p-value,Conclusion
+Factor Shuffle (within-country),500,0.2895,0.0193,0.0478,100.0%,0.0000,Original effect is real
