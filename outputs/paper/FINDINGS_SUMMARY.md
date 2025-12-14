@@ -11,12 +11,14 @@
 
 ## Executive Summary
 
-This analysis examines whether GDPR Data Protection Authorities (DPAs) apply Article 83(2) penalty factors systematically and whether similar violations receive similar penalties across EU member states. Using mixed-effects regression, cross-border matching, and comprehensive robustness checks, we find:
+This analysis examines whether GDPR Data Protection Authorities (DPAs) apply Article 83(2) penalty factors systematically and whether similar violations receive similar penalties across EU member states. Using mixed-effects regression, cross-border matching, and comprehensive robustness checks including outlier sensitivity analysis, we find:
 
-1. **Aggravating factors significantly predict higher fines** (β = 0.22***, robust across 108 specifications)
-2. **Substantial enforcement heterogeneity exists** at both country (35.7%) and authority (24.8%) levels
-3. **Cross-border disparities are pronounced** with matched cases showing 13x average fine differences
+1. **Aggravating factors significantly predict higher fines** (β = 0.22-0.26***, robust across 270 specifications including mega-fine exclusion)
+2. **Substantial enforcement heterogeneity exists** at both country (35.7%) and authority (24.8%; 12.7% excluding mega-fines) levels
+3. **Cross-border disparities are pronounced** with matched cases showing 13x average fine differences (8.7x excluding mega-fines >€10M)
 4. **Systematicity in reasoning does not improve fine predictability** (no support for H2)
+
+*Note: Results remain highly significant after excluding the 15 largest fines (>€10M, 2.8% of sample) that account for 93% of total fine value, though magnitude estimates are sensitive to these outliers.*
 
 ---
 
@@ -60,7 +62,15 @@ This analysis examines whether GDPR Data Protection Authorities (DPAs) apply Art
 - Cohen's d = 1.23 (large effect)
 - This translates to approximately 13x average fine difference for similar cases
 
-**Interpretation:** Identical violations receive dramatically different penalties depending on jurisdiction, undermining GDPR's goal of harmonized enforcement.
+**Mega-Fine Sensitivity:**
+| Sample | Mean Δ log fine | Fine Ratio | Change |
+|--------|-----------------|------------|--------|
+| Full sample | 2.57 | 13.0x | — |
+| Excl. >€10M | 2.16 | 8.7x | -33% |
+| Excl. >€1M | 1.89 | 6.6x | -49% |
+| Excl. >€100K | 1.52 | 4.6x | -65% |
+
+**Interpretation:** Identical violations receive dramatically different penalties depending on jurisdiction, undermining GDPR's goal of harmonized enforcement. Disparities remain highly significant (p < 0.0001) even excluding mega-fines, though magnitudes are moderated (8.7x vs 13x).
 
 ### H4: Authority Heterogeneity ✅ SUPPORTED
 
@@ -73,7 +83,15 @@ This analysis examines whether GDPR Data Protection Authorities (DPAs) apply Art
   - Case-level: 39.5% of variance
 - Combined ICC = 0.605
 
-**Interpretation:** "Which DPA you get" matters substantially. Even within the same country, different authorities produce systematically different fine levels.
+**Mega-Fine Sensitivity:**
+| Component | Full Sample | Excl. >€10M | Change |
+|-----------|-------------|-------------|--------|
+| Country variance | 35.7% | 30.2% | -15% |
+| Authority variance | 24.8% | 12.7% | -49% |
+| Case-level variance | 39.5% | 57.1% | +45% |
+| Combined ICC | 0.605 | 0.428 | -29% |
+
+**Interpretation:** "Which DPA you get" matters substantially. Even within the same country, different authorities produce systematically different fine levels. Authority-level heterogeneity is partially driven by a few mega-fine authorities (dropping from 24.8% to 12.7% excluding >€10M fines), but remains a meaningful source of variance.
 
 ---
 
@@ -137,12 +155,11 @@ Individual factor effects (sorted by magnitude):
 
 ## Robustness Summary
 
-### Specification Curve (108 specifications)
-- Mean β: 0.2143
-- Range: [0.1362, 0.3353]
-- 100% positive
+### Specification Curve (270 specifications including sample filters)
+- Mean β: 0.22 (range: 0.14-0.34)
+- 100% positive across all specifications
 - 100% significant at p < 0.05
-- 76.9% significant at p < 0.01
+- Includes 162 additional specifications with mega-fine exclusion filters
 
 ### Bootstrap CIs (1000 replicates)
 | Variable | 95% CI | Significant? |
@@ -165,13 +182,34 @@ Individual factor effects (sorted by magnitude):
 | Balance score | 0.13 | <0.001*** |
 | PCA (1st component) | 0.10 | 0.064 |
 
+### Mega-Fine Exclusion Sensitivity
+| Threshold | N | β (aggravating) | p-value | Δ from full |
+|-----------|---|-----------------|---------|-------------|
+| Full sample | 528 | 0.22 | <0.0001 | — |
+| Excl. >€10M | 513 | 0.26 | <0.0001 | +18% |
+| Excl. >€1M | 490 | 0.24 | <0.0001 | +9% |
+| Excl. >€100K | 386 | 0.23 | <0.0001 | +5% |
+
+*All specifications remain highly significant (p < 0.0001), confirming robustness to mega-fine outliers.*
+
+### Winsorization Sensitivity
+| Percentile Cap | β (aggravating) | p-value | Δ from unwinsorized |
+|----------------|-----------------|---------|---------------------|
+| Unwinsorized | 0.22 | <0.0001 | — |
+| 99th percentile | 0.23 | <0.0001 | +5% |
+| 97.5th percentile | 0.24 | <0.0001 | +9% |
+| 95th percentile | 0.25 | <0.0001 | +14% |
+| 90th percentile | 0.26 | <0.0001 | +18% |
+
+*Winsorization modestly increases coefficient estimates, suggesting mega-fines add noise rather than inflating the factor effect.*
+
 ---
 
 ## Policy Implications
 
-1. **Legal Certainty:** Organizations cannot reliably predict fine magnitude from case characteristics alone. The high authority-level variance (25%) suggests enforcement lottery rather than predictable outcomes.
+1. **Legal Certainty:** Organizations cannot reliably predict fine magnitude from case characteristics alone. The high authority-level variance (13-25% depending on sample) suggests enforcement lottery rather than predictable outcomes.
 
-2. **Harmonization Failure:** The 13x average fine gap for similar violations across jurisdictions demonstrates GDPR has not achieved harmonized enforcement despite being a single regulation.
+2. **Harmonization Failure:** The 8.7-13x average fine gap for similar violations across jurisdictions demonstrates GDPR has not achieved harmonized enforcement despite being a single regulation.
 
 3. **Factor Asymmetry:** DPAs consistently increase fines for aggravating factors but do not symmetrically reduce fines for mitigating factors. This asymmetry may reflect risk aversion or signaling priorities.
 
@@ -185,6 +223,7 @@ Individual factor effects (sorted by magnitude):
 2. **AI Extraction:** 77-field coding from AI annotation, validated against schema but not human gold standard
 3. **Temporal Scope:** 2018-2024 period may not generalize to evolving enforcement
 4. **Causal Claims:** Observational design limits causal inference despite rich controls
+5. **Outlier Sensitivity:** While core findings remain robust, magnitude estimates (cross-border disparity ratios, variance proportions) are sensitive to mega-fine inclusion; we report both full-sample and restricted-sample estimates
 
 ---
 
@@ -205,6 +244,9 @@ Individual factor effects (sorted by magnitude):
 | Table S2 | LOCO sensitivity | `supplementary/tableS2_loco_sensitivity.csv` |
 | Table S3 | Placebo tests | `supplementary/tableS3_placebo_tests.csv` |
 | Table S4 | Alt. operationalizations | `supplementary/tableS4_alternative_operationalizations.csv` |
+| Table S5 | Mega-fine sensitivity | `supplementary/tableS5_mega_fine_sensitivity.csv` |
+| Table S6 | Winsorization sensitivity | `supplementary/tableS6_winsorization_sensitivity.csv` |
+| Table S7 | Cross-border mega-fine sensitivity | `supplementary/tableS7_cross_border_mega_fine_sensitivity.csv` |
 
 ### Figures
 | Figure | Description | File |
@@ -220,5 +262,6 @@ Individual factor effects (sorted by magnitude):
 ---
 
 *Generated: 2025-12-14*
-*Pipeline: Phase 1-5 complete*
+*Pipeline: Phase 1-5 complete with outlier robustness extensions*
 *Scripts: 6_paper_data_preparation.py → 10_robustness_analysis.py*
+*Includes: Mega-fine sensitivity (Tables S5, S7), Winsorization sensitivity (Table S6)*

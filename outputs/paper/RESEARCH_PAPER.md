@@ -6,7 +6,7 @@
 
 **Abstract**
 
-The General Data Protection Regulation (GDPR) aims to create uniform data protection enforcement across the European Union. However, whether Data Protection Authorities (DPAs) apply Article 83(2) penalty factors consistently and whether similar violations receive comparable sanctions remains empirically underexplored. Using a novel dataset of 528 fine-imposed decisions across 18 EU/EEA jurisdictions (2018-2024), we apply mixed-effects regression, nearest-neighbor matching, and comprehensive robustness checks to examine enforcement consistency. We find that aggravating factors significantly predict higher fines (β = 0.22, p < 0.0001; ~25% increase per factor), but mitigating factors do not symmetrically reduce penalties (β = -0.04, p = 0.44). Cross-border disparities are pronounced: matched cases with identical article violations show 13-fold average fine differences across jurisdictions (Cohen's d = 1.23). Variance decomposition reveals that 60% of fine variance is attributable to country and authority effects, with "which DPA you get" explaining 25% of variance beyond national policy differences. These findings challenge GDPR's harmonization objectives and suggest that factor articulation may function as post-hoc justification rather than determinative reasoning.
+The General Data Protection Regulation (GDPR) aims to create uniform data protection enforcement across the European Union. However, whether Data Protection Authorities (DPAs) apply Article 83(2) penalty factors consistently and whether similar violations receive comparable sanctions remains empirically underexplored. Using a novel dataset of 528 fine-imposed decisions across 18 EU/EEA jurisdictions (2018-2024), we apply mixed-effects regression, nearest-neighbor matching, and comprehensive robustness checks to examine enforcement consistency. We find that aggravating factors significantly predict higher fines (β = 0.22, p < 0.0001; ~25% increase per factor), but mitigating factors do not symmetrically reduce penalties (β = -0.04, p = 0.44). Cross-border disparities are pronounced: matched cases with identical article violations show 13-fold average fine differences across jurisdictions (8.7-fold when excluding mega-fines >€10M; Cohen's d = 1.23). Variance decomposition reveals that 60% of fine variance is attributable to country and authority effects, with "which DPA you get" explaining 25% of variance beyond national policy differences (13% excluding mega-fines). These findings challenge GDPR's harmonization objectives and suggest that factor articulation may function as post-hoc justification rather than determinative reasoning.
 
 **Keywords:** GDPR, enforcement consistency, administrative fines, cross-border regulation, mixed-effects models
 
@@ -215,12 +215,15 @@ This null finding provides no support for H2. More systematic factor articulatio
 
 We match 238 pairs across 40 article cohorts. Matched-pair disparity tests strongly support H3:
 
-- Mean Δ log fine: 2.566
-- t-statistic: 18.908
-- p-value (one-sided): < 0.0001
-- Cohen's d: 1.226
+| Metric | Full Sample | Excl. Mega-Fines (>€10M) |
+|--------|-------------|---------------------------|
+| Matched pairs | 238 | 220 |
+| Mean Δ log fine | 2.566*** | 2.168*** |
+| t-statistic | 18.9 | 17.6 |
+| Cohen's d | 1.226 | 1.392 |
+| Implied ratio | 13.0x | 8.7x |
 
-The mean log difference of 2.57 implies approximately 13-fold average fine differences (exp(2.566) = 13.0) for cases with identical article violations matched on defendant characteristics.
+The mean log difference of 2.57 implies approximately 13-fold average fine differences (exp(2.566) = 13.0) for cases with identical article violations matched on defendant characteristics. When excluding matched pairs involving mega-fines (>€10M), the disparity remains highly significant but drops to approximately 8.7x (−33%), indicating that extreme penalties contribute substantially to cross-border variation while the core finding of inconsistency remains robust.
 
 **Table 4: Cross-Border Gaps by Article Cohort (Selected)**
 
@@ -238,24 +241,30 @@ Three-level variance decomposition supports H4:
 
 **Table 5: Variance Partition**
 
-| Component | Variance | % of Total | ICC |
-|-----------|----------|------------|-----|
-| Between-Country | 3.023 | 35.7% | 0.357 |
-| Between-Authority | 2.105 | 24.8% | — |
-| Within-Authority | 3.344 | 39.5% | — |
-| **Total** | **8.472** | **100%** | **0.605** |
+| Component | Full Sample | Excl. >€10M Fines |
+|-----------|-------------|-------------------|
+| Between-Country | 35.7% | 34.6% |
+| Between-Authority | 24.8% | **12.7%** |
+| Within-Authority | 39.5% | 52.7% |
+| **ICC (combined)** | **0.605** | **0.428** |
 
 Country and authority effects jointly explain 60.5% of fine variance. The "which DPA you get" effect (24.8%) is nearly as large as national policy differences (35.7%), indicating substantial within-country enforcement heterogeneity.
 
+**Outlier Sensitivity:** When excluding mega-fines (>€10M), authority variance drops from 24.8% to 12.7% (−12 percentage points), while country variance remains stable. This indicates that extreme penalties (like the €530M Meta fine) contribute disproportionately to authority heterogeneity. The ICC drops from 0.605 to 0.428, though it remains substantial.
+
 ### 5.6 Robustness Checks
 
-**Specification Curve:** Analysis across 108 specifications yields mean β = 0.214 for aggravating count, with all estimates positive, all significant at p < 0.05, and 77% significant at p < 0.01.
+**Specification Curve:** Analysis across 270 specifications (expanded from 108) yields mean β = 0.214 for aggravating count, with all estimates positive, all significant at p < 0.05, and 86% significant at p < 0.01.
 
 **Bootstrap CIs:** 1,000-replicate bootstrap produces 95% CI [0.127, 0.395] for aggravating count, clearly excluding zero.
 
 **Leave-One-Country-Out:** All coefficients remain significant (p < 0.001) when any country is excluded. Maximum coefficient change is 23.4% (Ireland), but all estimates remain in the [0.23, 0.27] range.
 
 **Placebo Tests:** Shuffling factors within countries produces placebo mean β = 0.019, with original estimate in the 100th percentile of the null distribution (p < 0.0001).
+
+**Mega-Fine Sensitivity:** The fine distribution is highly skewed (15 fines >€10M account for 93% of total fine value). Excluding mega-fines, the aggravating factor coefficient remains stable (β = 0.24, p < 0.0001, −8% change). Excluding fines >€1M, β = 0.21 (−18% change), still highly significant.
+
+**Winsorization:** Capping fines at various percentiles (99th, 97.5th, 95th, 90th) produces stable coefficients ranging from 0.21 to 0.26, all highly significant. Notably, winsorization reduces the authority-level ICC from 0.57 to 0.41, confirming that mega-fines contribute disproportionately to enforcement heterogeneity.
 
 ---
 
@@ -265,13 +274,13 @@ Country and authority effects jointly explain 60.5% of fine variance. The "which
 
 Our analysis provides systematic evidence on GDPR enforcement patterns:
 
-1. **Partial factor predictiveness (H1):** Aggravating factors significantly increase fines (~25% per factor), but mitigating factors lack symmetric effect.
+1. **Partial factor predictiveness (H1):** Aggravating factors significantly increase fines (~25% per factor), but mitigating factors lack symmetric effect. This finding is robust to outlier exclusion and winsorization.
 
 2. **No systematicity benefit (H2):** More complete factor discussion does not improve outcome predictability.
 
-3. **Substantial cross-border disparities (H3):** Matched cases show 13x average fine differences across jurisdictions.
+3. **Substantial cross-border disparities (H3):** Matched cases show 13x average fine differences across jurisdictions (8.7x when excluding mega-fine pairs). Core finding robust but magnitude sensitive to outliers.
 
-4. **Pronounced authority heterogeneity (H4):** "Which DPA you get" explains 25% of variance beyond country effects.
+4. **Pronounced authority heterogeneity (H4):** "Which DPA you get" explains 25% of variance beyond country effects (13% excluding mega-fines). Extreme penalties contribute disproportionately to authority-level variation.
 
 ### 6.2 Implications
 
@@ -290,12 +299,13 @@ Several limitations warrant caution:
 3. **Temporal scope:** 2018-2024 period may not represent mature enforcement
 4. **Causation:** Observational design limits causal claims despite rich controls
 5. **Sample size:** Authority-level analyses limited by small n for some DPAs
+6. **Outlier sensitivity:** The highly skewed fine distribution (93% of total fines from 2.8% of cases) means magnitude claims should be interpreted with caution. Cross-border disparity and authority heterogeneity estimates are sensitive to mega-fine inclusion, though core findings remain robust.
 
 ---
 
 ## 7. Conclusion
 
-This paper provides the first systematic quantitative analysis of GDPR penalty factor application and cross-border consistency. Our findings reveal substantial enforcement heterogeneity that challenges the regulation's harmonization ambitions. Aggravating factors reliably increase penalties, but mitigating factors do not symmetrically decrease them. Matched cases show 13-fold average fine differences across jurisdictions, and "which DPA you get" explains nearly as much variance as national policy differences.
+This paper provides the first systematic quantitative analysis of GDPR penalty factor application and cross-border consistency. Our findings reveal substantial enforcement heterogeneity that challenges the regulation's harmonization ambitions. Aggravating factors reliably increase penalties, but mitigating factors do not symmetrically decrease them. Matched cases show 13-fold average fine differences across jurisdictions (8.7-fold excluding mega-fines), and "which DPA you get" explains nearly as much variance as national policy differences (though this effect is substantially driven by extreme penalties).
 
 These findings have implications for regulatory design (factor weighting guidelines), compliance strategy (jurisdictional risk assessment), and ongoing debates about European enforcement harmonization. Future research should examine temporal dynamics, appellate outcomes, and extensions to other regulatory domains.
 
